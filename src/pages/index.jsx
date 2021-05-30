@@ -3,7 +3,6 @@ import React from 'react';
 import AppLayout from '../components/AppLayout/AppLayout';
 
 const Index = ({ data, location }) => {
-  console.log(data.allMarkdownRemark.edges[0].node.fields.slug, 'dd');
   return (
     <AppLayout>
       {data.allMarkdownRemark.edges.map((edge) => {
