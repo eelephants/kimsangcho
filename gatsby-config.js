@@ -39,7 +39,26 @@ module.exports = {
         name: 'portfolio',
         path: `${__dirname}/content/portfolio`,
       },
-      __key: 'portfolio',
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              strict: `ignore`,
+            },
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+              linkImagesToOriginal: false,
+            },
+          },
+        ],
+      },
     },
   ],
 };
