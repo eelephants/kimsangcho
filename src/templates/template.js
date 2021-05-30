@@ -5,7 +5,6 @@ import AppLayout from '../components/AppLayout/AppLayout';
 
 export default function TemplatePost({ data }) {
   const post = data.markdownRemark;
-  console.log(post, 'post');
   return (
     <AppLayout>
       <div>
