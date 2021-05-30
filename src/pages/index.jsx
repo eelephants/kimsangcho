@@ -5,11 +5,12 @@ import AppLayout from '../components/AppLayout/AppLayout';
 const Index = ({ data, location }) => {
   return (
     <AppLayout>
+      <AppLayout.Side></AppLayout.Side>
       {data.allMarkdownRemark.edges.map((edge) => {
         return (
           <Link to={`/portfolio/${edge.node.fields.slug}`}>
-            <h2>{edge.node.frontmatter.title}</h2>
-            <p>{edge.node.frontmatter.date}</p>
+            {/* <h2>{edge.node.frontmatter.title}</h2>
+            <p>{edge.node.frontmatter.date}</p> */}
           </Link>
         );
       })}
