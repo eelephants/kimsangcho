@@ -1,23 +1,31 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import AppLayout from '../components/AppLayout/AppLayout';
 
-const About = ({ data }) => {
+const About = ({ data, location }) => {
+  console.log(data);
   return (
-    <>
-      <div>{data.site.siteMetadata.title}</div>
-      <div>{data.site.siteMetadata.description}</div>
-    </>
+    <AppLayout>
+      <AppLayout.Side location={location}></AppLayout.Side>
+    </AppLayout>
   );
 };
 
 export default About;
 
-export const query = graphql`
+export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-        description
+    allMarkdownRemark(filter: { frontmatter: { category: { eq: null } } }) {
+      edges {
+        node {
+          id
+          excerpt(pruneLength: 160)
+          html
+          frontmatter {
+            title
+            date(formatString: "MMMM DD, YYYY")
+          }
+        }
       }
     }
   }

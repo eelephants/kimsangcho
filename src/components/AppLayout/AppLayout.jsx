@@ -1,18 +1,21 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import 'normalize.css';
-import { Link } from '@reach/router';
-import BackGroundImg from '../../assets/images/cool-background.png';
-import HomeIcon from '../../assets/images/c6730f_331e4a84182944a9a7a892945436f3de_mv2.webp';
-import AboutIcon from '../../assets/images/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.webp';
-import ContactIcon from '../../assets/images/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
-import PortfolioIcon from '../../assets/images/gotoMain.svg';
+import { Link } from 'gatsby';
+import BackGroundImg from '../../assets/cool-background.png';
+import HomeIcon from '../../assets/c6730f_331e4a84182944a9a7a892945436f3de_mv2.webp';
+import AboutIcon from '../../assets/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.webp';
+import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
+import PortfolioIcon from '../../assets/gotoMain.svg';
+import { useSiteMetadata } from '../../hooks/useQuery';
 
 export default function AppLayout({ children }) {
+  const { title, description } = useSiteMetadata();
   return <div css={globalStyle}>{children}</div>;
 }
 
-function Side({ children }) {
+function Side({ location }) {
+  console.log(location);
   return (
     <aside css={sidebarStyle}>
       <div>
