@@ -2,25 +2,25 @@ import { graphql, Link } from 'gatsby';
 import React from 'react';
 import AppLayout from '../components/AppLayout/AppLayout';
 
+// {data.allMarkdownRemark.edges.map((edge) => {
+//   return (
+//     <Link to={`/portfolio/${edge.node.fields.slug}`}>
+//       {/* <h2>{edge.node.frontmatter.title}</h2>
+//       <p>{edge.node.frontmatter.date}</p> */}
+//     </Link>
+//   );
+// })}
 const Index = ({ data, location }) => {
   return (
     <AppLayout>
-      <AppLayout.Side></AppLayout.Side>
-      {data.allMarkdownRemark.edges.map((edge) => {
-        return (
-          <Link to={`/portfolio/${edge.node.fields.slug}`}>
-            {/* <h2>{edge.node.frontmatter.title}</h2>
-            <p>{edge.node.frontmatter.date}</p> */}
-          </Link>
-        );
-      })}
+      <AppLayout.Side location={location}></AppLayout.Side>
     </AppLayout>
   );
 };
 
 export default Index;
 
-export const pageQuery = graphql`
+export const PageQuery = graphql`
   query {
     site {
       siteMetadata {
