@@ -1,7 +1,8 @@
 import { graphql, Link } from 'gatsby';
 import React from 'react';
 import AppLayout from '../components/AppLayout/AppLayout';
-
+import { Video } from '../components/Video/Video';
+import MainVideo from '../assets/video/main.mp4';
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
 //     <Link to={`/portfolio/${edge.node.fields.slug}`}>
@@ -14,6 +15,9 @@ const Index = ({ data, location }) => {
   return (
     <AppLayout>
       <AppLayout.Side location={location}></AppLayout.Side>
+      <AppLayout.Main>
+        <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
+      </AppLayout.Main>
     </AppLayout>
   );
 };

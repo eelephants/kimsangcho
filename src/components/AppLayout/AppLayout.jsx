@@ -83,9 +83,4 @@ const Icon = (props) => (
   </Link>
 );
 
-const mainStyle = css`
-  padding-left: 2rem;
-  margin-left: 16.25rem;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-`;
+const mainStyle = css``;
