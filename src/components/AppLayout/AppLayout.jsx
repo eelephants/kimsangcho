@@ -60,6 +60,7 @@ const sidebarStyle = css`
   flex-direction: column;
   justify-content: space-around;
   background: transparents;
+  z-index: 100;
 `;
 
 const navStyle = css`
