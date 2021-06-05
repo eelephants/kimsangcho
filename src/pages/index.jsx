@@ -4,6 +4,7 @@ import AppLayout from '../components/AppLayout/AppLayout';
 import { Video } from '../components/Video/Video';
 import MainVideo from '../assets/video/main.mp4';
 import { Dimmed } from '../components/Dimmed/Dimmed';
+import { Canvas } from '../components/Canvas/Canvas';
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
 //     <Link to={`/portfolio/${edge.node.fields.slug}`}>
@@ -15,8 +16,9 @@ import { Dimmed } from '../components/Dimmed/Dimmed';
 const Index = ({ data, location }) => {
   return (
     <AppLayout>
-      <AppLayout.Side location={location}></AppLayout.Side>
+      <AppLayout.Side location={location} />
       <AppLayout.Main>
+        <Canvas width="35vh" height="35vh" position="absolute" />
         <Dimmed width="100%" height="70vh" opacity="0.5" />
         <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
       </AppLayout.Main>
