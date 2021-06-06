@@ -9,10 +9,10 @@ import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv
 import PortfolioIcon from '../../assets/gotoMain.svg';
 import { useSiteMetadata } from '../../hooks/useQuery';
 
-export default function AppLayout({ children }) {
+const AppLayout = ({ children }) => {
   const { title, description } = useSiteMetadata();
   return <div css={globalStyle}>{children}</div>;
-}
+};
 
 function Side({ location }) {
   console.log(location);
@@ -85,3 +85,5 @@ const Icon = (props) => (
 );
 
 const mainStyle = css``;
+
+export default AppLayout;

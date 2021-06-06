@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { css } from '@emotion/react';
 
-export const Video = ({ videoSrcURL, videoTitle, ...props }) => {
+const Video = ({ videoSrcURL, videoTitle, ...props }) => {
   return (
     <div css={videoWrapperStyle}>
       <video loop autoPlay css={videoStyle} controlsList="nodownload">
@@ -22,3 +22,5 @@ const videoStyle = css`
   object-fit: cover;
   object-position: center;
 `;
+
+export default Video;
