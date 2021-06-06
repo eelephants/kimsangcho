@@ -1,10 +1,11 @@
 import { graphql, Link } from 'gatsby';
 import React from 'react';
-import AppLayout from '../components/AppLayout/AppLayout';
-import { Video } from '../components/Video/Video';
+import AppLayout from '../components/AppLayout';
+import Video from '../components/Video';
 import MainVideo from '../assets/video/main.mp4';
-import { Dimmed } from '../components/Dimmed/Dimmed';
-import { Canvas } from '../components/Canvas/Canvas';
+import Dimmed from '../components/Dimmed';
+import BoxGeometry from '../components/BoxGeometry';
+
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
 //     <Link to={`/portfolio/${edge.node.fields.slug}`}>
@@ -18,9 +19,9 @@ const Index = ({ data, location }) => {
     <AppLayout>
       <AppLayout.Side location={location} />
       <AppLayout.Main>
-        <Canvas width="35vh" height="35vh" position="absolute" />
-        <Dimmed width="100%" height="70vh" opacity="0.5" />
-        <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
+        <BoxGeometry width="60vh" height="60vh" position="absolute" />
+        {/* <Dimmed width="100%" height="70vh" opacity="0.5" /> */}
+        {/* <Video videoSrcURL={MainVideo} videoTitle="mainVideo" /> */}
       </AppLayout.Main>
     </AppLayout>
   );
