@@ -6,6 +6,7 @@ import BodyclassLogo from '../../assets/bodyclass_logo.png';
 const BoxGeometry = ({ width, height, position }) => {
   const canvasRef = useRef();
 
+
   const [isDragging, setIsDragging] = useState(false);
   const [previousMousePosition, setPreviousMousePosition] = useState({
     x: 0,
@@ -68,7 +69,8 @@ const BoxGeometry = ({ width, height, position }) => {
     );
   })();
 
-  const onMouseOverEnter = (event) => {
+
+  const onMouseOverEvent = (event) => {
     cancelAnimationFrame(canvasRef.current.animate);
   };
 
@@ -90,7 +92,7 @@ const BoxGeometry = ({ width, height, position }) => {
       alpha: true,
       premultipliedAlpha: false,
     });
-
+    
     renderer.setSize(
       canvasRef.current.offsetWidth,
       canvasRef.current.offsetHeight
@@ -122,8 +124,8 @@ const BoxGeometry = ({ width, height, position }) => {
     ];
 
     const cube = new THREE.Mesh(geometry, materials);
-    setCubes(cube);
 
+    setCubes(cube);
     scene.add(cube);
     renderer.render(scene, camera);
 
@@ -165,6 +167,8 @@ const BoxGeometry = ({ width, height, position }) => {
   const toDegrees = (angle) => {
     return angle * (180 / Math.PI);
   };
+  
+  }, []);
 
   return (
     <div
