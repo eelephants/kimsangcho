@@ -20,8 +20,8 @@ const Index = ({ data, location }) => {
       <AppLayout.Side location={location} />
       <AppLayout.Main>
         <BoxGeometry width="60vh" height="60vh" position="absolute" />
-        {/* <Dimmed width="100%" height="70vh" opacity="0.5" /> */}
-        {/* <Video videoSrcURL={MainVideo} videoTitle="mainVideo" /> */}
+        <Dimmed width="100%" height="70vh" opacity="0.5" />
+        <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
       </AppLayout.Main>
     </AppLayout>
   );
