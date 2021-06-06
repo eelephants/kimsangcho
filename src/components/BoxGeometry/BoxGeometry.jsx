@@ -6,7 +6,6 @@ import BodyclassLogo from '../../assets/bodyclass_logo.png';
 const BoxGeometry = ({ width, height, position }) => {
   const canvasRef = useRef();
 
-
   const [isDragging, setIsDragging] = useState(false);
   const [previousMousePosition, setPreviousMousePosition] = useState({
     x: 0,
@@ -69,8 +68,7 @@ const BoxGeometry = ({ width, height, position }) => {
     );
   })();
 
-
-  const onMouseOverEvent = (event) => {
+  const onMouseEnterEnter = (event) => {
     cancelAnimationFrame(canvasRef.current.animate);
   };
 
@@ -92,7 +90,7 @@ const BoxGeometry = ({ width, height, position }) => {
       alpha: true,
       premultipliedAlpha: false,
     });
-    
+
     renderer.setSize(
       canvasRef.current.offsetWidth,
       canvasRef.current.offsetHeight
@@ -167,8 +165,6 @@ const BoxGeometry = ({ width, height, position }) => {
   const toDegrees = (angle) => {
     return angle * (180 / Math.PI);
   };
-  
-  }, []);
 
   return (
     <div
@@ -187,7 +183,7 @@ const BoxGeometry = ({ width, height, position }) => {
       <div
         css={canvasWrapperStyle}
         ref={canvasRef}
-        onMouseEnter={onMouseOverEnter}
+        onMouseEnter={onMouseEnterEnter}
         onMouseLeave={onMouseLeaveEvent}
         onMouseMove={onMouseMoveEvent}
         onMouseDown={onMouseDownEvent}
