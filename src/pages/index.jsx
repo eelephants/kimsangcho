@@ -1,10 +1,12 @@
 import { graphql, Link } from 'gatsby';
 import React from 'react';
+import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
 import Video from '../components/Video';
 import MainVideo from '../assets/video/main.mp4';
 import Dimmed from '../components/Dimmed';
 import BoxGeometry from '../components/BoxGeometry';
+import BackGroundImg from '../assets/cool-background.png';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -17,15 +19,40 @@ import BoxGeometry from '../components/BoxGeometry';
 const Index = ({ data, location }) => {
   return (
     <AppLayout>
-      <AppLayout.Side location={location} />
+      <AppLayout.Header location={location} />
+      {/* <AppLayout.Side location={location} /> */}
       <AppLayout.Main>
-        <BoxGeometry width="60vh" height="60vh" position="absolute" />
-        <Dimmed width="100%" height="70vh" opacity="0.5" />
-        <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
+        <div css={firstSection}>
+          <BoxGeometry width="60vh" height="60vh" position="absolute" />
+          <Dimmed width="100%" height="70vh" opacity="0.5" />
+          <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
+        </div>
+        <div css={secondSection}>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
+            architecto alias maiores dignissimos aut vero dolore hic eum
+            blanditiis odio autem corrupti.
+          </p>
+        </div>
       </AppLayout.Main>
     </AppLayout>
   );
 };
+
+const firstSection = css`
+  padding-top: 10vh;
+`;
+
+const secondSection = css`
+  background: url(${BackGroundImg}) no-repeat;
+  background-size: cover;
+  p {
+    font-size: 40px;
+    padding: 150px 250px;
+    margin: 0;
+  }
+`;
 
 export default Index;
 
