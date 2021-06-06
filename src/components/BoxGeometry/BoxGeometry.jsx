@@ -6,6 +6,15 @@ import BodyclassLogo from '../../assets/bodyclass_logo.png';
 const BoxGeometry = ({ width, height, position }) => {
   const canvasRef = useRef();
 
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [previousMousePosition, setPreviousMousePosition] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  const [cubes, setCubes] = useState('');
+
   useEffect(() => {
     init();
 
@@ -13,6 +22,53 @@ const BoxGeometry = ({ width, height, position }) => {
       cancelAnimationFrame(canvasRef.current.animate);
     };
   }, []);
+
+  const onMouseDownEvent = (event) => {
+    setIsDragging(true);
+  };
+
+  const onMouseUpEvent = (event) => {
+    setIsDragging(false);
+  };
+
+  const onMouseMoveEvent = (event) => {
+    const deltaMove = {
+      x: event.nativeEvent.offsetX - previousMousePosition.x || 0,
+      y: event.nativeEvent.offsetY - previousMousePosition.y || 0,
+    };
+
+    if (isDragging) {
+      const deltaRotationQuaternion = new THREE.Quaternion().setFromEuler(
+        new THREE.Euler(
+          toRadians(deltaMove.y * 1),
+          toRadians(deltaMove.x * 1),
+          0,
+          'XYZ'
+        )
+      );
+      cubes.quaternion.multiplyQuaternions(
+        deltaRotationQuaternion,
+        cubes.quaternion
+      );
+    }
+
+    setPreviousMousePosition({
+      x: event.nativeEvent.offsetX,
+      y: event.nativeEvent.offsetY,
+    });
+  };
+
+  const requestAnimationCustomFrame = (function () {
+    return (
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      function (callback) {
+        window.setTimeout(callback, 1000 / 60);
+      }
+    );
+  })();
+
 
   const onMouseOverEvent = (event) => {
     cancelAnimationFrame(canvasRef.current.animate);
@@ -36,6 +92,7 @@ const BoxGeometry = ({ width, height, position }) => {
       alpha: true,
       premultipliedAlpha: false,
     });
+    
     renderer.setSize(
       canvasRef.current.offsetWidth,
       canvasRef.current.offsetHeight
@@ -68,6 +125,7 @@ const BoxGeometry = ({ width, height, position }) => {
 
     const cube = new THREE.Mesh(geometry, materials);
 
+    setCubes(cube);
     scene.add(cube);
     renderer.render(scene, camera);
 
@@ -81,6 +139,35 @@ const BoxGeometry = ({ width, height, position }) => {
     };
 
     animate();
+
+    const animates = function () {
+      renderer.render(scene, camera);
+
+      requestAnimationCustomFrame(animates);
+    };
+
+    animates();
+  }, []);
+
+  const requestAnimationFrame = (function () {
+    return (
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      function (callback) {
+        window.setTimeout(callback, 1000 / 60);
+      }
+    );
+  })();
+
+  const toRadians = (angle) => {
+    return angle * (Math.PI / 180);
+  };
+
+  const toDegrees = (angle) => {
+    return angle * (180 / Math.PI);
+  };
+  
   }, []);
 
   return (
@@ -94,13 +181,17 @@ const BoxGeometry = ({ width, height, position }) => {
         left: '50%',
         transform: 'translate(-50%, -50%)',
         background: 'transparents',
+        zIndex: '500',
       }}
     >
       <div
         css={canvasWrapperStyle}
         ref={canvasRef}
-        onMouseEnter={onMouseOverEvent}
+        onMouseEnter={onMouseOverEnter}
         onMouseLeave={onMouseLeaveEvent}
+        onMouseMove={onMouseMoveEvent}
+        onMouseDown={onMouseDownEvent}
+        onMouseUp={onMouseUpEvent}
       ></div>
     </div>
   );
