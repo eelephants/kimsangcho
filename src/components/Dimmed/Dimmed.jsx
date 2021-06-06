@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-export const Dimmed = ({ width, height, opacity }) => {
+const Dimmed = ({ width, height, opacity }) => {
   return (
     <div
       css={{
@@ -13,3 +13,5 @@ export const Dimmed = ({ width, height, opacity }) => {
     ></div>
   );
 };
+
+export default Dimmed;
