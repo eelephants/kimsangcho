@@ -68,7 +68,7 @@ const BoxGeometry = ({ width, height, position }) => {
     );
   })();
 
-  const onMouseEnterEnter = (event) => {
+  const onMouseEnterEvent = (event) => {
     cancelAnimationFrame(canvasRef.current.animate);
   };
 
@@ -173,7 +173,7 @@ const BoxGeometry = ({ width, height, position }) => {
         height,
         position,
         border: '1px solid red',
-        top: '35%',
+        top: '45%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         background: 'transparents',
@@ -183,7 +183,7 @@ const BoxGeometry = ({ width, height, position }) => {
       <div
         css={canvasWrapperStyle}
         ref={canvasRef}
-        onMouseEnter={onMouseEnterEnter}
+        onMouseEnter={onMouseEnterEvent}
         onMouseLeave={onMouseLeaveEvent}
         onMouseMove={onMouseMoveEvent}
         onMouseDown={onMouseDownEvent}
@@ -196,6 +196,11 @@ const BoxGeometry = ({ width, height, position }) => {
 const canvasWrapperStyle = css`
   width: 100%;
   height: 100%;
+  transform: 'translate(-50%, -50%)';
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export default BoxGeometry;
