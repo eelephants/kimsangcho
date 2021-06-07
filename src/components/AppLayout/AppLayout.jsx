@@ -7,6 +7,7 @@ import HomeIcon from '../../assets/c6730f_331e4a84182944a9a7a892945436f3de_mv2.w
 import AboutIcon from '../../assets/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.webp';
 import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
 import PortfolioIcon from '../../assets/gotoMain.svg';
+import GithubIcon from '../../assets/githubIcon.svg';
 import { useSiteMetadata } from '../../hooks/useQuery';
 
 const AppLayout = ({ children }) => {
@@ -23,17 +24,17 @@ function Header({ location }) {
       <div css={linkWrapperSttyle}>
         <ul css={linkbarStyle}>
           <li>
-            <Icon herf="/" src={HomeIcon} alt="home" />
+            <NaviTitle herf="/" name="home" />
           </li>
           <li>
-            <Icon herf="/about" src={AboutIcon} alt="about" />
+            <NaviTitle herf="/about" name="about" />
           </li>
           <li>
-            <Icon herf="/contact" src={ContactIcon} alt="contact" />
+            <NaviTitle herf="/contact" name="contact" />
           </li>
         </ul>
         <div>
-          <Icon herf="/" src={PortfolioIcon} alt="portfolio" />
+          <Icon herf="/" src={GithubIcon} alt="portfolio" />
         </div>
       </div>
     </header>
@@ -89,6 +90,7 @@ const headerbarStyle = css`
   background: #fff;
   padding: 0;
   z-index: 900;
+  background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
   div:first-child {
     flex: 2;
     padding: 0 100px;
@@ -116,10 +118,11 @@ const sidebarStyle = css`
 const linkbarStyle = css`
   display: flex;
   list-style: none;
+  font-family: 'lobster';
   padding: 0;
   margin: 0;
   li {
-    margin: 15px 0;
+    margin: 15px 7px;
   }
 `;
 
@@ -131,6 +134,23 @@ const navStyle = css`
     margin: 15px 0;
   }
 `;
+
+const naviTitleStyle = css`
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #000;
+  transition: all 0.3s linear;
+
+  &:hover {
+    color: #fff;
+  }
+`;
+
+const NaviTitle = (props) => (
+  <Link to={props.herf} css={naviTitleStyle}>
+    <text>{props.name}</text>
+  </Link>
+);
 
 const Icon = (props) => (
   <Link to={props.herf}>
