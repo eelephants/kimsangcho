@@ -5,6 +5,7 @@ import BodyclassLogo from '../../assets/bodyclass_logo.png';
 
 const BoxGeometry = ({ width, height, position }) => {
   const canvasRef = useRef();
+  const canvasFuncRef = useRef();
 
   const [isDragging, setIsDragging] = useState(false);
   const [previousMousePosition, setPreviousMousePosition] = useState({
@@ -16,9 +17,10 @@ const BoxGeometry = ({ width, height, position }) => {
 
   useEffect(() => {
     init();
-
     return () => {
-      cancelAnimationFrame(canvasRef.current.animate);
+      if (canvasRef) {
+        cancelAnimationFrame(canvasRef.current);
+      }
     };
   }, []);
 
@@ -69,11 +71,11 @@ const BoxGeometry = ({ width, height, position }) => {
   })();
 
   const onMouseEnterEvent = (event) => {
-    cancelAnimationFrame(canvasRef.current.animate);
+    cancelAnimationFrame(canvasRef.current);
   };
 
   const onMouseLeaveEvent = (event) => {
-    requestAnimationFrame(canvasRef.current.animateFunc);
+    requestAnimationFrame(canvasFuncRef.current);
   };
 
   const init = useCallback(() => {
@@ -127,18 +129,18 @@ const BoxGeometry = ({ width, height, position }) => {
     scene.add(cube);
     renderer.render(scene, camera);
 
-    const animate = function () {
-      canvasRef.current.animateFunc = animate;
-      canvasRef.current.animate = requestAnimationFrame(animate);
+    const animate = () => {
       cube.rotation.x += 0.01;
       cube.rotation.y += 0.01;
-
+      canvasRef.current = requestAnimationFrame(animate);
       renderer.render(scene, camera);
     };
 
+    canvasFuncRef.current = animate;
+
     animate();
 
-    const animates = function () {
+    const animates = () => {
       renderer.render(scene, camera);
 
       requestAnimationCustomFrame(animates);
@@ -147,7 +149,7 @@ const BoxGeometry = ({ width, height, position }) => {
     animates();
   }, []);
 
-  const requestAnimationFrame = (function () {
+  const requestAnimationFrame = (() => {
     return (
       window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||

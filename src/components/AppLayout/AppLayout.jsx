@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, forwardRef } from 'react';
 import { css } from '@emotion/react';
 import 'normalize.css';
 import { Link } from 'gatsby';
@@ -15,9 +15,9 @@ const AppLayout = ({ children }) => {
   return <div css={globalStyle}>{children}</div>;
 };
 
-function Header({ location }) {
+const Header = forwardRef(({ location }, ref) => {
   return (
-    <header css={headerbarStyle}>
+    <header css={headerbarStyle} ref={ref}>
       <div>
         <Icon herf="/" src={HomeIcon} alt="home" />
       </div>
@@ -39,7 +39,7 @@ function Header({ location }) {
       </div>
     </header>
   );
-}
+});
 
 function Side({ location }) {
   console.log(location);
@@ -91,7 +91,7 @@ const headerbarStyle = css`
   padding: 0;
   z-index: 900;
   background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
-  div:first-child {
+  div:first-of-type {
     flex: 2;
     padding: 0 100px;
   }
@@ -122,7 +122,7 @@ const linkbarStyle = css`
   padding: 0;
   margin: 0;
   li {
-    margin: 15px 7px;
+    margin: 0 40px 0 0;
   }
 `;
 
@@ -148,7 +148,7 @@ const naviTitleStyle = css`
 
 const NaviTitle = (props) => (
   <Link to={props.herf} css={naviTitleStyle}>
-    <text>{props.name}</text>
+    {props.name}
   </Link>
 );
 
