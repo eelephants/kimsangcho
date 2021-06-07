@@ -45,7 +45,7 @@ const firstSection = css`
 `;
 
 const secondSection = css`
-  background: url(${BackGroundImg}) no-repeat;
+  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
   background-size: cover;
   p {
     font-size: 40px;
