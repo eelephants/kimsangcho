@@ -1,12 +1,11 @@
+import React, { useEffect, useRef } from 'react';
 import { graphql, Link } from 'gatsby';
-import React from 'react';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
 import Video from '../components/Video';
 import MainVideo from '../assets/video/main.mp4';
 import Dimmed from '../components/Dimmed';
 import BoxGeometry from '../components/BoxGeometry';
-import BackGroundImg from '../assets/cool-background.png';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -17,17 +16,44 @@ import BackGroundImg from '../assets/cool-background.png';
 //   );
 // })}
 const Index = ({ data, location }) => {
+  const firstSectionRef = useRef();
+  const secondSectionRef = useRef();
+
+  useEffect(() => {
+    document.addEventListener('scroll', scrollEvent);
+
+    return () => {
+      document.removeEventListener('scroll');
+    };
+  }, []);
+
+  const scrollEvent = (event) => {
+    if (firstSectionRef && secondSectionRef) {
+      console.log(
+        window.pageYOffset,
+        firstSectionRef.current.getBoundingClientRect().height,
+        secondSectionRef.current.getBoundingClientRect().height,
+        window.innerHeight
+      );
+      if (
+        window.scrollY > firstSectionRef.current.getBoundingClientRect().height
+      ) {
+        console.log('커짐');
+      }
+    }
+  };
+
   return (
     <AppLayout>
       <AppLayout.Header location={location} />
       {/* <AppLayout.Side location={location} /> */}
       <AppLayout.Main>
-        <div css={firstSection}>
+        <div css={firstSection} ref={firstSectionRef}>
           <BoxGeometry width="60vh" height="60vh" position="absolute" />
           <Dimmed width="100%" height="70vh" opacity="0.5" />
           <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
         </div>
-        <div css={secondSection}>
+        <div css={secondSection} ref={secondSectionRef}>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
