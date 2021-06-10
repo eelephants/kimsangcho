@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { graphql, Link } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
@@ -6,6 +6,7 @@ import Video from '../components/Video';
 import MainVideo from '../assets/video/main.mp4';
 import Dimmed from '../components/Dimmed';
 import BoxGeometry from '../components/BoxGeometry';
+import { round } from '../lib/utils/helper';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -15,45 +16,135 @@ import BoxGeometry from '../components/BoxGeometry';
 //     </Link>
 //   );
 // })}
+
 const Index = ({ data, location }) => {
   const firstSectionRef = useRef();
   const secondSectionRef = useRef();
+  const thirdSectionRef = useRef();
+  const forthSectionRef = useRef();
+  const headerRef = useRef();
+  const mainRef = useRef();
+
+  const sceneData = [
+    {
+      type: 'normal',
+      heightNum: 5,
+      scrollHeight: 0,
+      objs: {
+        container: firstSectionRef,
+      },
+      values: {},
+    },
+    {
+      type: 'sticky',
+      heightNum: 5,
+      scrollHeight: 0,
+      objs: {
+        container: secondSectionRef,
+      },
+      values: {},
+    },
+    {
+      type: 'sticky',
+      heightNum: 5,
+      scrollHeight: 0,
+      objs: {
+        container: thirdSectionRef,
+      },
+      values: {},
+    },
+    {
+      type: 'sticky',
+      heightNum: 5,
+      scrollHeight: 0,
+      objs: {
+        container: forthSectionRef,
+      },
+      values: {},
+    },
+  ];
+
+  const [sceneInfo, setSceneInfo] = useState(sceneData);
+  const [yOffset, setYOffset] = useState(0);
+  const [currentScene, setCurrentScene] = useState(0);
 
   useEffect(() => {
     document.addEventListener('scroll', scrollEvent);
-
+    setLayout();
     return () => {
       document.removeEventListener('scroll');
     };
   }, []);
 
-  const scrollEvent = (event) => {
-    if (firstSectionRef && secondSectionRef) {
-      console.log(
-        window.pageYOffset,
-        firstSectionRef.current.getBoundingClientRect().height,
-        secondSectionRef.current.getBoundingClientRect().height,
-        window.innerHeight
-      );
-      if (
-        window.scrollY > firstSectionRef.current.getBoundingClientRect().height
-      ) {
-        console.log('커짐');
+  // 각 스크롤 섹션의 높이
+  const setEachSectionHeight = () => {
+    sceneInfo.forEach((item) => {
+      if (item.type === 'sticky') {
+        item.scrollHeight = item.heightNum * window.innerHeight;
+      } else if (item.type === 'normal') {
+        console.log(item);
+        item.scrollHeight =
+          item.objs.content.current.offsetHeight + window.innerHeight * 0.5;
       }
-    }
+      item.objs.container.current.height = `${item.scrollHeight}px`;
+    });
   };
+
+  // 전체 스크롤 높이
+  const setTotalScrollHeight = () => {
+    let totalScrollHeight = 0;
+    sceneInfo.forEach((item, index) => {
+      totalScrollHeight += item.scrollHeight;
+      if (totalScrollHeight >= yOffset) {
+        setCurrentScene(index);
+        return;
+      }
+    });
+  };
+
+  // 레이아웃 셋팅
+  const setLayout = () => {
+    setEachSectionHeight();
+    setYOffset(window.pageYOffset);
+    setTotalScrollHeight();
+  };
+  const scrollEvent = (event) => {};
 
   return (
     <AppLayout>
-      <AppLayout.Header location={location} />
+      <AppLayout.Header location={location} ref={headerRef} />
       {/* <AppLayout.Side location={location} /> */}
-      <AppLayout.Main>
-        <div css={firstSection} ref={firstSectionRef}>
+      <AppLayout.Main ref={mainRef}>
+        <div css={firstSection}>
           <BoxGeometry width="60vh" height="60vh" position="absolute" />
           <Dimmed width="100%" height="70vh" opacity="0.5" />
           <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
         </div>
-        <div css={secondSection} ref={secondSectionRef}>
+        <div css={secondSection} ref={firstSectionRef} id="show-scene-1">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
+            architecto alias maiores dignissimos aut vero dolore hic eum
+            blanditiis odio autem corrupti.
+          </p>
+        </div>
+        <div css={secondSection} ref={secondSectionRef} id="show-scene-2">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
+            architecto alias maiores dignissimos aut vero dolore hic eum
+            blanditiis odio autem corrupti.
+          </p>
+        </div>
+        <div css={secondSection} ref={thirdSectionRef} id="show-scene-3">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
+            architecto alias maiores dignissimos aut vero dolore hic eum
+            blanditiis odio autem corrupti.
+          </p>
+        </div>
+        <div css={secondSection} ref={forthSectionRef} id="show-scene-4">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
@@ -68,14 +159,17 @@ const Index = ({ data, location }) => {
 
 const firstSection = css`
   padding-top: 10vh;
+  height: 70vh;
 `;
 
 const secondSection = css`
   background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
   background-size: cover;
+
+  display: flex;
   p {
     font-size: 40px;
-    padding: 150px 250px;
+    padding: 150px;
     margin: 0;
   }
 `;

@@ -12,7 +12,7 @@ const Video = ({ videoSrcURL, videoTitle, ...props }) => {
 };
 
 const videoWrapperStyle = css`
-  height: 70vh;
+  height: 100%;
   width: 100%;
 `;
 
