@@ -66,9 +66,9 @@ function Side({ location }) {
   );
 }
 
-function Main({ children }) {
-  return <main>{children}</main>;
-}
+const Main = forwardRef(({ children }, ref) => {
+  return <main ref={ref}>{children}</main>;
+});
 
 AppLayout.Side = Side;
 AppLayout.Main = Main;
