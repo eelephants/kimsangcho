@@ -82,11 +82,10 @@ const Index = ({ data, location }) => {
       if (item.type === 'sticky') {
         item.scrollHeight = item.heightNum * window.innerHeight;
       } else if (item.type === 'normal') {
-        console.log(item);
         item.scrollHeight =
-          item.objs.content.current.offsetHeight + window.innerHeight * 0.5;
+          item.objs.container.current.offsetHeight + window.innerHeight * 0.5;
       }
-      item.objs.container.current.height = `${item.scrollHeight}px`;
+      item.objs.container.current.style.height = `${item.scrollHeight}px`;
     });
   };
 
@@ -165,12 +164,13 @@ const firstSection = css`
 const secondSection = css`
   background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
   background-size: cover;
-
-  display: flex;
   p {
+    position: -webkit-sticky;
     font-size: 40px;
     padding: 150px;
     margin: 0;
+    position: sticky;
+    top: 4px;
   }
 `;
 
