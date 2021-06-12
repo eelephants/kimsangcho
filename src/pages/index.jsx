@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
@@ -9,6 +9,15 @@ import BoxGeometry from '../components/BoxGeometry';
 import { round } from '../lib/utils/helper';
 import useWindowSize from '../hooks/useWindowSize';
 import useWindowScroll from '../hooks/useWindowScroll';
+import {
+  SET_EACH_SECTION_HEIGHT,
+  SET_PAGE_OFFSET,
+  SET_PAGE_YOFFSET,
+  SET_TOTAL_SCROLL_HEIGHT,
+  SET_USE_REF,
+  useSceneDispatch,
+  useSceneState,
+} from '../store/sceneInfo';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -24,55 +33,21 @@ const Index = ({ data, location }) => {
   const secondSectionRef = useRef();
   const thirdSectionRef = useRef();
   const forthSectionRef = useRef();
+
   const headerRef = useRef();
   const mainRef = useRef();
-
-  const sceneData = [
-    {
-      type: 'video',
-      heightNum: 5,
-      scrollHeight: 0,
-      objs: {
-        container: firstSectionRef,
-      },
-      values: {},
-    },
-    {
-      type: 'normal',
-      heightNum: 5,
-      scrollHeight: 0,
-      objs: {
-        container: secondSectionRef,
-      },
-      values: {},
-    },
-    {
-      type: 'sticky',
-      heightNum: 5,
-      scrollHeight: 0,
-      objs: {
-        container: thirdSectionRef,
-      },
-      values: {},
-    },
-    {
-      type: 'sticky',
-      heightNum: 5,
-      scrollHeight: 0,
-      objs: {
-        container: forthSectionRef,
-      },
-      values: {},
-    },
-  ];
-
-  const [sceneInfo, setSceneInfo] = useState(sceneData);
-  const [currentScene, setCurrentScene] = useState(0);
   const { width } = useWindowSize();
-  const [yOffset] = useWindowScroll(() => scrollEvent());
+
+  const { sceneInfo, currentScene, yOffset, prevScrollHeight } =
+    useSceneState();
+  const sceneDeispatch = useSceneDispatch();
 
   useEffect(() => {
     setLayout();
+    window.addEventListener('scroll', eventScroll);
+    return () => {
+      window.removeEventListener('scroll', eventScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -83,28 +58,22 @@ const Index = ({ data, location }) => {
 
   // 각 스크롤 섹션의 높이
   const setEachSectionHeight = () => {
-    sceneInfo.forEach((item) => {
-      if (item.type === 'sticky') {
-        item.scrollHeight = item.heightNum * window.innerHeight;
-      } else if (item.type === 'normal') {
-        item.scrollHeight = window.innerHeight;
-      } else if (item.type === 'video') {
-        item.scrollHeight = window.innerHeight * 0.7;
-      }
-      item.objs.container.current.style.height = `${item.scrollHeight}px`;
+    sceneDeispatch({
+      type: SET_USE_REF,
+      data: [
+        firstSectionRef,
+        secondSectionRef,
+        thirdSectionRef,
+        forthSectionRef,
+      ],
     });
+    sceneDeispatch({ type: SET_EACH_SECTION_HEIGHT });
   };
 
   // 전체 스크롤 높이
   const setTotalScrollHeight = () => {
-    let totalScrollHeight = 0;
-    sceneInfo.forEach((item, index) => {
-      totalScrollHeight += item.scrollHeight;
-      if (totalScrollHeight >= yOffset) {
-        setCurrentScene(index);
-        return;
-      }
-    });
+    sceneDeispatch({ type: SET_PAGE_YOFFSET, data: window.pageYOffset });
+    sceneDeispatch({ type: SET_TOTAL_SCROLL_HEIGHT });
   };
 
   // 레이아웃 셋팅
@@ -113,8 +82,17 @@ const Index = ({ data, location }) => {
     setTotalScrollHeight();
   };
 
-  // 스크롤 이벤트
-  const scrollEvent = () => {};
+  // // 스크롤 이벤트
+  const scrollLoop = () => {
+    console.log(sceneInfo, prevScrollHeight);
+  };
+
+  // // 스크롤 이벤트
+  const eventScroll = () => {
+    setTimeout(() => {
+      scrollLoop();
+    }, 1000);
+  };
 
   return (
     <AppLayout>

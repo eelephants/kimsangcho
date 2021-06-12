@@ -1,12 +1,30 @@
-import { useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
-export default function useWindowScroll(scrollEvent) {
-  const isSSR = typeof window !== 'undefined';
-  const [yOffset, setPageYoffset] = useState(isSSR ? 0 : window.pageYOffset);
+export default function useWindowScroll() {
+  const dom = useRef({
+    currentScene: 0,
+    yOffset: window.pageYOffset,
+    prevScrollHeight: 0,
+  });
+
+  let scrollEvent = null;
+
+  const scrollInfo = {
+    setScrollInfo(key, value) {
+      dom.current[key] = value;
+    },
+    getScrollInfo(key) {
+      if (dom) {
+        return dom.current[key];
+      }
+    },
+    setEventScroll(event) {
+      scrollEvent = event;
+    },
+  };
 
   const changeWindowScroll = () => {
-    setPageYoffset(window.pageYOffset);
-    scrollEvent && scrollEvent();
+    scrollEvent && scrollEvent(window.pageYOffset);
   };
 
   useEffect(() => {
@@ -17,5 +35,5 @@ export default function useWindowScroll(scrollEvent) {
     };
   }, []);
 
-  return [yOffset];
+  return scrollInfo;
 }

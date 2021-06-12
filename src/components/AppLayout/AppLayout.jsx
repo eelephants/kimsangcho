@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { css } from '@emotion/react';
 import 'normalize.css';
 import { Link } from 'gatsby';
@@ -12,6 +12,7 @@ import { useSiteMetadata } from '../../hooks/useQuery';
 
 const AppLayout = ({ children }) => {
   const { title, description } = useSiteMetadata();
+
   return <div css={globalStyle}>{children}</div>;
 };
 
