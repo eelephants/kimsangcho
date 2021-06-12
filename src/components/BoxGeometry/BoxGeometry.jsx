@@ -1,9 +1,9 @@
-import { useCallback, useRef, useEffect, useState, forwardRef } from 'react';
+import { useCallback, useRef, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import * as THREE from 'three';
 import BodyclassLogo from '../../assets/bodyclass_logo.png';
 
-const BoxGeometry = forwardRef(({ width, height, position, resize }) => {
+const BoxGeometry = ({ width, height, position, resize }) => {
   const canvasRef = useRef();
   const canvasFuncRef = useRef();
 
@@ -189,7 +189,7 @@ const BoxGeometry = forwardRef(({ width, height, position, resize }) => {
       ></div>
     </div>
   );
-});
+};
 
 const canvasWrapperStyle = css`
   width: 100%;
