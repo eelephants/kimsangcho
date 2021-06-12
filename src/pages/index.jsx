@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { graphql, Link } from 'gatsby';
+import { useEffect, useRef, useState } from 'react';
+import { graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
 import Video from '../components/Video';
@@ -7,6 +7,8 @@ import MainVideo from '../assets/video/main.mp4';
 import Dimmed from '../components/Dimmed';
 import BoxGeometry from '../components/BoxGeometry';
 import { round } from '../lib/utils/helper';
+import useWindowSize from '../hooks/useWindowSize';
+import useWindowScroll from '../hooks/useWindowScroll';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -27,7 +29,7 @@ const Index = ({ data, location }) => {
 
   const sceneData = [
     {
-      type: 'normal',
+      type: 'video',
       heightNum: 5,
       scrollHeight: 0,
       objs: {
@@ -36,7 +38,7 @@ const Index = ({ data, location }) => {
       values: {},
     },
     {
-      type: 'sticky',
+      type: 'normal',
       heightNum: 5,
       scrollHeight: 0,
       objs: {
@@ -65,16 +67,19 @@ const Index = ({ data, location }) => {
   ];
 
   const [sceneInfo, setSceneInfo] = useState(sceneData);
-  const [yOffset, setYOffset] = useState(0);
   const [currentScene, setCurrentScene] = useState(0);
+  const { width } = useWindowSize();
+  const [yOffset] = useWindowScroll(() => scrollEvent());
 
   useEffect(() => {
-    document.addEventListener('scroll', scrollEvent);
     setLayout();
-    return () => {
-      document.removeEventListener('scroll');
-    };
   }, []);
+
+  useEffect(() => {
+    if (width > 900) {
+      setLayout();
+    }
+  }, [width]);
 
   // 각 스크롤 섹션의 높이
   const setEachSectionHeight = () => {
@@ -82,8 +87,9 @@ const Index = ({ data, location }) => {
       if (item.type === 'sticky') {
         item.scrollHeight = item.heightNum * window.innerHeight;
       } else if (item.type === 'normal') {
-        item.scrollHeight =
-          item.objs.container.current.offsetHeight + window.innerHeight * 0.5;
+        item.scrollHeight = window.innerHeight;
+      } else if (item.type === 'video') {
+        item.scrollHeight = window.innerHeight * 0.7;
       }
       item.objs.container.current.style.height = `${item.scrollHeight}px`;
     });
@@ -104,28 +110,25 @@ const Index = ({ data, location }) => {
   // 레이아웃 셋팅
   const setLayout = () => {
     setEachSectionHeight();
-    setYOffset(window.pageYOffset);
     setTotalScrollHeight();
   };
-  const scrollEvent = (event) => {};
+
+  // 스크롤 이벤트
+  const scrollEvent = () => {};
 
   return (
     <AppLayout>
       <AppLayout.Header location={location} ref={headerRef} />
-      {/* <AppLayout.Side location={location} /> */}
       <AppLayout.Main ref={mainRef}>
-        <div css={firstSection}>
-          <BoxGeometry width="60vh" height="60vh" position="absolute" />
+        <div css={firstSection} ref={firstSectionRef} id="show-scene-1">
+          <BoxGeometry
+            width="60vh"
+            height="60vh"
+            position="absolute"
+            resize={width}
+          />
           <Dimmed width="100%" height="70vh" opacity="0.5" />
           <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
-        </div>
-        <div css={secondSection} ref={firstSectionRef} id="show-scene-1">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
-            architecto alias maiores dignissimos aut vero dolore hic eum
-            blanditiis odio autem corrupti.
-          </p>
         </div>
         <div css={secondSection} ref={secondSectionRef} id="show-scene-2">
           <p>
@@ -136,20 +139,20 @@ const Index = ({ data, location }) => {
           </p>
         </div>
         <div css={secondSection} ref={thirdSectionRef} id="show-scene-3">
-          <p>
+          <div>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
             architecto alias maiores dignissimos aut vero dolore hic eum
             blanditiis odio autem corrupti.
-          </p>
+          </div>
         </div>
         <div css={secondSection} ref={forthSectionRef} id="show-scene-4">
-          <p>
+          <div>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
             architecto alias maiores dignissimos aut vero dolore hic eum
             blanditiis odio autem corrupti.
-          </p>
+          </div>
         </div>
       </AppLayout.Main>
     </AppLayout>
@@ -164,13 +167,18 @@ const firstSection = css`
 const secondSection = css`
   background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
   background-size: cover;
-  p {
+  div {
     position: -webkit-sticky;
     font-size: 40px;
     padding: 150px;
     margin: 0;
     position: sticky;
     top: 4px;
+  }
+  p {
+    font-size: 40px;
+    padding: 150px;
+    margin: 0;
   }
 `;
 
