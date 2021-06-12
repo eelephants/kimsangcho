@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useEffect, useState } from 'react';
+import { useCallback, useRef, useEffect, useState, forwardRef } from 'react';
 import { css } from '@emotion/react';
 import * as THREE from 'three';
 import BodyclassLogo from '../../assets/bodyclass_logo.png';
 
-const BoxGeometry = ({ width, height, position }) => {
+const BoxGeometry = forwardRef(({ width, height, position, resize }) => {
   const canvasRef = useRef();
   const canvasFuncRef = useRef();
 
@@ -24,11 +24,11 @@ const BoxGeometry = ({ width, height, position }) => {
     };
   }, []);
 
-  const onMouseDownEvent = (event) => {
+  const onMouseDownEvent = () => {
     setIsDragging(true);
   };
 
-  const onMouseUpEvent = (event) => {
+  const onMouseUpEvent = () => {
     setIsDragging(false);
   };
 
@@ -70,11 +70,11 @@ const BoxGeometry = ({ width, height, position }) => {
     );
   })();
 
-  const onMouseEnterEvent = (event) => {
+  const onMouseEnterEvent = () => {
     cancelAnimationFrame(canvasRef.current);
   };
 
-  const onMouseLeaveEvent = (event) => {
+  const onMouseLeaveEvent = () => {
     requestAnimationFrame(canvasFuncRef.current);
   };
 
@@ -164,10 +164,6 @@ const BoxGeometry = ({ width, height, position }) => {
     return angle * (Math.PI / 180);
   };
 
-  const toDegrees = (angle) => {
-    return angle * (180 / Math.PI);
-  };
-
   return (
     <div
       css={{
@@ -193,7 +189,7 @@ const BoxGeometry = ({ width, height, position }) => {
       ></div>
     </div>
   );
-};
+});
 
 const canvasWrapperStyle = css`
   width: 100%;
