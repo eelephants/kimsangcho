@@ -4,15 +4,18 @@ import _ from 'lodash';
 
 export const SET_EACH_SECTION_HEIGHT = 'SET_EACH_SECTION_HEIGHT';
 export const SET_USE_REF = 'SET_USE_REF';
-export const SET_PAGE_OFFSET = 'SET_PAGE_OFFSET';
 export const SET_PAGE_YOFFSET = 'SET_PAGE_YOFFSET';
 export const SET_TOTAL_SCROLL_HEIGHT = 'SET_TOTAL_SCROLL_HEIGHT';
+export const SCROLL_LOOP = 'SCROLL_LOOP';
+export const PLAY_ANIMATION = 'PLAY_ANIMATION';
 
 const initialInfo = {
   currentScene: 0,
   yOffset: window.pageYOffset,
   prevScrollHeight: 0,
   totalScrollHeight: 0,
+  enterNewScene: false,
+  delayedYOffset: 0,
   sceneInfo: [
     {
       type: 'video',
@@ -81,7 +84,7 @@ const sceneReducer = (state, action) => {
 
     case SET_PAGE_YOFFSET:
       return produce(state, (draft) => {
-        draft.yOffset = action.data;
+        draft.yOffset = window.pageYOffset;
       });
 
     case SET_TOTAL_SCROLL_HEIGHT:
@@ -91,13 +94,77 @@ const sceneReducer = (state, action) => {
         for (let i = 0; i < draft.sceneInfo.length; i++) {
           totalScrollHeight += draft.sceneInfo[i].scrollHeight;
 
-          if (totalScrollHeight >= draft.yOffset) {
+          if (totalScrollHeight >= window.pageYOffset) {
             draft.currentScene = i;
             break;
           }
         }
         draft.totalScrollHeight = totalScrollHeight;
+
+        document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
       });
+
+    case SCROLL_LOOP:
+      return produce(state, (draft) => {
+        draft.prevScrollHeight = 0;
+        for (let i = 0; i < draft.currentScene; i++) {
+          draft.prevScrollHeight += draft.sceneInfo[i].scrollHeight;
+        }
+
+        if (
+          window.pageYOffset >
+          draft.prevScrollHeight +
+            draft.sceneInfo[draft.currentScene].scrollHeight
+        ) {
+          draft.currentScene++;
+          document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
+        }
+
+        if (window.pageYOffset < draft.prevScrollHeight) {
+          if (draft.currentScene === 0) {
+            draft.currentScene = 0;
+            return;
+          }
+          draft.currentScene--;
+          document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
+        }
+
+        console.log(state.currentScene);
+
+        // if (
+        //   draft.delayedYOffset <
+        //   draft.prevScrollHeight +
+        //     draft.sceneInfo[draft.currentScene].scrollHeight
+        // ) {
+        //   document.body.classList.remove('scroll-effect-end');
+        // }
+
+        // if (
+        //   draft.delayedYOffset >
+        //   draft.prevScrollHeight +
+        //     draft.sceneInfo[draft.currentScene].scrollHeight
+        // ) {
+        //   draft.enterNewScene = true;
+        //   if (draft.currentScene === draft.sceneInfo.length - 1) {
+        //     document.body.classList.add('scroll-effect-end');
+        //   }
+        //   if (draft.currentScene < draft.sceneInfo.length - 1) {
+        //     draft.currentScene++;
+        //   }
+        //   document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
+        // }
+
+        // if (draft.delayedYOffset < draft.prevScrollHeight) {
+        //   draft.enterNewScene = true;
+        //   // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
+        //   if (draft.currentScene === 0) return;
+        //   draft.currentScene--;
+        //   document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
+        // }
+      });
+
+    case PLAY_ANIMATION:
+      return produce(state, (draft) => {});
 
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
