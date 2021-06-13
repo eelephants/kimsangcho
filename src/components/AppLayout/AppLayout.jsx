@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
 import { css } from '@emotion/react';
-import 'normalize.css';
 import { Link } from 'gatsby';
 
 import HomeIcon from '../../assets/c6730f_331e4a84182944a9a7a892945436f3de_mv2.webp';
