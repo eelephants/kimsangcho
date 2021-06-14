@@ -1,7 +1,7 @@
 import { useReducer, createContext, useContext } from 'react';
 import produce from 'immer';
 import _ from 'lodash';
-import { round } from '../lib/utils/helper';
+import { round, importAll } from '../lib/utils/helper';
 
 export const SET_EACH_SECTION_HEIGHT = 'SET_EACH_SECTION_HEIGHT';
 export const SET_USE_REF = 'SET_USE_REF';
@@ -9,6 +9,7 @@ export const SET_PAGE_YOFFSET = 'SET_PAGE_YOFFSET';
 export const SET_TOTAL_SCROLL_HEIGHT = 'SET_TOTAL_SCROLL_HEIGHT';
 export const SCROLL_LOOP = 'SCROLL_LOOP';
 export const PLAY_ANIMATION = 'PLAY_ANIMATION';
+export const SET_CANVAS_IMAGE = 'SET_CANVAS_IMAGE';
 
 const initialInfo = {
   currentScene: 0,
@@ -46,8 +47,13 @@ const initialInfo = {
         messageB: '',
         messageC: '',
         messageD: '',
+        canvas: '',
+        context: '',
+        videoImages: [],
       },
       values: {
+        videoImagesCount: 81,
+        imageSequence: [0, 80],
         messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
         messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
         messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
@@ -77,7 +83,24 @@ const initialInfo = {
         messageC: '',
         messageD: '',
       },
-      values: {},
+      values: {
+        messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
+        messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
+        messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
+        messageD_opacity_in: [0, 1, { start: 0.7, end: 0.8 }],
+        messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
+        messageB_translateY_in: [20, 0, { start: 0.3, end: 0.4 }],
+        messageC_translateY_in: [20, 0, { start: 0.5, end: 0.6 }],
+        messageD_translateY_in: [20, 0, { start: 0.7, end: 0.8 }],
+        messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
+        messageB_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
+        messageC_opacity_out: [1, 0, { start: 0.65, end: 0.7 }],
+        messageD_opacity_out: [1, 0, { start: 0.85, end: 0.9 }],
+        messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
+        messageB_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
+        messageC_translateY_out: [0, -20, { start: 0.65, end: 0.7 }],
+        messageD_translateY_out: [0, -20, { start: 0.85, end: 0.9 }],
+      },
     },
   ],
 };
@@ -150,6 +173,15 @@ const sceneReducer = (state, action) => {
           if (index === 0 || index === 1) {
             return;
           }
+
+          if (index === 2) {
+            item.objs.canvas =
+              item.objs.container.current.querySelector('#video-canvas-0');
+            item.objs.context = item.objs.container.current
+              .querySelector('#video-canvas-0')
+              .getContext('2d');
+          }
+
           _.forEach(
             item.objs.container.current.querySelectorAll('.sticky-elem'),
             (element, index) => {
@@ -252,6 +284,24 @@ const sceneReducer = (state, action) => {
             break;
 
           case 2:
+            // console.log(
+            //
+            // );
+            // const test = document.querySelector('#video-canvas-0');
+            // const contest = test.getContext('2d');
+            // objs.videoImages.map((itme) => console.log(itme));
+            console.log(
+              objs.videoImages[
+                round(calcValues(values.imageSequence, currentYoffset, draft))
+              ]
+            );
+            objs.context.drawImage(
+              objs.videoImages[
+                round(calcValues(values.imageSequence, currentYoffset, draft))
+              ],
+              0,
+              0
+            );
             if (scrollRatio <= 0.22) {
               // in
               applyStyle('messageA', 'in', objs, values, currentYoffset, draft);
@@ -315,11 +365,86 @@ const sceneReducer = (state, action) => {
             break;
 
           case 3:
-            console.log('3 play');
+            if (scrollRatio <= 0.22) {
+              // in
+              applyStyle('messageA', 'in', objs, values, currentYoffset, draft);
+            } else {
+              // out
+              applyStyle(
+                'messageA',
+                'out',
+                objs,
+                values,
+                currentYoffset,
+                draft
+              );
+            }
+
+            if (scrollRatio <= 0.42) {
+              // in
+              applyStyle('messageB', 'in', objs, values, currentYoffset, draft);
+            } else {
+              // out
+              applyStyle(
+                'messageB',
+                'out',
+                objs,
+                values,
+                currentYoffset,
+                draft
+              );
+            }
+
+            if (scrollRatio <= 0.62) {
+              // in
+              applyStyle('messageC', 'in', objs, values, currentYoffset, draft);
+            } else {
+              // out
+              applyStyle(
+                'messageC',
+                'out',
+                objs,
+                values,
+                currentYoffset,
+                draft
+              );
+            }
+
+            if (scrollRatio <= 0.82) {
+              // in
+              applyStyle('messageD', 'in', objs, values, currentYoffset, draft);
+            } else {
+              // out
+              applyStyle(
+                'messageD',
+                'out',
+                objs,
+                values,
+                currentYoffset,
+                draft
+              );
+            }
             break;
 
           default:
             break;
+        }
+      });
+
+    case SET_CANVAS_IMAGE:
+      return produce(state, (draft) => {
+        draft.sceneInfo[2].objs.videoImages = [];
+        let imageElement;
+
+        const images = importAll(
+          require.context('../assets/background', false, /\.(png|jpe?g|svg)$/)
+        );
+
+        for (let i = 0; i < draft.sceneInfo[2].values.videoImagesCount; i++) {
+          imageElement = new Image();
+
+          imageElement.src = images[`ezgif-frame-0${i + 1}.jpg`].default;
+          draft.sceneInfo[2].objs.videoImages.push(imageElement);
         }
       });
 
