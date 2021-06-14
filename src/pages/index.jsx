@@ -6,7 +6,7 @@ import Video from '../components/Video';
 import MainVideo from '../assets/video/main.mp4';
 import Dimmed from '../components/Dimmed';
 import BoxGeometry from '../components/BoxGeometry';
-import { round } from '../lib/utils/helper';
+
 import useWindowSize from '../hooks/useWindowSize';
 
 import {
@@ -44,7 +44,9 @@ const Index = ({ data, location }) => {
   const sceneDeispatch = useSceneDispatch();
 
   useEffect(() => {
+    // load
     setLayout();
+    // scroll
     window.addEventListener('scroll', eventScroll);
     return () => {
       window.removeEventListener('scroll', eventScroll);
@@ -52,6 +54,7 @@ const Index = ({ data, location }) => {
   }, []);
 
   useEffect(() => {
+    // resize
     if (width > 900) {
       setLayout();
     }
@@ -86,7 +89,7 @@ const Index = ({ data, location }) => {
   // // 스크롤 이벤트
   const scrollLoop = async () => {
     await sceneDeispatch({ type: SCROLL_LOOP });
-    // await sceneDeispatch({ type: PLAY_ANIMATION });
+    await sceneDeispatch({ type: PLAY_ANIMATION });
   };
 
   // // 스크롤 이벤트
@@ -109,7 +112,7 @@ const Index = ({ data, location }) => {
           <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
         </div>
         <div css={[secondSection]} ref={secondSectionRef} id="scroll-section-1">
-          <p css={[stickyElement]} className="static-section sticky-elem">
+          <p css={[stickyElement]} className="static-section">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
             architecto alias maiores dignissimos aut vero dolore hic eum
@@ -117,20 +120,32 @@ const Index = ({ data, location }) => {
           </p>
         </div>
         <div css={[secondSection]} ref={thirdSectionRef} id="scroll-section-2">
-          <p css={[stickyElement]} className="sticky-elem">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
-            architecto alias maiores dignissimos aut vero dolore hic eum
-            blanditiis odio autem corrupti.
-          </p>
+          <div css={[stickyElement]} className="sticky-elem main-message a">
+            <p>test1</p>
+          </div>
+          <div css={[stickyElement]} className="sticky-elem main-message b">
+            <p>test2</p>
+          </div>
+          <div css={[stickyElement]} className="sticky-elem main-message c">
+            <p>test3</p>
+          </div>
+          <div css={[stickyElement]} className="sticky-elem main-message d">
+            <p>test4</p>
+          </div>
         </div>
         <div css={[secondSection]} ref={forthSectionRef} id="scroll-section-3">
-          <p css={[stickyElement]} className="sticky-elem">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
-            architecto alias maiores dignissimos aut vero dolore hic eum
-            blanditiis odio autem corrupti.
-          </p>
+          <div css={[stickyElement]} className="sticky-elem main-message e">
+            <p>test5</p>
+          </div>
+          <div css={[stickyElement]} className="sticky-elem main-message f">
+            <p>test6</p>
+          </div>
+          <div css={[stickyElement]} className="sticky-elem main-message g">
+            <p>test7</p>
+          </div>
+          <div css={[stickyElement]} className="sticky-elem main-message h">
+            <p>test8</p>
+          </div>
         </div>
       </AppLayout.Main>
     </AppLayout>
@@ -142,15 +157,6 @@ const firstSection = css`
   height: 70vh;
 `;
 
-const secondSection = css`
-  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
-  background-size: cover;
-
-  .static-section {
-    position: static;
-  }
-`;
-
 const stickyElement = css`
   position: -webkit-sticky;
   font-size: 40px;
@@ -158,7 +164,18 @@ const stickyElement = css`
   margin: 0;
   position: sticky;
   top: 4px;
+  opactiy: 0;
   display: none;
+`;
+
+const secondSection = css`
+  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+  background-size: cover;
+
+  .static-section {
+    position: static;
+    display: block;
+  }
 `;
 
 export default Index;

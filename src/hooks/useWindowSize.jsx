@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { debounce } from 'lodash';
+import _ from 'lodash';
 
 export default function useWindowSize() {
   const isSSR = typeof window !== 'undefined';
@@ -8,7 +8,7 @@ export default function useWindowSize() {
     height: isSSR ? 800 : window.innerHeight,
   });
 
-  const changeWindowSize = debounce(() => {
+  const changeWindowSize = _.debounce(() => {
     setWindowSize({ width: window.innerWidth, height: window.innerHeight });
   }, 1000);
 
