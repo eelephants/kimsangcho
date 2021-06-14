@@ -169,15 +169,16 @@ const firstSection = css`
 const stickyCanvas = css`
   position: sticky;
   top: 0;
-  background: #ddd;
   height: 100vh;
-  width: 100%;
-  overflow: hidden;
+  canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
 `;
 
 const stickyElement = css`
   position: -webkit-sticky;
-
   margin: 0;
   position: sticky;
   top: 4px;
@@ -186,10 +187,15 @@ const stickyElement = css`
   display: none;
   font-size: 40px;
   padding: 150px;
+  color: #fff;
 `;
 
 const secondSection = css`
-  background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(51, 51, 51, 1) 47%
+  );
   background-size: cover;
   position: relative;
 

@@ -54,6 +54,7 @@ const initialInfo = {
       values: {
         videoImagesCount: 81,
         imageSequence: [0, 80],
+        canvas_opacity: [1, 0, { start: 0.9, end: 1 }],
         messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
         messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
         messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
@@ -225,6 +226,9 @@ const sceneReducer = (state, action) => {
         draft.totalScrollHeight = totalScrollHeight;
 
         document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
+
+        const heightRatio = window.innerHeight / 1080;
+        draft.sceneInfo[2].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
       });
 
     case SCROLL_LOOP:
@@ -284,23 +288,18 @@ const sceneReducer = (state, action) => {
             break;
 
           case 2:
-            // console.log(
-            //
-            // );
-            // const test = document.querySelector('#video-canvas-0');
-            // const contest = test.getContext('2d');
-            // objs.videoImages.map((itme) => console.log(itme));
-            console.log(
-              objs.videoImages[
-                round(calcValues(values.imageSequence, currentYoffset, draft))
-              ]
-            );
             objs.context.drawImage(
               objs.videoImages[
                 round(calcValues(values.imageSequence, currentYoffset, draft))
               ],
               0,
               0
+            );
+
+            objs.canvas.style.opacity = calcValues(
+              values.canvas_opacity,
+              currentYoffset,
+              draft
             );
             if (scrollRatio <= 0.22) {
               // in
