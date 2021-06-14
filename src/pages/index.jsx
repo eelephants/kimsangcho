@@ -90,6 +90,18 @@ const Index = ({ data, location }) => {
     setCanvasImage();
     setEachSectionHeight();
     setTotalScrollHeight();
+    setPortpolio();
+  };
+
+  const setPortpolio = () => {
+    const c = document.querySelector('#myCanvas');
+    const ctx = c.getContext('2d');
+    ctx.moveTo(0, 0);
+    ctx.lineTo(window.innerWidth / 2, 50);
+    ctx.lineTo(window.innerWidth / 2, window.innerWidth / 2 - 50);
+    ctx.lineTo(0, window.innerWidth / 2);
+    ctx.fillStyle = 'rgb(0,0,0,1)';
+    ctx.fill();
   };
 
   // // 스크롤 이벤트
@@ -130,7 +142,11 @@ const Index = ({ data, location }) => {
             <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
           </div>
           <div css={[stickyElement]} className="sticky-elem main-message a">
-            <p>test1</p>
+            <canvas
+              width={window.innerWidth / 2}
+              height={window.innerWidth / 2}
+              id="myCanvas"
+            ></canvas>
           </div>
           <div css={[stickyElement]} className="sticky-elem main-message b">
             <p>test2</p>
@@ -175,6 +191,9 @@ const stickyCanvas = css`
     top: 50%;
     left: 50%;
   }
+  #myCanvas {
+    border-radius: 15px;
+  }
 `;
 
 const stickyElement = css`
@@ -186,7 +205,7 @@ const stickyElement = css`
   opactiy: 0;
   display: none;
   font-size: 40px;
-  padding: 150px;
+  padding: 0 200px 200px 200px;
   color: #fff;
 `;
 
