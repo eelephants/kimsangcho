@@ -18,6 +18,7 @@ import {
   useSceneDispatch,
   useSceneState,
   PLAY_ANIMATION,
+  SET_CANVAS_IMAGE,
 } from '../store/sceneInfo';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
@@ -80,8 +81,13 @@ const Index = ({ data, location }) => {
     sceneDeispatch({ type: SET_TOTAL_SCROLL_HEIGHT });
   };
 
+  const setCanvasImage = () => {
+    sceneDeispatch({ type: SET_CANVAS_IMAGE });
+  };
+
   // 레이아웃 셋팅
   const setLayout = () => {
+    setCanvasImage();
     setEachSectionHeight();
     setTotalScrollHeight();
   };
@@ -120,6 +126,9 @@ const Index = ({ data, location }) => {
           </p>
         </div>
         <div css={[secondSection]} ref={thirdSectionRef} id="scroll-section-2">
+          <div css={[stickyCanvas]} className="sticky-elem-canvas">
+            <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
+          </div>
           <div css={[stickyElement]} className="sticky-elem main-message a">
             <p>test1</p>
           </div>
@@ -134,16 +143,16 @@ const Index = ({ data, location }) => {
           </div>
         </div>
         <div css={[secondSection]} ref={forthSectionRef} id="scroll-section-3">
-          <div css={[stickyElement]} className="sticky-elem main-message e">
+          <div css={[stickyElement]} className="sticky-elem main-message a">
             <p>test5</p>
           </div>
-          <div css={[stickyElement]} className="sticky-elem main-message f">
+          <div css={[stickyElement]} className="sticky-elem main-message b">
             <p>test6</p>
           </div>
-          <div css={[stickyElement]} className="sticky-elem main-message g">
+          <div css={[stickyElement]} className="sticky-elem main-message c">
             <p>test7</p>
           </div>
-          <div css={[stickyElement]} className="sticky-elem main-message h">
+          <div css={[stickyElement]} className="sticky-elem main-message d">
             <p>test8</p>
           </div>
         </div>
@@ -157,20 +166,32 @@ const firstSection = css`
   height: 70vh;
 `;
 
+const stickyCanvas = css`
+  position: sticky;
+  top: 0;
+  background: #ddd;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+`;
+
 const stickyElement = css`
   position: -webkit-sticky;
-  font-size: 40px;
-  padding: 150px;
+
   margin: 0;
   position: sticky;
   top: 4px;
+  left: 0;
   opactiy: 0;
   display: none;
+  font-size: 40px;
+  padding: 150px;
 `;
 
 const secondSection = css`
   background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
   background-size: cover;
+  position: relative;
 
   .static-section {
     position: static;
