@@ -1,6 +1,7 @@
 import { useReducer, createContext, useContext } from 'react';
 import produce from 'immer';
 import _ from 'lodash';
+import { round } from '../lib/utils/helper';
 
 export const SET_EACH_SECTION_HEIGHT = 'SET_EACH_SECTION_HEIGHT';
 export const SET_USE_REF = 'SET_USE_REF';
@@ -41,8 +42,29 @@ const initialInfo = {
       scrollHeight: 0,
       objs: {
         container: '',
+        messageA: '',
+        messageB: '',
+        messageC: '',
+        messageD: '',
       },
-      values: {},
+      values: {
+        messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
+        messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
+        messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
+        messageD_opacity_in: [0, 1, { start: 0.7, end: 0.8 }],
+        messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
+        messageB_translateY_in: [20, 0, { start: 0.3, end: 0.4 }],
+        messageC_translateY_in: [20, 0, { start: 0.5, end: 0.6 }],
+        messageD_translateY_in: [20, 0, { start: 0.7, end: 0.8 }],
+        messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
+        messageB_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
+        messageC_opacity_out: [1, 0, { start: 0.65, end: 0.7 }],
+        messageD_opacity_out: [1, 0, { start: 0.85, end: 0.9 }],
+        messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
+        messageB_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
+        messageC_translateY_out: [0, -20, { start: 0.65, end: 0.7 }],
+        messageD_translateY_out: [0, -20, { start: 0.85, end: 0.9 }],
+      },
     },
     {
       type: 'sticky',
@@ -50,6 +72,10 @@ const initialInfo = {
       scrollHeight: 0,
       objs: {
         container: '',
+        messageA: '',
+        messageB: '',
+        messageC: '',
+        messageD: '',
       },
       values: {},
     },
@@ -59,12 +85,77 @@ const initialInfo = {
 const SceneStateContext = createContext();
 const SceneDispatchContext = createContext();
 
+// 스크롤 값에 따라 opacity 계산하는 함수
+const calcValues = (values, currentYoffset, draft) => {
+  let rv = 0;
+  const scrollHeight = draft.sceneInfo[draft.currentScene].scrollHeight;
+  const scrollRatio = currentYoffset / scrollHeight;
+
+  if (values.length === 3) {
+    // 현재 Scene 안에 해당 구간이 있을 때
+    // start ~ end 사이 애니메이션 실행
+    const partScrollStart = values[2].start * scrollHeight;
+    const partScrollEnd = values[2].end * scrollHeight;
+    const parScrollHeight = partScrollEnd - partScrollStart;
+
+    if (currentYoffset >= partScrollStart && currentYoffset <= partScrollEnd) {
+      // 현재 Scene 안에 해당 구간이 있고, 구간 안에 들어와 있을 때
+      rv =
+        ((currentYoffset - partScrollStart) / parScrollHeight) *
+          (values[1] - values[0]) +
+        values[0];
+    } else if (currentYoffset < partScrollStart) {
+      // 현재 Scene 안에 해당 구간이 있고, 구간 에 들어오기 전
+      rv = values[0];
+    } else if (currentYoffset > partScrollEnd) {
+      // 현재 Scene 안에 해당 구간이 있고, 구간에 들어온 후
+      rv = values[1];
+    }
+  } else {
+    // 현재 Scene 안에 해당 구간이 없을 때
+    rv = scrollRatio * (values[1] - values[0]) + values[0];
+  }
+  return rv;
+};
+
+const applyStyle = (id, state, objs, values, currentYoffset, draft) => {
+  objs[id].style.opacity = calcValues(
+    values[`${id}_opacity_${state}`],
+    currentYoffset,
+    draft
+  );
+  objs[id].style.transform = `translate3d(0, ${calcValues(
+    values[`${id}_translateY_${state}`],
+    currentYoffset,
+    draft
+  )}%, 0)`;
+};
+
+const convert = {
+  0: 'A',
+  1: 'B',
+  2: 'C',
+  3: 'D',
+};
+
 const sceneReducer = (state, action) => {
   switch (action.type) {
     case SET_USE_REF:
       return produce(state, (draft) => {
         _.forEach(action.data, (item, index) => {
           draft.sceneInfo[index].objs.container = item;
+        });
+
+        _.forEach(draft.sceneInfo, (item, index) => {
+          if (index === 0 || index === 1) {
+            return;
+          }
+          _.forEach(
+            item.objs.container.current.querySelectorAll('.sticky-elem'),
+            (element, index) => {
+              item.objs[`message${convert[String(index)]}`] = element;
+            }
+          );
         });
       });
 
@@ -107,6 +198,8 @@ const sceneReducer = (state, action) => {
     case SCROLL_LOOP:
       return produce(state, (draft) => {
         draft.prevScrollHeight = 0;
+        draft.enterNewScene = false;
+
         for (let i = 0; i < draft.currentScene; i++) {
           draft.prevScrollHeight += draft.sceneInfo[i].scrollHeight;
         }
@@ -116,11 +209,14 @@ const sceneReducer = (state, action) => {
           draft.prevScrollHeight +
             draft.sceneInfo[draft.currentScene].scrollHeight
         ) {
+          draft.enterNewScene = true;
           draft.currentScene++;
           document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
         }
 
         if (window.pageYOffset < draft.prevScrollHeight) {
+          draft.enterNewScene = true;
+          // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
           if (draft.currentScene === 0) {
             draft.currentScene = 0;
             return;
@@ -129,42 +225,103 @@ const sceneReducer = (state, action) => {
           document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
         }
 
-        console.log(state.currentScene);
-
-        // if (
-        //   draft.delayedYOffset <
-        //   draft.prevScrollHeight +
-        //     draft.sceneInfo[draft.currentScene].scrollHeight
-        // ) {
-        //   document.body.classList.remove('scroll-effect-end');
-        // }
-
-        // if (
-        //   draft.delayedYOffset >
-        //   draft.prevScrollHeight +
-        //     draft.sceneInfo[draft.currentScene].scrollHeight
-        // ) {
-        //   draft.enterNewScene = true;
-        //   if (draft.currentScene === draft.sceneInfo.length - 1) {
-        //     document.body.classList.add('scroll-effect-end');
-        //   }
-        //   if (draft.currentScene < draft.sceneInfo.length - 1) {
-        //     draft.currentScene++;
-        //   }
-        //   document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
-        // }
-
-        // if (draft.delayedYOffset < draft.prevScrollHeight) {
-        //   draft.enterNewScene = true;
-        //   // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
-        //   if (draft.currentScene === 0) return;
-        //   draft.currentScene--;
-        //   document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
-        // }
+        // console.log(state);
       });
 
     case PLAY_ANIMATION:
-      return produce(state, (draft) => {});
+      return produce(state, (draft) => {
+        if (draft.enterNewScene) {
+          return;
+        }
+
+        const objs = draft.sceneInfo[draft.currentScene].objs;
+        const values = draft.sceneInfo[draft.currentScene].values;
+        const currentYoffset = round(
+          window.pageYOffset - draft.prevScrollHeight
+        );
+        const scrollHeight = draft.sceneInfo[draft.currentScene].scrollHeight;
+        const scrollRatio = currentYoffset / scrollHeight;
+
+        switch (draft.currentScene) {
+          case 0:
+            console.log('0 play');
+            break;
+
+          case 1:
+            console.log('1 play');
+            break;
+
+          case 2:
+            if (scrollRatio <= 0.22) {
+              // in
+              applyStyle('messageA', 'in', objs, values, currentYoffset, draft);
+            } else {
+              // out
+              applyStyle(
+                'messageA',
+                'out',
+                objs,
+                values,
+                currentYoffset,
+                draft
+              );
+            }
+
+            if (scrollRatio <= 0.42) {
+              // in
+              applyStyle('messageB', 'in', objs, values, currentYoffset, draft);
+            } else {
+              // out
+              applyStyle(
+                'messageB',
+                'out',
+                objs,
+                values,
+                currentYoffset,
+                draft
+              );
+            }
+
+            if (scrollRatio <= 0.62) {
+              // in
+              applyStyle('messageC', 'in', objs, values, currentYoffset, draft);
+            } else {
+              // out
+              applyStyle(
+                'messageC',
+                'out',
+                objs,
+                values,
+                currentYoffset,
+                draft
+              );
+            }
+
+            if (scrollRatio <= 0.82) {
+              // in
+              applyStyle('messageD', 'in', objs, values, currentYoffset, draft);
+            } else {
+              // out
+              applyStyle(
+                'messageD',
+                'out',
+                objs,
+                values,
+                currentYoffset,
+                draft
+              );
+            }
+
+            break;
+
+          case 3:
+            console.log('3 play');
+            break;
+
+          default:
+            break;
+        }
+      });
 
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
