@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
@@ -6,7 +6,11 @@ import Video from '../components/Video';
 import MainVideo from '../assets/video/main.mp4';
 import Dimmed from '../components/Dimmed';
 import BoxGeometry from '../components/BoxGeometry';
-
+import { StaticImage } from 'gatsby-plugin-image';
+import Portpolio1 from '../assets/portpolio1.jpg';
+import Portpolio2 from '../assets/portpolio2.png';
+import Portpolio3 from '../assets/portpolio3.png';
+import Portpolio4 from '../assets/portpolio4.png';
 import useWindowSize from '../hooks/useWindowSize';
 
 import {
@@ -38,6 +42,12 @@ const Index = ({ data, location }) => {
 
   const headerRef = useRef();
   const mainRef = useRef();
+  const [imageList, setImageList] = useState([
+    Portpolio1,
+    Portpolio2,
+    Portpolio3,
+    Portpolio4,
+  ]);
   const { width } = useWindowSize();
 
   const { sceneInfo, currentScene, yOffset, prevScrollHeight } =
@@ -90,18 +100,80 @@ const Index = ({ data, location }) => {
     setCanvasImage();
     setEachSectionHeight();
     setTotalScrollHeight();
-    setPortpolio();
+    setOriginalPortpolio();
+    setFlipPortpolio();
   };
 
-  const setPortpolio = () => {
-    const c = document.querySelector('#myCanvas');
-    const ctx = c.getContext('2d');
-    ctx.moveTo(0, 0);
-    ctx.lineTo(window.innerWidth / 2, 50);
-    ctx.lineTo(window.innerWidth / 2, window.innerWidth / 2 - 50);
-    ctx.lineTo(0, window.innerWidth / 2);
-    ctx.fillStyle = 'rgb(0,0,0,1)';
-    ctx.fill();
+  const covertRadian = (angle) => {
+    return (angle * Math.PI) / 180;
+  };
+
+  const setOriginalPortpolio = () => {
+    const original = document.querySelectorAll('.original');
+    Array.from(original).forEach((item, index) => {
+      const ctx = item.getContext('2d');
+      var cw = item.width;
+      var ch = item.height;
+
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(cw, 85);
+      ctx.lineTo(cw, cw - 85);
+      ctx.lineTo(0, cw);
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
+      ctx.stroke();
+      ctx.clip();
+
+      const imgElem = new Image();
+      imgElem.src = imageList[index];
+      imgElem.addEventListener('load', () => {
+        ctx.moveTo(0, 0);
+        ctx.drawImage(imgElem, 0, 0, cw, ch);
+      });
+
+      ctx.closePath();
+    });
+  };
+
+  const setFlipPortpolio = () => {
+    const flip = document.querySelectorAll('.flip');
+    Array.from(flip).forEach((item, index) => {
+      const original = document.querySelector('.original');
+      const ctx = item.getContext('2d');
+      var cw = item.width;
+      var ch = item.height;
+
+      item.style.top = `${original.height * 0.8}px`;
+
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(cw, 0);
+      ctx.lineTo(cw, ch - 85);
+      ctx.lineTo(0, ch);
+
+      ctx.clip();
+
+      const imgElem = new Image();
+      imgElem.src = imageList[index];
+      imgElem.addEventListener('load', () => {
+        ctx.setTransform(1, 0, 0, -1, 0, ch);
+        ctx.globalAlpha = 0.2;
+        ctx.drawImage(
+          imgElem,
+          0,
+          ch * 0.4,
+          imgElem.width,
+          imgElem.height,
+          0,
+          0,
+          cw,
+          ch
+        );
+      });
+
+      ctx.closePath();
+    });
   };
 
   // // 스크롤 이벤트
@@ -143,19 +215,55 @@ const Index = ({ data, location }) => {
           </div>
           <div css={[stickyElement]} className="sticky-elem main-message a">
             <canvas
-              width={window.innerWidth / 2}
-              height={window.innerWidth / 2}
-              id="myCanvas"
+              width={window.innerWidth / 2.5}
+              height={window.innerWidth / 2.5}
+              className="original"
+            ></canvas>
+            <canvas
+              className="flip"
+              alt=""
+              width={window.innerWidth / 2.5}
+              height={window.innerWidth / 7.5}
             ></canvas>
           </div>
           <div css={[stickyElement]} className="sticky-elem main-message b">
-            <p>test2</p>
+            <canvas
+              width={window.innerWidth / 2.5}
+              height={window.innerWidth / 2.5}
+              className="original"
+            ></canvas>
+            <canvas
+              className="flip"
+              alt=""
+              width={window.innerWidth / 2.5}
+              height={window.innerWidth / 7.5}
+            ></canvas>
           </div>
           <div css={[stickyElement]} className="sticky-elem main-message c">
-            <p>test3</p>
+            <canvas
+              width={window.innerWidth / 2.5}
+              height={window.innerWidth / 2.5}
+              className="original"
+            ></canvas>
+            <canvas
+              className="flip"
+              alt=""
+              width={window.innerWidth / 2.5}
+              height={window.innerWidth / 7.5}
+            ></canvas>
           </div>
           <div css={[stickyElement]} className="sticky-elem main-message d">
-            <p>test4</p>
+            <canvas
+              width={window.innerWidth / 2.5}
+              height={window.innerWidth / 2.5}
+              className="original"
+            ></canvas>
+            <canvas
+              className="flip"
+              alt=""
+              width={window.innerWidth / 2.5}
+              height={window.innerWidth / 7.5}
+            ></canvas>
           </div>
         </div>
         <div css={[secondSection]} ref={forthSectionRef} id="scroll-section-3">
@@ -191,22 +299,30 @@ const stickyCanvas = css`
     top: 50%;
     left: 50%;
   }
-  #myCanvas {
-    border-radius: 15px;
-  }
 `;
 
 const stickyElement = css`
-  position: -webkit-sticky;
   margin: 0;
-  position: sticky;
+  position: relative;
   top: 4px;
   left: 0;
   opactiy: 0;
   display: none;
   font-size: 40px;
   padding: 0 200px 200px 200px;
+  margin-bottom: 500px;
   color: #fff;
+  .original {
+    position: absolute;
+    z-index: 100;
+  }
+  .flip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 0 200px 200px 200px;
+  }
 `;
 
 const secondSection = css`
