@@ -15,7 +15,7 @@ const Static = ({ className }) => {
   );
 };
 
-const Canvas = ({ className }) => {
+const Canvas = ({ className, title, duration, type, desc, role, language }) => {
   return (
     <div css={[stickyElement]} className={className}>
       <canvas
@@ -31,32 +31,26 @@ const Canvas = ({ className }) => {
       ></canvas>
       <div className="description">
         <div className="first-desc">
-          <h1>body-class</h1>
-          <h3>August.2020 / Website</h3>
+          <h1>{title}</h1>
+          <h3>
+            {duration} / {type}
+          </h3>
           <div>
             <label>#Desc</label>
-            <span>
-              - Lorem ipsum dolor sit, ametLorem ipsum dolor sit, ametLorem
-              ipsum dolor sit, ametLorem ipsum dolor sit, amet
-            </span>
+            <span>- {desc}</span>
           </div>
           <div>
             <label>#Role</label>
-            <span>- Front-end</span>
+            <span>- {role}</span>
           </div>
         </div>
         <hr css={divideLine} />
         <div className="second-desc">
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
-          <div css={circle}>react</div>
+          {language.map((item, index) => (
+            <div key={index} css={circle}>
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     </div>

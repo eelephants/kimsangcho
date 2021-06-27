@@ -12,6 +12,7 @@ import Portpolio2 from '../assets/portpolio2.png';
 import Portpolio3 from '../assets/portpolio3.png';
 import Portpolio4 from '../assets/portpolio4.png';
 import useWindowSize from '../hooks/useWindowSize';
+import PortFolioSummary from '../../content/summary/portfolio.json';
 
 import {
   SCROLL_LOOP,
@@ -112,15 +113,15 @@ const Index = ({ data, location }) => {
 
   const setOriginalPortpolio = () => {
     const original = document.querySelectorAll('.original');
-    const description = document.querySelector('.description');
+    const description = document.querySelectorAll('.description');
     Array.from(original).forEach((item, index) => {
       const ctx = item.getContext('2d');
       var cw = item.width;
       var ch = item.height;
-      description.style.right = `${cw * 0.4}px`;
-      description.style.top = `${65}px`;
-      description.style.maxWidth = `${cw * 0.55}px`;
-      description.style.maxHeight = `${ch * 0.75}px`;
+      description[index].style.right = `${cw * 0.4}px`;
+      description[index].style.top = `${65}px`;
+      description[index].style.maxWidth = `${cw * 0.55}px`;
+      description[index].style.maxHeight = `${ch * 0.75}px`;
 
       ctx.beginPath();
       ctx.moveTo(0, 0);
@@ -215,13 +216,17 @@ const Index = ({ data, location }) => {
           <div css={[stickyCanvas]} className="sticky-elem-canvas">
             <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
           </div>
-          {[
-            'sticky-elem main-message a',
-            'sticky-elem main-message b',
-            'sticky-elem main-message c',
-            'sticky-elem main-message d',
-          ].map((item, index) => (
-            <Contents.Canvas key={index} className={item} />
+          {PortFolioSummary.data.map((item, index) => (
+            <Contents.Canvas
+              key={index}
+              className={item.className}
+              title={item.title}
+              duration={item.duration}
+              type={item.type}
+              desc={item.desc}
+              role={item.role}
+              language={item.language}
+            />
           ))}
         </WrappedContents>
         <div css={[secondSection]} ref={forthSectionRef} id="scroll-section-3">
