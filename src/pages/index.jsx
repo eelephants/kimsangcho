@@ -7,12 +7,10 @@ import MainVideo from '../assets/video/main.mp4';
 import Dimmed from '../components/Dimmed';
 import BoxGeometry from '../components/BoxGeometry';
 import { StaticImage } from 'gatsby-plugin-image';
-import Portpolio1 from '../assets/portpolio1.jpg';
-import Portpolio2 from '../assets/portpolio2.png';
-import Portpolio3 from '../assets/portpolio3.png';
-import Portpolio4 from '../assets/portpolio4.png';
+import Contents from '../components/Contents/Contents';
+import WrappedContents from '../components/Contents/wrapper/wrappedContents';
 import useWindowSize from '../hooks/useWindowSize';
-import PortFolioSummary from '../../content/summary/portfolio.json';
+import PortFolioSummary from '../../content/summary/portfolio.js';
 
 import {
   SCROLL_LOOP,
@@ -25,8 +23,6 @@ import {
   PLAY_ANIMATION,
   SET_CANVAS_IMAGE,
 } from '../store/sceneInfo';
-import Contents from '../components/Contents/Contents';
-import WrappedContents from '../components/Contents/wrapper/wrappedContents';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -45,12 +41,9 @@ const Index = ({ data, location }) => {
 
   const headerRef = useRef();
   const mainRef = useRef();
-  const [imageList, setImageList] = useState([
-    Portpolio1,
-    Portpolio2,
-    Portpolio3,
-    Portpolio4,
-  ]);
+  const [imageList, setImageList] = useState(
+    PortFolioSummary.data.map((item) => item.image)
+  );
   const { width } = useWindowSize();
 
   const { sceneInfo, currentScene, yOffset, prevScrollHeight } =
