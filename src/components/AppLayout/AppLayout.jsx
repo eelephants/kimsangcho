@@ -11,7 +11,6 @@ import { useSiteMetadata } from '../../hooks/useQuery';
 
 const AppLayout = ({ children }) => {
   const { title, description } = useSiteMetadata();
-
   return <div css={globalStyle}>{children}</div>;
 };
 

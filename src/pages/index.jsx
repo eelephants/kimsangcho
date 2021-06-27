@@ -24,6 +24,8 @@ import {
   PLAY_ANIMATION,
   SET_CANVAS_IMAGE,
 } from '../store/sceneInfo';
+import Contents from '../components/Contents/Contents';
+import WrappedContents from '../components/Contents/wrapper/wrappedContents';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -116,8 +118,9 @@ const Index = ({ data, location }) => {
       var cw = item.width;
       var ch = item.height;
       description.style.right = `${cw * 0.4}px`;
-      description.style.top = `${85}px`;
+      description.style.top = `${65}px`;
       description.style.maxWidth = `${cw * 0.55}px`;
+      description.style.maxHeight = `${ch * 0.75}px`;
 
       ctx.beginPath();
       ctx.moveTo(0, 0);
@@ -205,88 +208,22 @@ const Index = ({ data, location }) => {
           <Dimmed width="100%" height="70vh" opacity="0.5" />
           <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
         </div>
-        <div css={[secondSection]} ref={secondSectionRef} id="scroll-section-1">
-          <p css={[stickyElement]} className="static-section">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Repudiandae, impedit ducimus fuga iusto quam esse pariatur fugit
-            architecto alias maiores dignissimos aut vero dolore hic eum
-            blanditiis odio autem corrupti.
-          </p>
-        </div>
-        <div css={[secondSection]} ref={thirdSectionRef} id="scroll-section-2">
+        <WrappedContents ref={secondSectionRef} id="scroll-section-1">
+          <Contents.Static className="static-section" />
+        </WrappedContents>
+        <WrappedContents ref={thirdSectionRef} id="scroll-section-2">
           <div css={[stickyCanvas]} className="sticky-elem-canvas">
             <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
           </div>
-          <div css={[stickyElement]} className="sticky-elem main-message a">
-            <canvas
-              width={window.innerWidth / 2.5}
-              height={window.innerWidth / 2.5}
-              className="original"
-            ></canvas>
-            <canvas
-              className="flip"
-              alt=""
-              width={window.innerWidth / 2.5}
-              height={window.innerWidth / 7.5}
-            ></canvas>
-            <div className="description">
-              <h1>body-class</h1>
-              <h3>August.2020 / Website</h3>
-              <div>
-                <label>Desc:</label>
-                <span>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. At
-                  beatae earum delectus optio tempore accusamus nostrum esse
-                  sequi eaque quasi eligendi officiis animi facilis sit
-                  possimus, qui ut, praesentium ex.
-                </span>
-              </div>
-              <div>
-                <label>Role:</label>
-                <span>Front-end</span>
-              </div>
-            </div>
-          </div>
-          <div css={[stickyElement]} className="sticky-elem main-message b">
-            <canvas
-              width={window.innerWidth / 2.5}
-              height={window.innerWidth / 2.5}
-              className="original"
-            ></canvas>
-            <canvas
-              className="flip"
-              alt=""
-              width={window.innerWidth / 2.5}
-              height={window.innerWidth / 7.5}
-            ></canvas>
-          </div>
-          <div css={[stickyElement]} className="sticky-elem main-message c">
-            <canvas
-              width={window.innerWidth / 2.5}
-              height={window.innerWidth / 2.5}
-              className="original"
-            ></canvas>
-            <canvas
-              className="flip"
-              alt=""
-              width={window.innerWidth / 2.5}
-              height={window.innerWidth / 7.5}
-            ></canvas>
-          </div>
-          <div css={[stickyElement]} className="sticky-elem main-message d">
-            <canvas
-              width={window.innerWidth / 2.5}
-              height={window.innerWidth / 2.5}
-              className="original"
-            ></canvas>
-            <canvas
-              className="flip"
-              alt=""
-              width={window.innerWidth / 2.5}
-              height={window.innerWidth / 7.5}
-            ></canvas>
-          </div>
-        </div>
+          {[
+            'sticky-elem main-message a',
+            'sticky-elem main-message b',
+            'sticky-elem main-message c',
+            'sticky-elem main-message d',
+          ].map((item, index) => (
+            <Contents.Canvas key={index} className={item} />
+          ))}
+        </WrappedContents>
         <div css={[secondSection]} ref={forthSectionRef} id="scroll-section-3">
           <div css={[stickyElement]} className="sticky-elem main-message a">
             <p>test5</p>
@@ -346,30 +283,42 @@ const stickyElement = css`
   }
   .description {
     color: #fff;
-    letter-spacing: 4px;
-    & h1 {
-      font-size: 30px;
-      font-weight: bold;
-      text-transform: upperCase;
-    }
-    & h3 {
-      font-size: 19px;
-      font-weight: 700;
-      color: #ddd;
-      padding: 10px 0 10px 0;
-    }
-    & div {
-      margin: 5px 0;
-      padding: 0;
-      font-size: 17px;
-      font-weight: 500;
+    overflow: overlay;
+    .first-desc {
+      height: 50%;
+      letter-spacing: 3px;
+      & h1 {
+        font-size: 1.7rem;
+        font-weight: bold;
+        text-transform: upperCase;
+      }
+      & h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #ddd;
+        padding: 10px 0 10px 0;
+      }
+      & div {
+        margin: 20px 0;
+        padding: 0;
+        font-size: 1rem;
+        font-weight: 500;
 
-      span {
-        display: inline-block;
-        margin-left: 30px;
-        text-transform: lowercase;
+        span {
+          display: block;
+          text-transform: lowercase;
+        }
       }
     }
+
+    .second-desc {
+      height: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      min-heigth: 10px;
+      over-flow: hidden;
+    }
+
     position: absolute;
     right: 0;
     top: 0;
@@ -384,7 +333,6 @@ const secondSection = css`
   );
   background-size: cover;
   position: relative;
-
   .static-section {
     position: static;
     display: block;
