@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
@@ -19,7 +19,6 @@ import {
   SET_TOTAL_SCROLL_HEIGHT,
   SET_USE_REF,
   useSceneDispatch,
-  useSceneState,
   PLAY_ANIMATION,
   SET_CANVAS_IMAGE,
 } from '../store/sceneInfo';
@@ -46,8 +45,6 @@ const Index = ({ data, location }) => {
   );
   const { width } = useWindowSize();
 
-  const { sceneInfo, currentScene, yOffset, prevScrollHeight } =
-    useSceneState();
   const sceneDeispatch = useSceneDispatch();
 
   useEffect(() => {

@@ -1,5 +1,16 @@
-import React, { forwardRef } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import Button from '../Button';
+import { StaticImage } from 'gatsby-plugin-image';
+import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
+
+const ArrowGoBackIcon = styled(ArrowGoBack)`
+  color: #bfbbbb;
+  width: 80%;
+  height: auto;
+`;
+
 const Contents = () => {
   return <div></div>;
 };
@@ -16,9 +27,38 @@ const Static = ({ className }) => {
 };
 
 const Canvas = ({ className, title, duration, type, desc, role, language }) => {
+  const [isShow, setIsShow] = useState(false);
+
+  const onMouseLeaveFromCanvas = useCallback(() => {
+    setIsShow(false);
+  }, [isShow]);
+
+  const onMouseEnterFromCanvas = useCallback(() => {
+    setIsShow(true);
+  }, [isShow]);
+
+  const onClickGoBack = useCallback(() => {
+    console.log('dddd');
+  }, []);
+
   return (
     <div css={[stickyElement]} className={className}>
+      <Button
+        circle
+        backGroundcolor="black"
+        opacity="0.8"
+        absolute
+        center
+        isShow={isShow}
+        onMouseEnter={onMouseEnterFromCanvas}
+        onClick={onClickGoBack}
+      >
+        <ArrowGoBackIcon />
+      </Button>
+
       <canvas
+        onMouseEnter={onMouseEnterFromCanvas}
+        onMouseLeave={onMouseLeaveFromCanvas}
         width={window.innerWidth / 2.5}
         height={window.innerWidth / 2.5}
         className="original"
@@ -59,17 +99,6 @@ const Canvas = ({ className, title, duration, type, desc, role, language }) => {
 
 Contents.Static = Static;
 Contents.Canvas = Canvas;
-
-const stickyCanvas = css`
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  canvas {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-  }
-`;
 
 const stickyElement = css`
   margin: 0;
@@ -161,6 +190,7 @@ const circle = css`
   padding: 5px;
   margin: 0.2rem;
   text-transform: uppercase;
+  box-shadow: 1px 1px 1px 1px #000000;
 `;
 
 export default Contents;

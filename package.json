@@ -43,6 +43,7 @@
   "devDependencies": {
     "@fontsource/barlow": "^4.4.1",
     "@fontsource/open-sans": "^4.4.0",
+    "emotion-icons": "^3.15.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
