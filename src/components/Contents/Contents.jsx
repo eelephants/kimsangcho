@@ -48,7 +48,39 @@ const Canvas = ({ className, title, duration, type, desc, role, language }) => {
         backGroundcolor="black"
         opacity="0.8"
         absolute
-        center
+        top={window.innerWidth / 2.5 / 2}
+        left={(window.innerWidth / 2.5 + 200) / 2}
+        transform="translate(80%, -80%)"
+        isShow={isShow}
+        onMouseEnter={onMouseEnterFromCanvas}
+        onClick={onClickGoBack}
+      >
+        <ArrowGoBackIcon />
+      </Button>
+      <Button
+        circle
+        small
+        backGroundcolor="black"
+        opacity="0.8"
+        absolute
+        top={window.innerWidth / 2.5 / 2}
+        left="200"
+        transform="translate(0%, -80%)"
+        isShow={isShow}
+        onMouseEnter={onMouseEnterFromCanvas}
+        onClick={onClickGoBack}
+      >
+        <ArrowGoBackIcon />
+      </Button>
+      <Button
+        circle
+        small
+        backGroundcolor="black"
+        opacity="0.8"
+        absolute
+        top={window.innerWidth / 2.5 / 2}
+        left={window.innerWidth / 2.5 + 200 - 70}
+        transform="translate(0%, -80%)"
         isShow={isShow}
         onMouseEnter={onMouseEnterFromCanvas}
         onClick={onClickGoBack}
