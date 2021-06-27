@@ -110,10 +110,14 @@ const Index = ({ data, location }) => {
 
   const setOriginalPortpolio = () => {
     const original = document.querySelectorAll('.original');
+    const description = document.querySelector('.description');
     Array.from(original).forEach((item, index) => {
       const ctx = item.getContext('2d');
       var cw = item.width;
       var ch = item.height;
+      description.style.right = `${cw * 0.4}px`;
+      description.style.top = `${85}px`;
+      description.style.maxWidth = `${cw * 0.55}px`;
 
       ctx.beginPath();
       ctx.moveTo(0, 0);
@@ -138,8 +142,8 @@ const Index = ({ data, location }) => {
 
   const setFlipPortpolio = () => {
     const flip = document.querySelectorAll('.flip');
+    const original = document.querySelector('.original');
     Array.from(flip).forEach((item, index) => {
-      const original = document.querySelector('.original');
       const ctx = item.getContext('2d');
       var cw = item.width;
       var ch = item.height;
@@ -225,6 +229,23 @@ const Index = ({ data, location }) => {
               width={window.innerWidth / 2.5}
               height={window.innerWidth / 7.5}
             ></canvas>
+            <div className="description">
+              <h1>body-class</h1>
+              <h3>August.2020 / Website</h3>
+              <div>
+                <label>Desc:</label>
+                <span>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. At
+                  beatae earum delectus optio tempore accusamus nostrum esse
+                  sequi eaque quasi eligendi officiis animi facilis sit
+                  possimus, qui ut, praesentium ex.
+                </span>
+              </div>
+              <div>
+                <label>Role:</label>
+                <span>Front-end</span>
+              </div>
+            </div>
           </div>
           <div css={[stickyElement]} className="sticky-elem main-message b">
             <canvas
@@ -322,6 +343,36 @@ const stickyElement = css`
     left: 0;
     bottom: 0;
     padding: 0 200px 200px 200px;
+  }
+  .description {
+    color: #fff;
+    letter-spacing: 4px;
+    & h1 {
+      font-size: 30px;
+      font-weight: bold;
+      text-transform: upperCase;
+    }
+    & h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: #ddd;
+      padding: 10px 0 10px 0;
+    }
+    & div {
+      margin: 5px 0;
+      padding: 0;
+      font-size: 17px;
+      font-weight: 500;
+
+      span {
+        display: inline-block;
+        margin-left: 30px;
+        text-transform: lowercase;
+      }
+    }
+    position: absolute;
+    right: 0;
+    top: 0;
   }
 `;
 
