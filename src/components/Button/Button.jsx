@@ -48,7 +48,7 @@ const Button = ({
         whileHover={{
           transition: { duration: 1 },
           rotate: 360,
-          translateX: 50,
+          translateX: 70,
         }}
         css={css`
           border-radius: ${circle ? '50%' : 0};
