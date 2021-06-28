@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+
 import Button from '../Button';
 import { StaticImage } from 'gatsby-plugin-image';
 import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
@@ -79,7 +80,7 @@ const Canvas = ({ className, title, duration, type, desc, role, language }) => {
         opacity="0.8"
         absolute
         top={window.innerWidth / 2.5 / 2}
-        left={window.innerWidth / 2.5 + 200 - 70}
+        left={window.innerWidth / 2.5 + 200 - 50}
         transform="translate(0%, -80%)"
         isShow={isShow}
         onMouseEnter={onMouseEnterFromCanvas}

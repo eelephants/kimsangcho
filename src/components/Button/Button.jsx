@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { motion } from 'framer-motion';
 
 const Button = ({
   circle,
@@ -12,29 +13,43 @@ const Button = ({
   isShow,
   transform,
   children,
+
   ...rest
 }) => {
   let width = '80px';
   let height = '34px';
 
+  if (circle) {
+    if (small) {
+      width = '50px';
+      height = '50px';
+    } else {
+      width = '70px';
+      height = '70px';
+    }
+  }
+
   return (
     <div
       css={css`
         display: ${isShow ? 'block' : 'none'};
-        width: ${circle ? '70px' : '80px'};
-        height: ${circle ? '70px' : '34px'};
+        width: ${width};
+        height: ${height};
         font-size: 1rem;
         position: ${absolute ? 'absolute' : 'static'};
         z-index: ${absolute ? 500 : 0};
         top: ${top ? top : 0}px;
         left: ${left ? left : 0}px;
         transform: ${transform};
-        width: ${small && '50px'}
-        height: ${small && '50px'}
       `}
     >
-      <button
+      <motion.button
         {...rest}
+        whileHover={{
+          transition: { duration: 1 },
+          rotate: 360,
+          translateX: 50,
+        }}
         css={css`
           border-radius: ${circle ? '50%' : 0};
           width: 100%;
@@ -46,7 +61,7 @@ const Button = ({
         `}
       >
         {children}
-      </button>
+      </motion.button>
     </div>
   );
 };
