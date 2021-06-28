@@ -13,7 +13,7 @@ const Button = ({
   isShow,
   transform,
   children,
-
+  rotate,
   ...rest
 }) => {
   let width = '80px';
@@ -47,8 +47,7 @@ const Button = ({
         {...rest}
         whileHover={{
           transition: { duration: 1 },
-          rotate: 360,
-          translateX: 70,
+          rotate: rotate ? 360 : 0,
         }}
         css={css`
           border-radius: ${circle ? '50%' : 0};
@@ -57,7 +56,7 @@ const Button = ({
           cursor: pointer;
           border: none;
           opacity: ${opacity};
-          backgroundcolor: ${backGroundcolor};
+          background-color: ${backGroundcolor};
         `}
       >
         {children}
