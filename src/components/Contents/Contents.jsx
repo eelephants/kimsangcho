@@ -5,6 +5,27 @@ import styled from '@emotion/styled';
 import Button from '../Button';
 import { StaticImage } from 'gatsby-plugin-image';
 import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
+import { ArrowLeftCircle } from '@emotion-icons/remix-fill/ArrowLeftCircle';
+import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
+import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
+
+const CloseOutlineIcon = styled(CloseOutline)`
+  color: #bfbbbb;
+  width: 50%;
+  height: auto;
+`;
+
+const ArrowBackCircleIcon = styled(ArrowLeftCircle)`
+  color: #bfbbbb;
+  width: 80%;
+  height: auto;
+`;
+
+const RightArrowCircleIcon = styled(ArrowRightCircle)`
+  color: #bfbbbb;
+  width: 80%;
+  height: auto;
+`;
 
 const ArrowGoBackIcon = styled(ArrowGoBack)`
   color: #bfbbbb;
@@ -29,6 +50,7 @@ const Static = ({ className }) => {
 
 const Canvas = ({ className, title, duration, type, desc, role, language }) => {
   const [isShow, setIsShow] = useState(false);
+  const [isSideShow, setIsSideShow] = useState(false);
 
   const onMouseLeaveFromCanvas = useCallback(() => {
     setIsShow(false);
@@ -39,12 +61,23 @@ const Canvas = ({ className, title, duration, type, desc, role, language }) => {
   }, [isShow]);
 
   const onClickGoBack = useCallback(() => {
-    console.log('dddd');
-  }, []);
+    setIsSideShow(true);
+    setIsShow(false);
+  }, [isSideShow, isShow]);
+
+  const onClickPrev = useCallback(() => {}, []);
+
+  const onClickNext = useCallback(() => {}, []);
+
+  const onClickInit = useCallback(() => {
+    setIsSideShow(false);
+    setIsShow(true);
+  }, [isSideShow, isShow]);
 
   return (
     <div css={[stickyElement]} className={className}>
       <Button
+        rotate
         circle
         backGroundcolor="black"
         opacity="0.8"
@@ -53,45 +86,67 @@ const Canvas = ({ className, title, duration, type, desc, role, language }) => {
         left={(window.innerWidth / 2.5 + 200) / 2}
         transform="translate(80%, -80%)"
         isShow={isShow}
-        onMouseEnter={onMouseEnterFromCanvas}
+        onMouseEnter={() => {
+          !isSideShow ? onMouseEnterFromCanvas() : null;
+        }}
         onClick={onClickGoBack}
       >
         <ArrowGoBackIcon />
       </Button>
       <Button
-        circle
         small
-        backGroundcolor="black"
-        opacity="0.8"
+        backGroundcolor="transparent"
         absolute
         top={window.innerWidth / 2.5 / 2}
-        left="200"
+        left="185"
         transform="translate(0%, -80%)"
-        isShow={isShow}
-        onMouseEnter={onMouseEnterFromCanvas}
-        onClick={onClickGoBack}
+        isShow={isSideShow}
+        onMouseEnter={() => {
+          !isSideShow ? onMouseEnterFromCanvas() : null;
+        }}
+        onClick={onClickPrev}
       >
-        <ArrowGoBackIcon />
+        <ArrowBackCircleIcon />
       </Button>
       <Button
-        circle
         small
-        backGroundcolor="black"
-        opacity="0.8"
+        backGroundcolor="transparent"
         absolute
         top={window.innerWidth / 2.5 / 2}
-        left={window.innerWidth / 2.5 + 200 - 50}
+        left={window.innerWidth / 2.5 + 200 - 65}
         transform="translate(0%, -80%)"
-        isShow={isShow}
-        onMouseEnter={onMouseEnterFromCanvas}
-        onClick={onClickGoBack}
+        isShow={isSideShow}
+        onMouseEnter={() => {
+          !isSideShow ? onMouseEnterFromCanvas() : null;
+        }}
+        onClick={onClickNext}
       >
-        <ArrowGoBackIcon />
+        <RightArrowCircleIcon />
+      </Button>
+
+      <Button
+        small
+        backGroundcolor="transparent"
+        absolute
+        top={30}
+        left={window.innerWidth / 2.5 + 200 - 65}
+        transform="translate(0%, -80%)"
+        isShow={isSideShow}
+        onMouseEnter={() => {
+          !isSideShow ? onMouseEnterFromCanvas() : null;
+        }}
+        onClick={onClickInit}
+      >
+        <CloseOutlineIcon />
       </Button>
 
       <canvas
-        onMouseEnter={onMouseEnterFromCanvas}
-        onMouseLeave={onMouseLeaveFromCanvas}
+        onMouseEnter={() => {
+          !isSideShow ? onMouseEnterFromCanvas() : null;
+        }}
+        onMouseLeave={() => {
+          !isSideShow ? onMouseLeaveFromCanvas() : null;
+        }}
         width={window.innerWidth / 2.5}
         height={window.innerWidth / 2.5}
         className="original"
