@@ -6,6 +6,7 @@ import Portpolio4 from '../../src/assets/Portpolio4.png';
 const Portfolio = {
   data: [
     {
+      id: 'portpolioA',
       image: Portpolio1,
       className: 'sticky-elem main-message a',
       title: 'body-class',
@@ -16,6 +17,7 @@ const Portfolio = {
       language: ['react', 'scss'],
     },
     {
+      id: 'portpolioB',
       image: Portpolio2,
       className: 'sticky-elem main-message b',
       title: 'body-class',
@@ -26,6 +28,7 @@ const Portfolio = {
       language: ['react', 'scss'],
     },
     {
+      id: 'portpolioC',
       image: Portpolio3,
       className: 'sticky-elem main-message c',
       title: 'body-class',
@@ -36,6 +39,7 @@ const Portfolio = {
       language: ['react', 'scss'],
     },
     {
+      id: 'portpolioD',
       image: Portpolio4,
       className: 'sticky-elem main-message d',
       title: 'body-class',

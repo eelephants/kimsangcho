@@ -48,30 +48,46 @@ const Static = ({ className }) => {
   );
 };
 
-const Canvas = ({ className, title, duration, type, desc, role, language }) => {
-  const [isShow, setIsShow] = useState(false);
-  const [isSideShow, setIsSideShow] = useState(false);
-
+const Canvas = ({
+  id,
+  className,
+  title,
+  duration,
+  type,
+  desc,
+  role,
+  language,
+  onMouseLeave,
+  onMouseEnter,
+  handleGoBack,
+  handlePrev,
+  handleNext,
+  handleInit,
+  isShow,
+  isSideShow,
+}) => {
   const onMouseLeaveFromCanvas = useCallback(() => {
-    setIsShow(false);
+    onMouseLeave();
   }, [isShow]);
 
   const onMouseEnterFromCanvas = useCallback(() => {
-    setIsShow(true);
+    onMouseEnter();
   }, [isShow]);
 
   const onClickGoBack = useCallback(() => {
-    setIsSideShow(true);
-    setIsShow(false);
+    handleGoBack(id);
   }, [isSideShow, isShow]);
 
-  const onClickPrev = useCallback(() => {}, []);
+  const onClickPrev = useCallback(() => {
+    handlePrev();
+  }, []);
 
-  const onClickNext = useCallback(() => {}, []);
+  const onClickNext = useCallback(() => {
+    handleNext();
+  }, []);
 
   const onClickInit = useCallback(() => {
-    setIsSideShow(false);
-    setIsShow(true);
+    handleInit();
   }, [isSideShow, isShow]);
 
   return (
@@ -139,8 +155,8 @@ const Canvas = ({ className, title, duration, type, desc, role, language }) => {
       >
         <CloseOutlineIcon />
       </Button>
-
       <canvas
+        id={id}
         onMouseEnter={() => {
           !isSideShow ? onMouseEnterFromCanvas() : null;
         }}

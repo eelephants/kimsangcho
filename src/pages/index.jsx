@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
@@ -40,12 +40,15 @@ const Index = ({ data, location }) => {
 
   const headerRef = useRef();
   const mainRef = useRef();
+  const { width } = useWindowSize();
+  const sceneDeispatch = useSceneDispatch();
+
   const [imageList, setImageList] = useState(
     PortFolioSummary.data.map((item) => item.image)
   );
-  const { width } = useWindowSize();
 
-  const sceneDeispatch = useSceneDispatch();
+  const [isShow, setIsShow] = useState(false);
+  const [isSideShow, setIsSideShow] = useState(false);
 
   useEffect(() => {
     // load
@@ -185,6 +188,48 @@ const Index = ({ data, location }) => {
     await scrollLoop();
   };
 
+  const onMouseLeaveFromCanvas = useCallback(() => {
+    setIsShow(false);
+  }, [isShow]);
+
+  const onMouseEnterFromCanvas = useCallback(() => {
+    setIsShow(true);
+  }, [isShow]);
+
+  const turnToFront = (id) => {
+    const item = document.querySelector(`#${id}`);
+    const ctx = item.getContext('2d');
+    var cw = item.width;
+    var ch = item.height;
+    // TODO
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(cw, 0);
+    ctx.lineTo(cw, ch);
+    ctx.lineTo(0, ch);
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
+    ctx.stroke();
+  };
+
+  const onClickGoBack = useCallback(
+    (id) => {
+      setIsSideShow(true);
+      setIsShow(false);
+      turnToFront(id);
+    },
+    [isSideShow, isShow]
+  );
+
+  const onClickPrev = useCallback(() => {}, []);
+
+  const onClickNext = useCallback(() => {}, []);
+
+  const onClickInit = useCallback(() => {
+    setIsSideShow(false);
+    setIsShow(true);
+  }, [isSideShow, isShow]);
+
   return (
     <AppLayout>
       <AppLayout.Header location={location} ref={headerRef} />
@@ -209,6 +254,7 @@ const Index = ({ data, location }) => {
           {PortFolioSummary.data.map((item, index) => (
             <Contents.Canvas
               key={index}
+              id={item.id}
               className={item.className}
               title={item.title}
               duration={item.duration}
@@ -216,6 +262,14 @@ const Index = ({ data, location }) => {
               desc={item.desc}
               role={item.role}
               language={item.language}
+              onMouseLeave={onMouseLeaveFromCanvas}
+              onMouseEnter={onMouseEnterFromCanvas}
+              handleGoBack={onClickGoBack}
+              handlePrev={onClickPrev}
+              handleNext={onClickNext}
+              handleInit={onClickInit}
+              isShow={isShow}
+              isSideShow={isSideShow}
             />
           ))}
         </WrappedContents>
