@@ -91,7 +91,7 @@ const Canvas = ({
   }, [isSideShow, isShow]);
 
   return (
-    <div css={[stickyElement]} className={className}>
+    <div css={[stickyElement]} className={className} id={id}>
       <Button
         rotate
         circle
@@ -156,7 +156,6 @@ const Canvas = ({
         <CloseOutlineIcon />
       </Button>
       <canvas
-        id={id}
         onMouseEnter={() => {
           !isSideShow ? onMouseEnterFromCanvas() : null;
         }}
@@ -169,6 +168,23 @@ const Canvas = ({
       ></canvas>
       <canvas
         className="flip"
+        alt=""
+        width={window.innerWidth / 2.5}
+        height={window.innerWidth / 7.5}
+      ></canvas>
+      <canvas
+        onMouseEnter={() => {
+          !isSideShow ? onMouseEnterFromCanvas() : null;
+        }}
+        onMouseLeave={() => {
+          !isSideShow ? onMouseLeaveFromCanvas() : null;
+        }}
+        width={window.innerWidth / 2.5}
+        height={window.innerWidth / 2.5}
+        className="original-hide"
+      ></canvas>
+      <canvas
+        className="flip-hide"
         alt=""
         width={window.innerWidth / 2.5}
         height={window.innerWidth / 7.5}
@@ -225,6 +241,12 @@ const stickyElement = css`
     left: 0;
     bottom: 0;
     padding: 0 200px 200px 200px;
+  }
+  .original-hide {
+    display: none;
+  }
+  .flip-hide {
+    display: none;
   }
   .description {
     color: #fff;
