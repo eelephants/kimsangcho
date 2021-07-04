@@ -166,10 +166,6 @@ const Index = ({ data, location }) => {
     [portPolioData]
   );
 
-  const onClickPrev = useCallback(() => {}, []);
-
-  const onClickNext = useCallback(() => {}, []);
-
   const onClickInit = useCallback(
     (id) => {
       portpolioDeispatch({ type: ON_CLICK_INIT_ICON, data: id });
@@ -224,8 +220,6 @@ const Index = ({ data, location }) => {
               onMouseLeave={onMouseLeaveFromCanvas}
               onMouseEnter={onMouseEnterFromCanvas}
               handleGoBack={onClickGoBack}
-              handlePrev={onClickPrev}
-              handleNext={onClickNext}
               handleInit={onClickInit}
               isShow={item.isShow}
               isSideShow={item.isSideShow}

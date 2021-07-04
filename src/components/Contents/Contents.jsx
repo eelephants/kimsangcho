@@ -69,8 +69,6 @@ const Canvas = ({
   onMouseLeave,
   onMouseEnter,
   handleGoBack,
-  handlePrev,
-  handleNext,
   handleInit,
   isShow,
   isSideShow,
@@ -89,14 +87,6 @@ const Canvas = ({
   const onClickGoBack = useCallback(() => {
     handleGoBack(id);
   }, [isSideShow, isShow]);
-
-  const onClickPrev = useCallback(() => {
-    handlePrev();
-  }, []);
-
-  const onClickNext = useCallback((e) => {
-    handleNext();
-  }, []);
 
   const onClickInit = useCallback(() => {
     handleInit(id);
@@ -146,7 +136,6 @@ const Canvas = ({
         onMouseEnter={() => {
           !isSideShow ? onMouseEnterFromCanvas() : null;
         }}
-        onClick={onClickPrev}
         ref={navigationPrevRef}
       >
         <ArrowBackCircleIcon />
@@ -162,7 +151,6 @@ const Canvas = ({
         onMouseEnter={() => {
           !isSideShow ? onMouseEnterFromCanvas() : null;
         }}
-        onClick={onClickNext}
         ref={navigationNextRef}
       >
         <RightArrowCircleIcon />
