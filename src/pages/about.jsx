@@ -1,12 +1,22 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import AppLayout from '../components/AppLayout/AppLayout';
+import { mq } from '../lib/utils/helper';
 
 const About = ({ data, location }) => {
   console.log(data);
   return (
     <AppLayout>
-      <AppLayout.Side location={location}></AppLayout.Side>
+      <div
+        css={{
+          [mq('small')]: {
+            background: 'gray',
+          },
+          [mq('large')]: {
+            background: 'hotpink',
+          },
+        }}
+      ></div>
     </AppLayout>
   );
 };
