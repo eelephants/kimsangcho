@@ -87,7 +87,7 @@ const Canvas = ({
   }, []);
 
   const onClickInit = useCallback(() => {
-    handleInit();
+    handleInit(id);
   }, [isSideShow, isShow]);
 
   return (

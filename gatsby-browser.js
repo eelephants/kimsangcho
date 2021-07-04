@@ -5,7 +5,12 @@ import 'normalize.css';
 import './src/lib/styles/global.css';
 import React from 'react';
 import { SceneProvider } from './src/store/sceneInfo';
+import { PortpolioProvider } from './src/store/portpolioInfo';
 
 export const wrapRootElement = ({ element }) => {
-  return <SceneProvider>{element}</SceneProvider>;
+  return (
+    <SceneProvider>
+      <PortpolioProvider>{element}</PortpolioProvider>
+    </SceneProvider>
+  );
 };
