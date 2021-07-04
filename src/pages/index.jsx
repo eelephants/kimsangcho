@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { graphql } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
@@ -53,13 +53,11 @@ const Index = ({ data, location }) => {
 
   const headerRef = useRef();
   const mainRef = useRef();
+
   const { width } = useWindowSize();
   const sceneDeispatch = useSceneDispatch();
   const portpolioDeispatch = usePortpolioDispatch();
   const { portPolioData } = usePortpolioState();
-
-  const [isShow, setIsShow] = useState(false);
-  const [isSideShow, setIsSideShow] = useState(false);
 
   useEffect(() => {
     // load
@@ -117,12 +115,12 @@ const Index = ({ data, location }) => {
 
   const setOriginalPortpolio = () => {
     portpolioDeispatch({ type: SET_ORIGINAL_PORTPOLIO });
-    portpolioDeispatch({ type: SET_ORIGINAL_HIDE_PORTPOLIO });
+    // portpolioDeispatch({ type: SET_ORIGINAL_HIDE_PORTPOLIO });
   };
 
   const setFlipPortpolio = () => {
     portpolioDeispatch({ type: SET_FLIP_PORTPOLIO });
-    portpolioDeispatch({ type: SET_FLIP_HIDE_PORTPOLIO });
+    // portpolioDeispatch({ type: SET_FLIP_HIDE_PORTPOLIO });
   };
 
   // // 스크롤 이벤트
@@ -221,6 +219,7 @@ const Index = ({ data, location }) => {
               type={item.type}
               desc={item.desc}
               role={item.role}
+              images={item.images}
               language={item.language}
               onMouseLeave={onMouseLeaveFromCanvas}
               onMouseEnter={onMouseEnterFromCanvas}

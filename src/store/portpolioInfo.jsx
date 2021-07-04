@@ -22,7 +22,13 @@ const initialInfo = {
   portPolioData: [
     {
       id: 'portpolioA',
-      image: Portpolio1,
+      imageThumnail: Portpolio1,
+      images: [
+        { src: Portpolio1, name: 'portpolio1' },
+        { src: Portpolio2, name: 'portpolio1' },
+        { src: Portpolio3, name: 'portpolio1' },
+        { src: Portpolio4, name: 'portpolio1' },
+      ],
       className: 'sticky-elem main-message a',
       title: 'body-class',
       duration: 'August.2020 ',
@@ -35,7 +41,13 @@ const initialInfo = {
     },
     {
       id: 'portpolioB',
-      image: Portpolio2,
+      imageThumnail: Portpolio2,
+      images: [
+        { src: Portpolio2, name: 'portpolio2' },
+        { src: Portpolio1, name: 'portpolio2' },
+        { src: Portpolio3, name: 'portpolio2' },
+        { src: Portpolio4, name: 'portpolio2' },
+      ],
       className: 'sticky-elem main-message b',
       title: 'body-class',
       duration: 'August.2020 ',
@@ -48,7 +60,13 @@ const initialInfo = {
     },
     {
       id: 'portpolioC',
-      image: Portpolio3,
+      imageThumnail: Portpolio3,
+      images: [
+        { src: Portpolio3, name: 'portpolio3' },
+        { src: Portpolio1, name: 'portpolio3' },
+        { src: Portpolio2, name: 'portpolio3' },
+        { src: Portpolio3, name: 'portpolio3' },
+      ],
       className: 'sticky-elem main-message c',
       title: 'body-class',
       duration: 'August.2020 ',
@@ -61,7 +79,13 @@ const initialInfo = {
     },
     {
       id: 'portpolioD',
-      image: Portpolio4,
+      imageThumnail: Portpolio4,
+      images: [
+        { src: Portpolio4, name: 'portpolio4' },
+        { src: Portpolio1, name: 'portpolio4' },
+        { src: Portpolio2, name: 'portpolio4' },
+        { src: Portpolio3, name: 'portpolio4' },
+      ],
       className: 'sticky-elem main-message d',
       title: 'body-class',
       duration: 'August.2020 ',
@@ -104,7 +128,9 @@ const portpoioReducer = (state, action) => {
           ctx.clip();
 
           const imgElem = new Image();
-          imgElem.src = draft.portPolioData.map((item) => item.image)[index];
+          imgElem.src = draft.portPolioData.map((item) => item.imageThumnail)[
+            index
+          ];
           imgElem.addEventListener('load', () => {
             ctx.moveTo(0, 0);
             ctx.drawImage(imgElem, 0, 0, cw, ch);
@@ -132,7 +158,9 @@ const portpoioReducer = (state, action) => {
           ctx.clip();
 
           const imgElem = new Image();
-          imgElem.src = draft.portPolioData.map((item) => item.image)[index];
+          imgElem.src = draft.portPolioData.map((item) => item.imageThumnail)[
+            index
+          ];
           imgElem.addEventListener('load', () => {
             ctx.moveTo(0, 0);
             ctx.drawImage(imgElem, 0, 0, cw, ch);
@@ -162,7 +190,9 @@ const portpoioReducer = (state, action) => {
           ctx.clip();
 
           const imgElem = new Image();
-          imgElem.src = draft.portPolioData.map((item) => item.image)[index];
+          imgElem.src = draft.portPolioData.map((item) => item.imageThumnail)[
+            index
+          ];
           imgElem.addEventListener('load', () => {
             ctx.setTransform(1, 0, 0, -1, 0, ch);
             ctx.globalAlpha = 0.2;
@@ -270,15 +300,20 @@ const portpoioReducer = (state, action) => {
 
         const itemWrapper = document.querySelector(`#${id}`);
         const itemOriginal = document.querySelector(`#${id} .original`);
-        const itemFront = document.querySelector(`#${id} .original-hide`);
         const itemFlip = document.querySelector(`#${id} .flip`);
-        const itemFlipHide = document.querySelector(`#${id} .flip-hide`);
+        const itemFronts = document.querySelectorAll(`#${id} .original-hide`);
+        const itemFlipHides = document.querySelectorAll(`#${id} .flip-hide`);
 
         itemOriginal.style.display = itemOriginalStyle;
         itemFlip.style.display = itemFlipStyle;
-        itemFront.style.display = itemFrontStyle;
-        itemFlipHide.style.display = itemFlipHideStyle;
         itemWrapper.style.marginBottom = itemWrapperStyle;
+
+        Array.from(itemFronts).forEach(
+          (item) => (item.style.display = itemFrontStyle)
+        );
+        Array.from(itemFlipHides).forEach(
+          (item) => (item.style.display = itemFlipHideStyle)
+        );
       });
 
     default:
