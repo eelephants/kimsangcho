@@ -23,6 +23,8 @@ import {
 } from '../store/sceneInfo';
 
 import {
+  SET_FLIP_HIDE_PORTPOLIO,
+  SET_FLIP_PORTPOLIO,
   SET_ORIGINAL_HIDE_PORTPOLIO,
   SET_ORIGINAL_PORTPOLIO,
   usePortpolioDispatch,
@@ -115,138 +117,11 @@ const Index = ({ data, location }) => {
   const setOriginalPortpolio = () => {
     portpolioDeispatch({ type: SET_ORIGINAL_PORTPOLIO });
     portpolioDeispatch({ type: SET_ORIGINAL_HIDE_PORTPOLIO });
-    // const original = document.querySelectorAll('.original');
-    // const originalHide = document.querySelectorAll('.original-hide');
-    // const description = document.querySelectorAll('.description');
-    // Array.from(original).forEach((item, index) => {
-    //   const ctx = item.getContext('2d');
-    //   var cw = item.width;
-    //   var ch = item.height;
-    //   description[index].style.right = `${cw * 0.4}px`;
-    //   description[index].style.top = `${65}px`;
-    //   description[index].style.maxWidth = `${cw * 0.55}px`;
-    //   description[index].style.maxHeight = `${ch * 0.75}px`;
-
-    //   ctx.beginPath();
-    //   ctx.moveTo(0, 0);
-    //   ctx.lineTo(cw, 85);
-    //   ctx.lineTo(cw, cw - 85);
-    //   ctx.lineTo(0, cw);
-    //   ctx.lineWidth = 5;
-    //   ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
-    //   ctx.stroke();
-    //   ctx.clip();
-
-    //   const imgElem = new Image();
-    //   imgElem.src = imageList[index];
-    //   imgElem.addEventListener('load', () => {
-    //     ctx.moveTo(0, 0);
-    //     ctx.drawImage(imgElem, 0, 0, cw, ch);
-    //   });
-
-    //   ctx.closePath();
-    // });
-
-    // Array.from(originalHide).forEach((item, index) => {
-    //   const ctx = item.getContext('2d');
-    //   var cw = item.width;
-    //   var ch = item.height;
-    //   ctx.beginPath();
-    //   ctx.moveTo(0, 0);
-    //   ctx.lineTo(cw, 0);
-    //   ctx.lineTo(cw, cw);
-    //   ctx.lineTo(0, cw);
-    //   ctx.lineWidth = 5;
-    //   ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
-    //   ctx.stroke();
-    //   ctx.clip();
-
-    //   const imgElem = new Image();
-    //   imgElem.src = imageList[index];
-    //   imgElem.addEventListener('load', () => {
-    //     ctx.moveTo(0, 0);
-    //     ctx.drawImage(imgElem, 0, 0, cw, ch);
-    //   });
-
-    //   ctx.closePath();
-    // });
   };
 
   const setFlipPortpolio = () => {
-    const flip = document.querySelectorAll('.flip');
-    const flipHide = document.querySelectorAll('.flip-hide');
-    const original = document.querySelector('.original');
-    Array.from(flip).forEach((item, index) => {
-      const ctx = item.getContext('2d');
-      var cw = item.width;
-      var ch = item.height;
-
-      item.style.top = `${original.height * 0.8}px`;
-
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(cw, 0);
-      ctx.lineTo(cw, ch - 85);
-      ctx.lineTo(0, ch);
-
-      ctx.clip();
-
-      const imgElem = new Image();
-      imgElem.src = imageList[index];
-      imgElem.addEventListener('load', () => {
-        ctx.setTransform(1, 0, 0, -1, 0, ch);
-        ctx.globalAlpha = 0.2;
-        ctx.drawImage(
-          imgElem,
-          0,
-          ch * 0.4,
-          imgElem.width,
-          imgElem.height,
-          0,
-          0,
-          cw,
-          ch
-        );
-      });
-
-      ctx.closePath();
-    });
-
-    Array.from(flipHide).forEach((item, index) => {
-      const ctx = item.getContext('2d');
-      var cw = item.width;
-      var ch = item.height;
-
-      item.style.top = `${original.height * 0.8}px`;
-
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(cw, 0);
-      ctx.lineTo(cw, ch);
-      ctx.lineTo(0, ch);
-
-      ctx.clip();
-
-      const imgElem = new Image();
-      imgElem.src = imageList[index];
-      imgElem.addEventListener('load', () => {
-        ctx.setTransform(1, 0, 0, -1, 0, ch);
-        ctx.globalAlpha = 0.2;
-        ctx.drawImage(
-          imgElem,
-          0,
-          ch * 0.4,
-          imgElem.width,
-          imgElem.height,
-          0,
-          0,
-          cw,
-          ch
-        );
-      });
-
-      ctx.closePath();
-    });
+    portpolioDeispatch({ type: SET_FLIP_PORTPOLIO });
+    portpolioDeispatch({ type: SET_FLIP_HIDE_PORTPOLIO });
   };
 
   // // 스크롤 이벤트

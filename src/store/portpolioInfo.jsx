@@ -10,6 +10,8 @@ import Portpolio4 from '../../src/assets/Portpolio4.png';
 
 export const SET_ORIGINAL_PORTPOLIO = 'SET_ORIGINAL_PORTPOLIO';
 export const SET_ORIGINAL_HIDE_PORTPOLIO = 'SET_ORIGINAL_HIDE_PORTPOLIO';
+export const SET_FLIP_PORTPOLIO = 'SET_FLIP_PORTPOLIO';
+export const SET_FLIP_HIDE_PORTPOLIO = 'SET_FLIP_HIDE_PORTPOLIO';
 export const SET_PAGE_YOFFSET = 'SET_PAGE_YOFFSET';
 export const SET_TOTAL_SCROLL_HEIGHT = 'SET_TOTAL_SCROLL_HEIGHT';
 export const SCROLL_LOOP = 'SCROLL_LOOP';
@@ -134,6 +136,87 @@ const portpoioReducer = (state, action) => {
           imgElem.addEventListener('load', () => {
             ctx.moveTo(0, 0);
             ctx.drawImage(imgElem, 0, 0, cw, ch);
+          });
+
+          ctx.closePath();
+        });
+      });
+
+    case SET_FLIP_PORTPOLIO:
+      return produce(state, (draft) => {
+        const flip = document.querySelectorAll('.flip');
+        const original = document.querySelector('.original');
+        Array.from(flip).forEach((item, index) => {
+          const ctx = item.getContext('2d');
+          var cw = item.width;
+          var ch = item.height;
+
+          item.style.top = `${original.height * 0.8}px`;
+
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(cw, 0);
+          ctx.lineTo(cw, ch - 85);
+          ctx.lineTo(0, ch);
+
+          ctx.clip();
+
+          const imgElem = new Image();
+          imgElem.src = draft.portPolioData.map((item) => item.image)[index];
+          imgElem.addEventListener('load', () => {
+            ctx.setTransform(1, 0, 0, -1, 0, ch);
+            ctx.globalAlpha = 0.2;
+            ctx.drawImage(
+              imgElem,
+              0,
+              ch * 0.4,
+              imgElem.width,
+              imgElem.height,
+              0,
+              0,
+              cw,
+              ch
+            );
+          });
+
+          ctx.closePath();
+        });
+      });
+    case SET_FLIP_HIDE_PORTPOLIO:
+      return produce(state, (draft) => {
+        const flipHide = document.querySelectorAll('.flip-hide');
+        const original = document.querySelector('.original');
+        Array.from(flipHide).forEach((item, index) => {
+          const ctx = item.getContext('2d');
+          var cw = item.width;
+          var ch = item.height;
+
+          item.style.top = `${original.height * 0.8}px`;
+
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(cw, 0);
+          ctx.lineTo(cw, ch);
+          ctx.lineTo(0, ch);
+
+          ctx.clip();
+
+          const imgElem = new Image();
+          imgElem.src = draft.portPolioData.map((item) => item.image)[index];
+          imgElem.addEventListener('load', () => {
+            ctx.setTransform(1, 0, 0, -1, 0, ch);
+            ctx.globalAlpha = 0.2;
+            ctx.drawImage(
+              imgElem,
+              0,
+              ch * 0.4,
+              imgElem.width,
+              imgElem.height,
+              0,
+              0,
+              cw,
+              ch
+            );
           });
 
           ctx.closePath();
