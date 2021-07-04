@@ -1,13 +1,21 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-
+import { motion } from 'framer-motion';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { EffectFade, Navigation, Pagination } from 'swiper/core';
+import 'swiper/swiper.min.css';
+import 'swiper/components/effect-fade/effect-fade.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 import Button from '../Button';
 import { StaticImage } from 'gatsby-plugin-image';
 import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
 import { ArrowLeftCircle } from '@emotion-icons/remix-fill/ArrowLeftCircle';
 import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
 import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
+
+SwiperCore.use([EffectFade, Navigation, Pagination]);
 
 const CloseOutlineIcon = styled(CloseOutline)`
   color: #bfbbbb;
@@ -56,6 +64,7 @@ const Canvas = ({
   type,
   desc,
   role,
+  images,
   language,
   onMouseLeave,
   onMouseEnter,
@@ -66,12 +75,15 @@ const Canvas = ({
   isShow,
   isSideShow,
 }) => {
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+
   const onMouseLeaveFromCanvas = useCallback(() => {
-    onMouseLeave();
+    onMouseLeave(id);
   }, [isShow]);
 
   const onMouseEnterFromCanvas = useCallback(() => {
-    onMouseEnter();
+    onMouseEnter(id);
   }, [isShow]);
 
   const onClickGoBack = useCallback(() => {
@@ -82,7 +94,7 @@ const Canvas = ({
     handlePrev();
   }, []);
 
-  const onClickNext = useCallback(() => {
+  const onClickNext = useCallback((e) => {
     handleNext();
   }, []);
 
@@ -90,8 +102,22 @@ const Canvas = ({
     handleInit(id);
   }, [isSideShow, isShow]);
 
+  const variants = {
+    rotate: {
+      skew: [0, 50, 0],
+      transition: { duration: 0.5 },
+    },
+    stop: { y: [0, -20, 0], transition: { repeat: Infinity, repeatDelay: 3 } },
+  };
+
   return (
-    <div css={[stickyElement]} className={className} id={id}>
+    <motion.div
+      css={[stickyElement]}
+      className={className}
+      id={id}
+      variants={variants}
+      animate={isSideShow ? 'rotate' : 'stop'}
+    >
       <Button
         rotate
         circle
@@ -121,6 +147,7 @@ const Canvas = ({
           !isSideShow ? onMouseEnterFromCanvas() : null;
         }}
         onClick={onClickPrev}
+        ref={navigationPrevRef}
       >
         <ArrowBackCircleIcon />
       </Button>
@@ -136,6 +163,7 @@ const Canvas = ({
           !isSideShow ? onMouseEnterFromCanvas() : null;
         }}
         onClick={onClickNext}
+        ref={navigationNextRef}
       >
         <RightArrowCircleIcon />
       </Button>
@@ -172,23 +200,57 @@ const Canvas = ({
         width={window.innerWidth / 2.5}
         height={window.innerWidth / 7.5}
       ></canvas>
-      <canvas
-        onMouseEnter={() => {
-          !isSideShow ? onMouseEnterFromCanvas() : null;
+      <Swiper
+        spaceBetween={1}
+        effect={'fade'}
+        nav
+        navigation={{
+          prevEl: navigationPrevRef.current,
+          nextEl: navigationNextRef.current,
         }}
-        onMouseLeave={() => {
-          !isSideShow ? onMouseLeaveFromCanvas() : null;
+        onSwiper={(swiper) => {
+          // Delay execution for the refs to be defined
+          setTimeout(() => {
+            // Override prevEl & nextEl now that refs are defined
+            swiper.params.navigation.prevEl = navigationPrevRef.current;
+            swiper.params.navigation.nextEl = navigationNextRef.current;
+
+            // Re-init navigation
+            swiper.navigation.destroy();
+            swiper.navigation.init();
+            swiper.navigation.update();
+          });
         }}
-        width={window.innerWidth / 2.5}
-        height={window.innerWidth / 2.5}
-        className="original-hide"
-      ></canvas>
-      <canvas
-        className="flip-hide"
-        alt=""
-        width={window.innerWidth / 2.5}
-        height={window.innerWidth / 7.5}
-      ></canvas>
+      >
+        {images.map((item) => (
+          <SwiperSlide>
+            <div
+              className="original-hide"
+              onMouseEnter={() => {
+                !isSideShow ? onMouseEnterFromCanvas() : null;
+              }}
+              onMouseLeave={() => {
+                !isSideShow ? onMouseLeaveFromCanvas() : null;
+              }}
+              css={{
+                width: window.innerWidth / 2.5,
+                height: window.innerWidth / 2.5,
+              }}
+            >
+              <img src={item.src} css={{ width: '100%' }} />
+            </div>
+            <div
+              className="flip-hide"
+              css={{
+                width: window.innerWidth / 2.5,
+                height: window.innerWidth / 9.5,
+              }}
+            >
+              <img src={item.src} css={{ width: '100%', opacity: 0.5 }} />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
       <div className="description">
         <div className="first-desc">
           <h1>{title}</h1>
@@ -213,7 +275,7 @@ const Canvas = ({
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -247,6 +309,11 @@ const stickyElement = css`
   }
   .flip-hide {
     display: none;
+  }
+  button {
+    svg:hover {
+      color: deeppink;
+    }
   }
   .description {
     color: #fff;
