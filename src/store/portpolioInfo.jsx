@@ -12,11 +12,11 @@ export const SET_ORIGINAL_PORTPOLIO = 'SET_ORIGINAL_PORTPOLIO';
 export const SET_ORIGINAL_HIDE_PORTPOLIO = 'SET_ORIGINAL_HIDE_PORTPOLIO';
 export const SET_FLIP_PORTPOLIO = 'SET_FLIP_PORTPOLIO';
 export const SET_FLIP_HIDE_PORTPOLIO = 'SET_FLIP_HIDE_PORTPOLIO';
-export const SET_PAGE_YOFFSET = 'SET_PAGE_YOFFSET';
-export const SET_TOTAL_SCROLL_HEIGHT = 'SET_TOTAL_SCROLL_HEIGHT';
-export const SCROLL_LOOP = 'SCROLL_LOOP';
-export const PLAY_ANIMATION = 'PLAY_ANIMATION';
-export const SET_CANVAS_IMAGE = 'SET_CANVAS_IMAGE';
+export const ON_MOUSE_ENTER_TO_PORTPOLIO = 'ON_MOUSE_ENTER_TO_PORTPOLIO';
+export const ON_MOUSE_LEAVE_FROM_PORTPOLIO = 'ON_MOUSE_LEAVE_FROM_PORTPOLIO';
+export const ON_CLICK_GOBACK_ICON = 'ON_CLICK_GOBACK_ICON';
+export const ON_CLICK_INIT_ICON = 'ON_CLICK_INIT_ICON';
+export const SET_CONTENTS_STYLE = 'SET_CONTENTS_STYLE';
 
 const initialInfo = {
   portPolioData: [
@@ -221,6 +221,64 @@ const portpoioReducer = (state, action) => {
 
           ctx.closePath();
         });
+      });
+
+    case ON_MOUSE_ENTER_TO_PORTPOLIO:
+      return produce(state, (draft) => {
+        const index = draft.portPolioData.findIndex(
+          (item) => item.id === action.data
+        );
+        draft.portPolioData[index].isShow = true;
+      });
+
+    case ON_MOUSE_LEAVE_FROM_PORTPOLIO:
+      return produce(state, (draft) => {
+        const index = draft.portPolioData.findIndex(
+          (item) => item.id === action.data
+        );
+        draft.portPolioData[index].isShow = false;
+      });
+
+    case ON_CLICK_GOBACK_ICON:
+      return produce(state, (draft) => {
+        const index = draft.portPolioData.findIndex(
+          (item) => item.id === action.data
+        );
+        draft.portPolioData[index].isShow = false;
+        draft.portPolioData[index].isSideShow = true;
+      });
+
+    case ON_CLICK_INIT_ICON:
+      return produce(state, (draft) => {
+        const index = draft.portPolioData.findIndex(
+          (item) => item.id === action.data
+        );
+        draft.portPolioData[index].isShow = true;
+        draft.portPolioData[index].isSideShow = false;
+      });
+
+    case SET_CONTENTS_STYLE:
+      return produce(state, (draft) => {
+        const {
+          id,
+          itemOriginalStyle,
+          itemFlipStyle,
+          itemFrontStyle,
+          itemFlipHideStyle,
+          itemWrapperStyle,
+        } = action.data;
+
+        const itemWrapper = document.querySelector(`#${id}`);
+        const itemOriginal = document.querySelector(`#${id} .original`);
+        const itemFront = document.querySelector(`#${id} .original-hide`);
+        const itemFlip = document.querySelector(`#${id} .flip`);
+        const itemFlipHide = document.querySelector(`#${id} .flip-hide`);
+
+        itemOriginal.style.display = itemOriginalStyle;
+        itemFlip.style.display = itemFlipStyle;
+        itemFront.style.display = itemFrontStyle;
+        itemFlipHide.style.display = itemFlipHideStyle;
+        itemWrapper.style.marginBottom = itemWrapperStyle;
       });
 
     default:

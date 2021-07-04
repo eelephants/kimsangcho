@@ -67,11 +67,11 @@ const Canvas = ({
   isSideShow,
 }) => {
   const onMouseLeaveFromCanvas = useCallback(() => {
-    onMouseLeave();
+    onMouseLeave(id);
   }, [isShow]);
 
   const onMouseEnterFromCanvas = useCallback(() => {
-    onMouseEnter();
+    onMouseEnter(id);
   }, [isShow]);
 
   const onClickGoBack = useCallback(() => {

@@ -23,6 +23,11 @@ import {
 } from '../store/sceneInfo';
 
 import {
+  ON_CLICK_GOBACK_ICON,
+  ON_CLICK_INIT_ICON,
+  ON_MOUSE_ENTER_TO_PORTPOLIO,
+  ON_MOUSE_LEAVE_FROM_PORTPOLIO,
+  SET_CONTENTS_STYLE,
   SET_FLIP_HIDE_PORTPOLIO,
   SET_FLIP_PORTPOLIO,
   SET_ORIGINAL_HIDE_PORTPOLIO,
@@ -52,10 +57,6 @@ const Index = ({ data, location }) => {
   const sceneDeispatch = useSceneDispatch();
   const portpolioDeispatch = usePortpolioDispatch();
   const { portPolioData } = usePortpolioState();
-
-  const [imageList, setImageList] = useState(
-    portPolioData.map((item) => item.image)
-  );
 
   const [isShow, setIsShow] = useState(false);
   const [isSideShow, setIsSideShow] = useState(false);
@@ -135,49 +136,36 @@ const Index = ({ data, location }) => {
     await scrollLoop();
   };
 
-  const onMouseLeaveFromCanvas = useCallback(() => {
-    setIsShow(false);
-  }, [isShow]);
+  const onMouseLeaveFromCanvas = useCallback(
+    (id) => {
+      portpolioDeispatch({ type: ON_MOUSE_LEAVE_FROM_PORTPOLIO, data: id });
+    },
+    [portPolioData]
+  );
 
-  const onMouseEnterFromCanvas = useCallback(() => {
-    setIsShow(true);
-  }, [isShow]);
-
-  const applyContentsStyle = (id, options) => {
-    const {
-      itemOriginalStyle,
-      itemFlipStyle,
-      itemFrontStyle,
-      itemFlipHideStyle,
-      itemWrapperStyle,
-    } = options;
-    const itemWrapper = document.querySelector(`#${id}`);
-    const itemOriginal = document.querySelector(`#${id} .original`);
-    const itemFront = document.querySelector(`#${id} .original-hide`);
-    const itemFlip = document.querySelector(`#${id} .flip`);
-    const itemFlipHide = document.querySelector(`#${id} .flip-hide`);
-
-    itemOriginal.style.display = itemOriginalStyle;
-    itemFlip.style.display = itemFlipStyle;
-    itemFront.style.display = itemFrontStyle;
-    itemFlipHide.style.display = itemFlipHideStyle;
-    itemWrapper.style.marginBottom = itemWrapperStyle;
-  };
+  const onMouseEnterFromCanvas = useCallback(
+    (id) => {
+      portpolioDeispatch({ type: ON_MOUSE_ENTER_TO_PORTPOLIO, data: id });
+    },
+    [portPolioData]
+  );
 
   const onClickGoBack = useCallback(
     (id) => {
-      setIsSideShow(true);
-      setIsShow(false);
-      const index = portPolioData.findIndex((item) => item.id === id);
-      applyContentsStyle(id, {
-        itemOriginalStyle: 'none',
-        itemFlipStyle: 'none',
-        itemFrontStyle: 'block',
-        itemFlipHideStyle: 'block',
-        itemWrapperStyle: '0px',
+      portpolioDeispatch({ type: ON_CLICK_GOBACK_ICON, data: id });
+      portpolioDeispatch({
+        type: SET_CONTENTS_STYLE,
+        data: {
+          id,
+          itemOriginalStyle: 'none',
+          itemFlipStyle: 'none',
+          itemFrontStyle: 'block',
+          itemFlipHideStyle: 'block',
+          itemWrapperStyle: '-200px',
+        },
       });
     },
-    [isSideShow, isShow]
+    [portPolioData]
   );
 
   const onClickPrev = useCallback(() => {}, []);
@@ -186,17 +174,20 @@ const Index = ({ data, location }) => {
 
   const onClickInit = useCallback(
     (id) => {
-      setIsSideShow(false);
-      setIsShow(true);
-      applyContentsStyle(id, {
-        itemOriginalStyle: 'block',
-        itemFlipStyle: 'block',
-        itemFrontStyle: 'none',
-        itemFlipHideStyle: 'none',
-        itemWrapperStyle: '500px',
+      portpolioDeispatch({ type: ON_CLICK_INIT_ICON, data: id });
+      portpolioDeispatch({
+        type: SET_CONTENTS_STYLE,
+        data: {
+          id,
+          itemOriginalStyle: 'block',
+          itemFlipStyle: 'block',
+          itemFrontStyle: 'none',
+          itemFlipHideStyle: 'none',
+          itemWrapperStyle: '500px',
+        },
       });
     },
-    [isSideShow, isShow]
+    [portPolioData]
   );
 
   return (
