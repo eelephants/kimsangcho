@@ -15,6 +15,8 @@ const Portfolio = {
       desc: 'Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit, ametLorem ipsum dolor sit, amet',
       role: 'Front-end',
       language: ['react', 'scss'],
+      isShow: false,
+      isSideShow: false,
     },
     {
       id: 'portpolioB',
@@ -26,6 +28,8 @@ const Portfolio = {
       desc: 'Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit, ametLorem ipsum dolor sit, amet',
       role: 'Front-end',
       language: ['react', 'scss'],
+      isShow: false,
+      isSideShow: false,
     },
     {
       id: 'portpolioC',
@@ -37,6 +41,8 @@ const Portfolio = {
       desc: 'Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit, ametLorem ipsum dolor sit, amet',
       role: 'Front-end',
       language: ['react', 'scss'],
+      isShow: false,
+      isSideShow: false,
     },
     {
       id: 'portpolioD',
@@ -48,6 +54,8 @@ const Portfolio = {
       desc: 'Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit, ametLorem ipsum dolor sit, amet',
       role: 'Front-end',
       language: ['react', 'scss'],
+      isShow: false,
+      isSideShow: false,
     },
   ],
 };

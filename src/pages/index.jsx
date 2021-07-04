@@ -10,7 +10,6 @@ import { StaticImage } from 'gatsby-plugin-image';
 import Contents from '../components/Contents/Contents';
 import WrappedContents from '../components/Contents/wrapper/wrappedContents';
 import useWindowSize from '../hooks/useWindowSize';
-import PortFolioSummary from '../../content/summary/portfolio.js';
 
 import {
   SCROLL_LOOP,
@@ -22,6 +21,13 @@ import {
   PLAY_ANIMATION,
   SET_CANVAS_IMAGE,
 } from '../store/sceneInfo';
+
+import {
+  SET_ORIGINAL_HIDE_PORTPOLIO,
+  SET_ORIGINAL_PORTPOLIO,
+  usePortpolioDispatch,
+  usePortpolioState,
+} from '../store/portpolioInfo';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -42,9 +48,11 @@ const Index = ({ data, location }) => {
   const mainRef = useRef();
   const { width } = useWindowSize();
   const sceneDeispatch = useSceneDispatch();
+  const portpolioDeispatch = usePortpolioDispatch();
+  const { portPolioData } = usePortpolioState();
 
   const [imageList, setImageList] = useState(
-    PortFolioSummary.data.map((item) => item.image)
+    portPolioData.map((item) => item.image)
   );
 
   const [isShow, setIsShow] = useState(false);
@@ -105,61 +113,63 @@ const Index = ({ data, location }) => {
   };
 
   const setOriginalPortpolio = () => {
-    const original = document.querySelectorAll('.original');
-    const originalHide = document.querySelectorAll('.original-hide');
-    const description = document.querySelectorAll('.description');
-    Array.from(original).forEach((item, index) => {
-      const ctx = item.getContext('2d');
-      var cw = item.width;
-      var ch = item.height;
-      description[index].style.right = `${cw * 0.4}px`;
-      description[index].style.top = `${65}px`;
-      description[index].style.maxWidth = `${cw * 0.55}px`;
-      description[index].style.maxHeight = `${ch * 0.75}px`;
+    portpolioDeispatch({ type: SET_ORIGINAL_PORTPOLIO });
+    portpolioDeispatch({ type: SET_ORIGINAL_HIDE_PORTPOLIO });
+    // const original = document.querySelectorAll('.original');
+    // const originalHide = document.querySelectorAll('.original-hide');
+    // const description = document.querySelectorAll('.description');
+    // Array.from(original).forEach((item, index) => {
+    //   const ctx = item.getContext('2d');
+    //   var cw = item.width;
+    //   var ch = item.height;
+    //   description[index].style.right = `${cw * 0.4}px`;
+    //   description[index].style.top = `${65}px`;
+    //   description[index].style.maxWidth = `${cw * 0.55}px`;
+    //   description[index].style.maxHeight = `${ch * 0.75}px`;
 
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(cw, 85);
-      ctx.lineTo(cw, cw - 85);
-      ctx.lineTo(0, cw);
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
-      ctx.stroke();
-      ctx.clip();
+    //   ctx.beginPath();
+    //   ctx.moveTo(0, 0);
+    //   ctx.lineTo(cw, 85);
+    //   ctx.lineTo(cw, cw - 85);
+    //   ctx.lineTo(0, cw);
+    //   ctx.lineWidth = 5;
+    //   ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
+    //   ctx.stroke();
+    //   ctx.clip();
 
-      const imgElem = new Image();
-      imgElem.src = imageList[index];
-      imgElem.addEventListener('load', () => {
-        ctx.moveTo(0, 0);
-        ctx.drawImage(imgElem, 0, 0, cw, ch);
-      });
+    //   const imgElem = new Image();
+    //   imgElem.src = imageList[index];
+    //   imgElem.addEventListener('load', () => {
+    //     ctx.moveTo(0, 0);
+    //     ctx.drawImage(imgElem, 0, 0, cw, ch);
+    //   });
 
-      ctx.closePath();
-    });
+    //   ctx.closePath();
+    // });
 
-    Array.from(originalHide).forEach((item, index) => {
-      const ctx = item.getContext('2d');
-      var cw = item.width;
-      var ch = item.height;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(cw, 0);
-      ctx.lineTo(cw, cw);
-      ctx.lineTo(0, cw);
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
-      ctx.stroke();
-      ctx.clip();
+    // Array.from(originalHide).forEach((item, index) => {
+    //   const ctx = item.getContext('2d');
+    //   var cw = item.width;
+    //   var ch = item.height;
+    //   ctx.beginPath();
+    //   ctx.moveTo(0, 0);
+    //   ctx.lineTo(cw, 0);
+    //   ctx.lineTo(cw, cw);
+    //   ctx.lineTo(0, cw);
+    //   ctx.lineWidth = 5;
+    //   ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
+    //   ctx.stroke();
+    //   ctx.clip();
 
-      const imgElem = new Image();
-      imgElem.src = imageList[index];
-      imgElem.addEventListener('load', () => {
-        ctx.moveTo(0, 0);
-        ctx.drawImage(imgElem, 0, 0, cw, ch);
-      });
+    //   const imgElem = new Image();
+    //   imgElem.src = imageList[index];
+    //   imgElem.addEventListener('load', () => {
+    //     ctx.moveTo(0, 0);
+    //     ctx.drawImage(imgElem, 0, 0, cw, ch);
+    //   });
 
-      ctx.closePath();
-    });
+    //   ctx.closePath();
+    // });
   };
 
   const setFlipPortpolio = () => {
@@ -258,25 +268,39 @@ const Index = ({ data, location }) => {
     setIsShow(true);
   }, [isShow]);
 
-  const turnToFront = (id) => {
+  const applyContentsStyle = (id, options) => {
+    const {
+      itemOriginalStyle,
+      itemFlipStyle,
+      itemFrontStyle,
+      itemFlipHideStyle,
+      itemWrapperStyle,
+    } = options;
     const itemWrapper = document.querySelector(`#${id}`);
     const itemOriginal = document.querySelector(`#${id} .original`);
     const itemFront = document.querySelector(`#${id} .original-hide`);
     const itemFlip = document.querySelector(`#${id} .flip`);
-
     const itemFlipHide = document.querySelector(`#${id} .flip-hide`);
-    itemOriginal.style.display = 'none';
-    itemFlip.style.display = 'none';
-    itemFront.style.display = 'block';
-    itemFlipHide.style.display = 'block';
-    itemWrapper.style.marginBottom = '0px';
+
+    itemOriginal.style.display = itemOriginalStyle;
+    itemFlip.style.display = itemFlipStyle;
+    itemFront.style.display = itemFrontStyle;
+    itemFlipHide.style.display = itemFlipHideStyle;
+    itemWrapper.style.marginBottom = itemWrapperStyle;
   };
 
   const onClickGoBack = useCallback(
     (id) => {
       setIsSideShow(true);
       setIsShow(false);
-      turnToFront(id);
+      const index = portPolioData.findIndex((item) => item.id === id);
+      applyContentsStyle(id, {
+        itemOriginalStyle: 'none',
+        itemFlipStyle: 'none',
+        itemFrontStyle: 'block',
+        itemFlipHideStyle: 'block',
+        itemWrapperStyle: '0px',
+      });
     },
     [isSideShow, isShow]
   );
@@ -285,10 +309,20 @@ const Index = ({ data, location }) => {
 
   const onClickNext = useCallback(() => {}, []);
 
-  const onClickInit = useCallback(() => {
-    setIsSideShow(false);
-    setIsShow(true);
-  }, [isSideShow, isShow]);
+  const onClickInit = useCallback(
+    (id) => {
+      setIsSideShow(false);
+      setIsShow(true);
+      applyContentsStyle(id, {
+        itemOriginalStyle: 'block',
+        itemFlipStyle: 'block',
+        itemFrontStyle: 'none',
+        itemFlipHideStyle: 'none',
+        itemWrapperStyle: '500px',
+      });
+    },
+    [isSideShow, isShow]
+  );
 
   return (
     <AppLayout>
@@ -311,7 +345,7 @@ const Index = ({ data, location }) => {
           <div css={[stickyCanvas]} className="sticky-elem-canvas">
             <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
           </div>
-          {PortFolioSummary.data.map((item, index) => (
+          {portPolioData.map((item, index) => (
             <Contents.Canvas
               key={index}
               id={item.id}
@@ -328,8 +362,8 @@ const Index = ({ data, location }) => {
               handlePrev={onClickPrev}
               handleNext={onClickNext}
               handleInit={onClickInit}
-              isShow={isShow}
-              isSideShow={isSideShow}
+              isShow={item.isShow}
+              isSideShow={item.isSideShow}
             />
           ))}
         </WrappedContents>
