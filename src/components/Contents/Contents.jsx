@@ -100,7 +100,7 @@ const Canvas = ({
     stop: { y: [0, -20, 0], transition: { repeat: Infinity, repeatDelay: 3 } },
   };
 
-  // TODO 미디어 쿼리 적용하기
+  // TODO 미디어 쿼리 적용하기 ~
   return (
     <motion.div
       css={[stickyElement]}
