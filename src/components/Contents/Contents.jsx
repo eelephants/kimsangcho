@@ -14,6 +14,7 @@ import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
 import { ArrowLeftCircle } from '@emotion-icons/remix-fill/ArrowLeftCircle';
 import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
 import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
+import { mq } from '../../lib/utils/helper';
 
 SwiperCore.use([EffectFade, Navigation, Pagination]);
 
@@ -100,147 +101,203 @@ const Canvas = ({
     stop: { y: [0, -20, 0], transition: { repeat: Infinity, repeatDelay: 3 } },
   };
 
-  // TODO 미디어 쿼리 적용하기 ~
   return (
     <motion.div
-      css={[stickyElement]}
+      css={[
+        stickyElement,
+        {
+          [mq('small')]: { flexDirection: 'column', marginBottom: '200px' },
+          [mq('large')]: {
+            marginBottom: '500px',
+            flexDirection: 'row',
+          },
+        },
+      ]}
       className={className}
       id={id}
       variants={variants}
-      animate={isSideShow ? 'rotate' : 'stop'}
+      // animate={isSideShow ? 'rotate' : 'stop'}
     >
-      <Button
-        rotate
-        circle
-        backGroundcolor="black"
-        opacity="0.8"
-        absolute
-        top={window.innerWidth / 2.5 / 2}
-        left={(window.innerWidth / 2.5 + 200) / 2}
-        transform="translate(80%, -80%)"
-        isShow={isShow}
-        onMouseEnter={() => {
-          !isSideShow ? onMouseEnterFromCanvas() : null;
+      <div
+        css={{
+          width: '100%',
         }}
-        onClick={onClickGoBack}
       >
-        <ArrowGoBackIcon />
-      </Button>
-      <Button
-        small
-        backGroundcolor="transparent"
-        absolute
-        top={window.innerWidth / 2.5 / 2}
-        left="185"
-        transform="translate(0%, -80%)"
-        isShow={isSideShow}
-        onMouseEnter={() => {
-          !isSideShow ? onMouseEnterFromCanvas() : null;
-        }}
-        ref={navigationPrevRef}
-      >
-        <ArrowBackCircleIcon />
-      </Button>
-      <Button
-        small
-        backGroundcolor="transparent"
-        absolute
-        top={window.innerWidth / 2.5 / 2}
-        left={window.innerWidth / 2.5 + 200 - 65}
-        transform="translate(0%, -80%)"
-        isShow={isSideShow}
-        onMouseEnter={() => {
-          !isSideShow ? onMouseEnterFromCanvas() : null;
-        }}
-        ref={navigationNextRef}
-      >
-        <RightArrowCircleIcon />
-      </Button>
+        <Button
+          rotate
+          circle
+          backGroundcolor="black"
+          opacity="0.8"
+          absolute
+          top={window.innerWidth / 2.5 / 2}
+          left={(window.innerWidth / 2.5 + 200) / 2}
+          transform="translate(80%, -80%)"
+          isShow={isShow}
+          onMouseEnter={() => {
+            !isSideShow ? onMouseEnterFromCanvas() : null;
+          }}
+          onClick={onClickGoBack}
+        >
+          <ArrowGoBackIcon />
+        </Button>
+        <Button
+          small
+          backGroundcolor="transparent"
+          absolute
+          top={window.innerWidth / 2.5 / 2}
+          left="185"
+          transform="translate(0%, -80%)"
+          isShow={isSideShow}
+          onMouseEnter={() => {
+            !isSideShow ? onMouseEnterFromCanvas() : null;
+          }}
+          ref={navigationPrevRef}
+        >
+          <ArrowBackCircleIcon />
+        </Button>
+        <Button
+          small
+          backGroundcolor="transparent"
+          absolute
+          top={window.innerWidth / 2.5 / 2}
+          left={window.innerWidth / 2.5 + 200 - 65}
+          transform="translate(0%, -80%)"
+          isShow={isSideShow}
+          onMouseEnter={() => {
+            !isSideShow ? onMouseEnterFromCanvas() : null;
+          }}
+          ref={navigationNextRef}
+        >
+          <RightArrowCircleIcon />
+        </Button>
 
-      <Button
-        small
-        backGroundcolor="transparent"
-        absolute
-        top={30}
-        left={window.innerWidth / 2.5 + 200 - 65}
-        transform="translate(0%, -80%)"
-        isShow={isSideShow}
-        onMouseEnter={() => {
-          !isSideShow ? onMouseEnterFromCanvas() : null;
-        }}
-        onClick={onClickInit}
-      >
-        <CloseOutlineIcon />
-      </Button>
-      <canvas
-        onMouseEnter={() => {
-          !isSideShow ? onMouseEnterFromCanvas() : null;
-        }}
-        onMouseLeave={() => {
-          !isSideShow ? onMouseLeaveFromCanvas() : null;
-        }}
-        width={window.innerWidth / 2.5}
-        height={window.innerWidth / 2.5}
-        className="original"
-      ></canvas>
-      <canvas
-        className="flip"
-        alt=""
-        width={window.innerWidth / 2.5}
-        height={window.innerWidth / 7.5}
-      ></canvas>
-      <Swiper
-        spaceBetween={1}
-        effect={'fade'}
-        nav
-        navigation={{
-          prevEl: navigationPrevRef.current,
-          nextEl: navigationNextRef.current,
-        }}
-        onSwiper={(swiper) => {
-          // Delay execution for the refs to be defined
-          setTimeout(() => {
-            // Override prevEl & nextEl now that refs are defined
-            swiper.params.navigation.prevEl = navigationPrevRef.current;
-            swiper.params.navigation.nextEl = navigationNextRef.current;
+        <Button
+          small
+          backGroundcolor="transparent"
+          absolute
+          top={30}
+          left={window.innerWidth / 2.5 + 200 - 65}
+          transform="translate(0%, -80%)"
+          isShow={isSideShow}
+          onMouseEnter={() => {
+            !isSideShow ? onMouseEnterFromCanvas() : null;
+          }}
+          onClick={onClickInit}
+        >
+          <CloseOutlineIcon />
+        </Button>
+        <div
+          css={{
+            width: '100%',
+          }}
+        >
+          <canvas
+            className="original"
+            css={{
+              [mq('small')]: {
+                position: 'relative',
+              },
+              [mq('large')]: {
+                position: 'relative',
+              },
+            }}
+            onMouseEnter={() => {
+              !isSideShow ? onMouseEnterFromCanvas() : null;
+            }}
+            onMouseLeave={() => {
+              !isSideShow ? onMouseLeaveFromCanvas() : null;
+            }}
+            width={window.innerWidth / 2.5}
+            height={window.innerWidth / 2.5}
+          ></canvas>
+          <canvas
+            className="flip"
+            css={{
+              [mq('small')]: {
+                position: 'absolute',
+              },
+              [mq('large')]: {
+                position: 'absolute',
+              },
+            }}
+            alt=""
+            width={window.innerWidth / 2.5}
+            height={window.innerWidth / 7.5}
+          ></canvas>
+        </div>
+        <Swiper
+          spaceBetween={50}
+          effect={'fade'}
+          navigation={{
+            prevEl: navigationPrevRef.current,
+            nextEl: navigationNextRef.current,
+          }}
+          slidesPerView="auto"
+          onSwiper={(swiper) => {
+            // Delay execution for the refs to be defined
+            setTimeout(() => {
+              // Override prevEl & nextEl now that refs are defined
+              swiper.params.navigation.prevEl = navigationPrevRef.current;
+              swiper.params.navigation.nextEl = navigationNextRef.current;
 
-            // Re-init navigation
-            swiper.navigation.destroy();
-            swiper.navigation.init();
-            swiper.navigation.update();
-          });
+              // Re-init navigation
+              swiper.navigation.destroy();
+              swiper.navigation.init();
+              swiper.navigation.update();
+            });
+          }}
+        >
+          {images.map((item) => (
+            <SwiperSlide style={{ width: '100%' }}>
+              <div
+                className="original-hide"
+                onMouseEnter={() => {
+                  !isSideShow ? onMouseEnterFromCanvas() : null;
+                }}
+                onMouseLeave={() => {
+                  !isSideShow ? onMouseLeaveFromCanvas() : null;
+                }}
+                css={{
+                  width: window.innerWidth / 2.5,
+                  height: window.innerWidth / 2.5,
+                }}
+              >
+                <img
+                  src={item.src}
+                  css={{ width: '100%', display: 'inline-block' }}
+                />
+              </div>
+              <div
+                className="flip-hide"
+                css={{
+                  width: window.innerWidth / 2.5,
+                  height: window.innerWidth / 9.5,
+                }}
+              >
+                <img
+                  src={item.src}
+                  css={{ width: '100%', opacity: 0.5, display: 'inline-block' }}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <div
+        className="description"
+        css={{
+          [mq('small')]: {
+            position: 'static',
+            width: '100%',
+            right: 0,
+            top: 0,
+          },
+          [mq('large')]: {
+            position: 'absolute',
+          },
         }}
       >
-        {images.map((item) => (
-          <SwiperSlide>
-            <div
-              className="original-hide"
-              onMouseEnter={() => {
-                !isSideShow ? onMouseEnterFromCanvas() : null;
-              }}
-              onMouseLeave={() => {
-                !isSideShow ? onMouseLeaveFromCanvas() : null;
-              }}
-              css={{
-                width: window.innerWidth / 2.5,
-                height: window.innerWidth / 2.5,
-              }}
-            >
-              <img src={item.src} css={{ width: '100%' }} />
-            </div>
-            <div
-              className="flip-hide"
-              css={{
-                width: window.innerWidth / 2.5,
-                height: window.innerWidth / 9.5,
-              }}
-            >
-              <img src={item.src} css={{ width: '100%', opacity: 0.5 }} />
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <div className="description">
         <div className="first-desc">
           <h1>{title}</h1>
           <h3>
@@ -283,11 +340,9 @@ const stickyElement = css`
   margin-bottom: 500px;
   color: #fff;
   .original {
-    position: absolute;
     z-index: 100;
   }
   .flip {
-    position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
@@ -306,7 +361,7 @@ const stickyElement = css`
   }
   .description {
     color: #fff;
-    overflow: overlay;
+    width: 100%;
     .first-desc {
       height: 50%;
       letter-spacing: 3px;
@@ -341,10 +396,6 @@ const stickyElement = css`
       min-heigth: 10px;
       over-flow: hidden;
     }
-
-    position: absolute;
-    right: 0;
-    top: 0;
   }
 `;
 
