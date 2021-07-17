@@ -112,10 +112,19 @@ const portpoioReducer = (state, action) => {
           const ctx = item.getContext('2d');
           var cw = item.width;
           var ch = item.height;
-          description[index].style.right = `${cw * 0.4}px`;
-          description[index].style.top = `${65}px`;
-          description[index].style.maxWidth = `${cw * 0.55}px`;
-          description[index].style.maxHeight = `${ch * 0.75}px`;
+
+          if (cw < 500) {
+            description[index].style.right = `${0}px`;
+            description[index].style.top = `${0}px`;
+            description[index].style.maxWidth = 'none';
+            description[index].style.maxHeight = 'none';
+            description[index].style.width = '100%';
+          } else {
+            description[index].style.right = `${cw * 0.4}px`;
+            description[index].style.top = `${65}px`;
+            description[index].style.maxWidth = `${cw * 0.55}px`;
+            description[index].style.maxHeight = `${ch * 0.75}px`;
+          }
 
           ctx.beginPath();
           ctx.moveTo(0, 0);

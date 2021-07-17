@@ -12,7 +12,7 @@ const importAll = (r) => {
 
 const bp = {
   small: 500,
-  large: 1200,
+  large: 1300,
 };
 
 const mq = (n) => {

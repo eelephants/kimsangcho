@@ -159,7 +159,7 @@ const Index = ({ data, location }) => {
           itemFlipStyle: 'none',
           itemFrontStyle: 'block',
           itemFlipHideStyle: 'block',
-          itemWrapperStyle: '-200px',
+          itemWrapperStyle: '200px',
         },
       });
     },
