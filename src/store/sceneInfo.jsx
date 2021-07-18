@@ -21,7 +21,7 @@ const initialInfo = {
   sceneInfo: [
     {
       type: 'video',
-      heightNum: 7,
+      heightNum: 5,
       scrollHeight: 0,
       objs: {
         container: '',
@@ -30,7 +30,7 @@ const initialInfo = {
     },
     {
       type: 'normal',
-      heightNum: 7,
+      heightNum: 5,
       scrollHeight: 0,
       objs: {
         container: '',
@@ -39,7 +39,7 @@ const initialInfo = {
     },
     {
       type: 'sticky',
-      heightNum: 7,
+      heightNum: 5,
       scrollHeight: 0,
       objs: {
         container: '',
@@ -75,7 +75,7 @@ const initialInfo = {
     },
     {
       type: 'sticky',
-      heightNum: 7,
+      heightNum: 5,
       scrollHeight: 0,
       objs: {
         container: '',

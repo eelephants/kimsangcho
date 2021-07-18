@@ -106,9 +106,8 @@ const Canvas = ({
       css={[
         stickyElement,
         {
-          [mq('small')]: { flexDirection: 'column', marginBottom: '200px' },
+          [mq('small')]: { flexDirection: 'column' },
           [mq('large')]: {
-            marginBottom: '500px',
             flexDirection: 'row',
           },
         },
@@ -116,7 +115,7 @@ const Canvas = ({
       className={className}
       id={id}
       variants={variants}
-      // animate={isSideShow ? 'rotate' : 'stop'}
+      animate={isSideShow ? 'rotate' : 'stop'}
     >
       <div
         css={{
@@ -337,7 +336,7 @@ const stickyElement = css`
   display: none;
   font-size: 40px;
   padding: 0 200px 200px 200px;
-  margin-bottom: 500px;
+
   color: #fff;
   .original {
     z-index: 100;
