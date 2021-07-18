@@ -315,7 +315,8 @@ const portpoioReducer = (state, action) => {
 
         itemOriginal.style.display = itemOriginalStyle;
         itemFlip.style.display = itemFlipStyle;
-        itemWrapper.style.marginBottom = itemWrapperStyle;
+        itemFlip.style.padding = itemWrapperStyle;
+        itemWrapper.style.padding = itemWrapperStyle;
 
         Array.from(itemFronts).forEach(
           (item) => (item.style.display = itemFrontStyle)

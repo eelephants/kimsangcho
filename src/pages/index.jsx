@@ -87,6 +87,7 @@ const Index = ({ data, location }) => {
         forthSectionRef,
       ],
     });
+    console.log(window.innerWidth);
     sceneDeispatch({ type: SET_EACH_SECTION_HEIGHT });
   };
 
@@ -159,7 +160,7 @@ const Index = ({ data, location }) => {
           itemFlipStyle: 'none',
           itemFrontStyle: 'block',
           itemFlipHideStyle: 'block',
-          itemWrapperStyle: '200px',
+          itemWrapperStyle: '0 200px 0 200px',
         },
       });
     },
@@ -177,7 +178,7 @@ const Index = ({ data, location }) => {
           itemFlipStyle: 'block',
           itemFrontStyle: 'none',
           itemFlipHideStyle: 'none',
-          itemWrapperStyle: '500px',
+          itemWrapperStyle: '0 200px 200px 200px',
         },
       });
     },
