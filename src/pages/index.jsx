@@ -20,6 +20,7 @@ import {
   useSceneDispatch,
   PLAY_ANIMATION,
   SET_CANVAS_IMAGE,
+  useSceneState,
 } from '../store/sceneInfo';
 
 import {
@@ -35,6 +36,7 @@ import {
   usePortpolioDispatch,
   usePortpolioState,
 } from '../store/portpolioInfo';
+import { motion } from 'framer-motion';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -58,6 +60,7 @@ const Index = ({ data, location }) => {
   const sceneDeispatch = useSceneDispatch();
   const portpolioDeispatch = usePortpolioDispatch();
   const { portPolioData } = usePortpolioState();
+  const { sceneInfo } = useSceneState();
 
   useEffect(() => {
     // load
@@ -185,6 +188,14 @@ const Index = ({ data, location }) => {
     [portPolioData]
   );
 
+  const variants = {
+    transform: {
+      x: [-5000, 0, 0],
+      transition: { duration: 1 },
+    },
+    stop: { x: [0, 0, -5000], transition: { duration: 1 } },
+  };
+
   return (
     <AppLayout>
       <AppLayout.Header location={location} ref={headerRef} />
@@ -228,18 +239,60 @@ const Index = ({ data, location }) => {
           ))}
         </WrappedContents>
         <div css={[secondSection]} ref={forthSectionRef} id="scroll-section-3">
-          <div css={[stickyElement]} className="sticky-elem main-message a">
-            <p>test5</p>
-          </div>
-          <div css={[stickyElement]} className="sticky-elem main-message b">
-            <p>test6</p>
-          </div>
-          <div css={[stickyElement]} className="sticky-elem main-message c">
-            <p>test7</p>
-          </div>
-          <div css={[stickyElement]} className="sticky-elem main-message d">
-            <p>test8</p>
-          </div>
+          <motion.div
+            css={[
+              stickyElement,
+              {
+                height: sceneInfo[3].scrollHeight / 4,
+              },
+            ]}
+            className="sticky-elem main-message a"
+            variants={variants}
+            animate={
+              sceneInfo[3].values.messageA_transform_in ? 'transform' : 'stop'
+            }
+          ></motion.div>
+          <motion.div
+            css={[
+              stickyElement,
+              {
+                height: sceneInfo[3].scrollHeight / 4,
+              },
+            ]}
+            className="sticky-elem main-message b"
+            variants={variants}
+            animate={
+              sceneInfo[3].values.messageB_transform_in ? 'transform' : 'stop'
+            }
+          >
+            dddddd
+          </motion.div>
+          <motion.div
+            css={[
+              stickyElement,
+              {
+                height: sceneInfo[3].scrollHeight / 4,
+              },
+            ]}
+            className="sticky-elem main-message c"
+            variants={variants}
+            animate={
+              sceneInfo[3].values.messageC_transform_in ? 'transform' : 'stop'
+            }
+          ></motion.div>
+          <motion.div
+            css={[
+              stickyElement,
+              {
+                height: sceneInfo[3].scrollHeight / 4,
+              },
+            ]}
+            className="sticky-elem main-message d"
+            variants={variants}
+            animate={
+              sceneInfo[3].values.messageD_transform_in ? 'transform' : 'stop'
+            }
+          ></motion.div>
         </div>
       </AppLayout.Main>
     </AppLayout>
@@ -264,68 +317,12 @@ const stickyCanvas = css`
 
 const stickyElement = css`
   margin: 0;
-  position: relative;
-  top: 4px;
   left: 0;
-  opactiy: 0;
-  display: none;
+
   font-size: 40px;
-  padding: 0 200px 200px 200px;
-  margin-bottom: 500px;
   color: #fff;
-  .original {
-    position: absolute;
-    z-index: 100;
-  }
-  .flip {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    padding: 0 200px 200px 200px;
-  }
-  .description {
-    color: #fff;
-    overflow: overlay;
-    .first-desc {
-      height: 50%;
-      letter-spacing: 3px;
-      & h1 {
-        font-size: 1.7rem;
-        font-weight: bold;
-        text-transform: upperCase;
-      }
-      & h3 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #ddd;
-        padding: 10px 0 10px 0;
-      }
-      & div {
-        margin: 20px 0;
-        padding: 0;
-        font-size: 1rem;
-        font-weight: 500;
-
-        span {
-          display: block;
-          text-transform: lowercase;
-        }
-      }
-    }
-
-    .second-desc {
-      height: 50%;
-      display: flex;
-      flex-wrap: wrap;
-      min-heigth: 10px;
-      over-flow: hidden;
-    }
-
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
+  border: red 1px solid;
+  display: none;
 `;
 
 const secondSection = css`
@@ -336,10 +333,6 @@ const secondSection = css`
   );
   background-size: cover;
   position: relative;
-  .static-section {
-    position: static;
-    display: block;
-  }
 `;
 
 export default Index;
