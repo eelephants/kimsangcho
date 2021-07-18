@@ -85,22 +85,10 @@ const initialInfo = {
         messageD: '',
       },
       values: {
-        messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
-        messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
-        messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
-        messageD_opacity_in: [0, 1, { start: 0.7, end: 0.8 }],
-        messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
-        messageB_translateY_in: [20, 0, { start: 0.3, end: 0.4 }],
-        messageC_translateY_in: [20, 0, { start: 0.5, end: 0.6 }],
-        messageD_translateY_in: [20, 0, { start: 0.7, end: 0.8 }],
-        messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
-        messageB_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
-        messageC_opacity_out: [1, 0, { start: 0.65, end: 0.7 }],
-        messageD_opacity_out: [1, 0, { start: 0.85, end: 0.9 }],
-        messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
-        messageB_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
-        messageC_translateY_out: [0, -20, { start: 0.65, end: 0.7 }],
-        messageD_translateY_out: [0, -20, { start: 0.85, end: 0.9 }],
+        messageA_transform_in: false,
+        messageB_transform_in: false,
+        messageC_transform_in: false,
+        messageD_transform_in: false,
       },
     },
   ],
@@ -153,6 +141,15 @@ const applyStyle = (id, state, objs, values, currentYoffset, draft) => {
     currentYoffset,
     draft
   )}%, 0)`;
+};
+
+const applyTransform = (id, state, objs, values, currentYoffset, draft) => {
+  draft.sceneInfo[draft.currentScene].values.messageA_transform_in = false;
+  draft.sceneInfo[draft.currentScene].values.messageB_transform_in = false;
+  draft.sceneInfo[draft.currentScene].values.messageC_transform_in = false;
+  draft.sceneInfo[draft.currentScene].values.messageD_transform_in = false;
+
+  draft.sceneInfo[draft.currentScene].values[`${id}_transform_${state}`] = true;
 };
 
 const convert = {
@@ -364,59 +361,38 @@ const sceneReducer = (state, action) => {
             break;
 
           case 3:
-            if (scrollRatio <= 0.22) {
-              // in
-              applyStyle('messageA', 'in', objs, values, currentYoffset, draft);
-            } else {
-              // out
-              applyStyle(
+            console.log(state, 'state');
+            if (scrollRatio <= 0.3) {
+              applyTransform(
                 'messageA',
-                'out',
+                'in',
                 objs,
                 values,
                 currentYoffset,
                 draft
               );
-            }
-
-            if (scrollRatio <= 0.42) {
-              // in
-              applyStyle('messageB', 'in', objs, values, currentYoffset, draft);
-            } else {
-              // out
-              applyStyle(
+            } else if (scrollRatio >= 0.3 && scrollRatio <= 0.5) {
+              applyTransform(
                 'messageB',
-                'out',
+                'in',
                 objs,
                 values,
                 currentYoffset,
                 draft
               );
-            }
-
-            if (scrollRatio <= 0.62) {
-              // in
-              applyStyle('messageC', 'in', objs, values, currentYoffset, draft);
-            } else {
-              // out
-              applyStyle(
+            } else if (scrollRatio >= 0.5 && scrollRatio <= 0.7) {
+              applyTransform(
                 'messageC',
-                'out',
+                'in',
                 objs,
                 values,
                 currentYoffset,
                 draft
               );
-            }
-
-            if (scrollRatio <= 0.82) {
-              // in
-              applyStyle('messageD', 'in', objs, values, currentYoffset, draft);
-            } else {
-              // out
-              applyStyle(
+            } else if (scrollRatio >= 0.7 && scrollRatio <= 0.9) {
+              applyTransform(
                 'messageD',
-                'out',
+                'in',
                 objs,
                 values,
                 currentYoffset,
