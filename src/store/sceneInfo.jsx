@@ -362,7 +362,7 @@ const sceneReducer = (state, action) => {
 
           case 3:
             console.log(state, 'state');
-            if (scrollRatio <= 0.3) {
+            if (scrollRatio <= 0.2) {
               applyTransform(
                 'messageA',
                 'in',
@@ -371,7 +371,7 @@ const sceneReducer = (state, action) => {
                 currentYoffset,
                 draft
               );
-            } else if (scrollRatio >= 0.3 && scrollRatio <= 0.5) {
+            } else if (scrollRatio >= 0.15 && scrollRatio <= 0.4) {
               applyTransform(
                 'messageB',
                 'in',
@@ -380,7 +380,7 @@ const sceneReducer = (state, action) => {
                 currentYoffset,
                 draft
               );
-            } else if (scrollRatio >= 0.5 && scrollRatio <= 0.7) {
+            } else if (scrollRatio >= 0.4 && scrollRatio <= 0.7) {
               applyTransform(
                 'messageC',
                 'in',
