@@ -3,9 +3,15 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { EffectFade, Navigation, Pagination } from 'swiper/core';
+import SwiperCore, {
+  EffectFade,
+  Navigation,
+  Pagination,
+  EffectCoverflow,
+} from 'swiper/core';
 import 'swiper/swiper.min.css';
 import 'swiper/components/effect-fade/effect-fade.min.css';
+import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import Button from '../Button';
@@ -16,7 +22,7 @@ import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
 import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
 import { mq } from '../../lib/utils/helper';
 
-SwiperCore.use([EffectFade, Navigation, Pagination]);
+SwiperCore.use([EffectFade, Navigation, Pagination, EffectCoverflow]);
 
 const CloseOutlineIcon = styled(CloseOutline)`
   color: #bfbbbb;
@@ -46,7 +52,7 @@ const Contents = () => {
   return <div></div>;
 };
 
-const Static = ({ className }) => {
+const SecondContents = ({ className }) => {
   return (
     <p css={[stickyElement]} className={className}>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae,
@@ -57,7 +63,7 @@ const Static = ({ className }) => {
   );
 };
 
-const Canvas = ({
+const ThirdContents = ({
   id,
   className,
   title,
@@ -324,8 +330,110 @@ const Canvas = ({
   );
 };
 
-Contents.Static = Static;
-Contents.Canvas = Canvas;
+const ForthContents = ({
+  sceneInfo,
+  className,
+  title,
+  id,
+  animate,
+  images,
+  desc,
+  handleDetailProject,
+}) => {
+  const variants = {
+    transform: {
+      x: [-5000, 0, 0],
+      transition: { duration: 1 },
+    },
+    stop: { x: [0, 0, -5000], transition: { duration: 1 } },
+  };
+  const width = window.innerWidth / 2.5 + 'px';
+
+  const onClickDetail = useCallback(() => {
+    handleDetailProject(id);
+  }, [id]);
+
+  return (
+    <motion.div
+      css={[
+        thirdContentsWrapper,
+        {
+          height: sceneInfo[3].scrollHeight / 4,
+        },
+      ]}
+      className={className}
+      variants={variants}
+      animate={sceneInfo[3].values[animate] ? 'transform' : 'stop'}
+    >
+      <div
+        css={css`
+          flex: 2;
+        `}
+      >
+        <Swiper
+          effect={'coverflow'}
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView={'auto'}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={true}
+        >
+          {images.map((item) => (
+            <SwiperSlide style={{ width }}>
+              <div
+                css={css`
+                  width: ${window.innerWidth / 2.5}px;
+                  height: ${window.innerWidth / 2.5}px;
+                `}
+              >
+                <img
+                  src={item.src}
+                  css={{ width: '100%', display: 'inline-block' }}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      <div
+        css={css`
+          flex: 0.5;
+          font-size: 1.5rem;
+          text-align: center;
+        `}
+      >
+        {desc}
+      </div>
+
+      <Button
+        isShow
+        backGroundcolor="black"
+        boxWidth="300px"
+        boxHeight="50px"
+        boxCenter
+        boxShadow
+        onClick={onClickDetail}
+        css={css`
+          color: white;
+          letter-spacing: 0.3rem;
+          text-style: border;
+        `}
+      >
+        VIEW PROJECT
+      </Button>
+    </motion.div>
+  );
+};
+
+Contents.SecondContents = SecondContents;
+Contents.ThirdContents = ThirdContents;
+Contents.ForthContents = ForthContents;
 
 const stickyElement = css`
   margin: 0;
@@ -423,6 +531,23 @@ const circle = css`
   margin: 0.2rem;
   text-transform: uppercase;
   box-shadow: 1px 1px 1px 1px #000000;
+`;
+
+const thirdContentsWrapper = css`
+  margin: 0;
+  left: 0;
+  font-size: 40px;
+  color: #fff;
+  // border: red 1px solid;
+  display: none;
+  flex-direction: column;
+  padding: 40px 70px;
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(51, 51, 51, 1) 47%
+  );
 `;
 
 export default Contents;

@@ -59,7 +59,7 @@ const Index = ({ data, location }) => {
   const { width } = useWindowSize();
   const sceneDeispatch = useSceneDispatch();
   const portpolioDeispatch = usePortpolioDispatch();
-  const { portPolioData } = usePortpolioState();
+  const { portPolioData, subPortPolioData } = usePortpolioState();
   const { sceneInfo } = useSceneState();
 
   useEffect(() => {
@@ -188,13 +188,9 @@ const Index = ({ data, location }) => {
     [portPolioData]
   );
 
-  const variants = {
-    transform: {
-      x: [-5000, 0, 0],
-      transition: { duration: 1 },
-    },
-    stop: { x: [0, 0, -5000], transition: { duration: 1 } },
-  };
+  const handleDetailProject = useCallback((id) => {
+    console.log(id);
+  }, []);
 
   return (
     <AppLayout>
@@ -211,14 +207,14 @@ const Index = ({ data, location }) => {
           <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
         </div>
         <WrappedContents ref={secondSectionRef} id="scroll-section-1">
-          <Contents.Static className="static-section" />
+          <Contents.SecondContents className="static-section" />
         </WrappedContents>
         <WrappedContents ref={thirdSectionRef} id="scroll-section-2">
           <div css={[stickyCanvas]} className="sticky-elem-canvas">
             <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
           </div>
           {portPolioData.map((item, index) => (
-            <Contents.Canvas
+            <Contents.ThirdContents
               key={index}
               id={item.id}
               className={item.className}
@@ -238,62 +234,25 @@ const Index = ({ data, location }) => {
             />
           ))}
         </WrappedContents>
-        <div css={[secondSection]} ref={forthSectionRef} id="scroll-section-3">
-          <motion.div
-            css={[
-              stickyElement,
-              {
-                height: sceneInfo[3].scrollHeight / 4,
-              },
-            ]}
-            className="sticky-elem main-message a"
-            variants={variants}
-            animate={
-              sceneInfo[3].values.messageA_transform_in ? 'transform' : 'stop'
-            }
-          ></motion.div>
-          <motion.div
-            css={[
-              stickyElement,
-              {
-                height: sceneInfo[3].scrollHeight / 4,
-              },
-            ]}
-            className="sticky-elem main-message b"
-            variants={variants}
-            animate={
-              sceneInfo[3].values.messageB_transform_in ? 'transform' : 'stop'
-            }
-          >
-            dddddd
-          </motion.div>
-          <motion.div
-            css={[
-              stickyElement,
-              {
-                height: sceneInfo[3].scrollHeight / 4,
-              },
-            ]}
-            className="sticky-elem main-message c"
-            variants={variants}
-            animate={
-              sceneInfo[3].values.messageC_transform_in ? 'transform' : 'stop'
-            }
-          ></motion.div>
-          <motion.div
-            css={[
-              stickyElement,
-              {
-                height: sceneInfo[3].scrollHeight / 4,
-              },
-            ]}
-            className="sticky-elem main-message d"
-            variants={variants}
-            animate={
-              sceneInfo[3].values.messageD_transform_in ? 'transform' : 'stop'
-            }
-          ></motion.div>
-        </div>
+        <WrappedContents
+          css={[secondSection]}
+          ref={forthSectionRef}
+          id="scroll-section-3"
+        >
+          {subPortPolioData.map((item, index) => (
+            <Contents.ForthContents
+              key={index}
+              id={item.id}
+              title={item.title}
+              images={item.images}
+              sceneInfo={sceneInfo}
+              className={item.className}
+              animate={item.animate}
+              desc={item.desc}
+              handleDetailProject={handleDetailProject}
+            />
+          ))}
+        </WrappedContents>
       </AppLayout.Main>
     </AppLayout>
   );
@@ -313,16 +272,6 @@ const stickyCanvas = css`
     top: 50%;
     left: 50%;
   }
-`;
-
-const stickyElement = css`
-  margin: 0;
-  left: 0;
-
-  font-size: 40px;
-  color: #fff;
-  border: red 1px solid;
-  display: none;
 `;
 
 const secondSection = css`
