@@ -1,13 +1,15 @@
 import React, { forwardRef } from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
-
+import { motion } from 'framer-motion';
 import HomeIcon from '../../assets/c6730f_331e4a84182944a9a7a892945436f3de_mv2.webp';
 import AboutIcon from '../../assets/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.webp';
 import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
 import PortfolioIcon from '../../assets/gotoMain.svg';
 import GithubIcon from '../../assets/githubIcon.svg';
 import { useSiteMetadata } from '../../hooks/useQuery';
+
+import { useSceneState } from '../../store/sceneInfo';
 
 const AppLayout = ({ children }) => {
   const { title, description } = useSiteMetadata();
@@ -69,9 +71,37 @@ const Main = forwardRef(({ children }, ref) => {
   return <main ref={ref}>{children}</main>;
 });
 
+const Footer = () => {
+  const { currentScene } = useSceneState();
+  const variants = {
+    transform: {
+      x: [5000, 0, 0],
+      transition: { duration: 1 },
+    },
+    stop: { x: [0, 0, 5000], transition: { duration: 1 } },
+  };
+
+  return (
+    <motion.footer
+      variants={variants}
+      animate={currentScene !== 0 && currentScene !== 1 ? 'transform' : 'stop'}
+      css={footerStyle}
+    >
+      <img
+        herf="/"
+        src={GithubIcon}
+        alt="portfolio"
+        width="100%"
+        height="auto"
+      />
+    </motion.footer>
+  );
+};
+
 AppLayout.Side = Side;
 AppLayout.Main = Main;
 AppLayout.Header = Header;
+AppLayout.Footer = Footer;
 
 const globalStyle = css`
   font-family: 'barlow';
@@ -94,6 +124,18 @@ const headerbarStyle = css`
     flex: 2;
     padding: 0 100px;
   }
+`;
+
+const footerStyle = css`
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  z-index: 9999;
+  bottom: 0;
+  right: 0;
+  border: solid;
+  border-radius: 50%;
+  margin: 0 20px 20px 0;
 `;
 
 const linkWrapperSttyle = css`
