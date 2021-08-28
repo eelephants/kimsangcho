@@ -254,6 +254,7 @@ const Index = ({ data, location }) => {
           ))}
         </WrappedContents>
       </AppLayout.Main>
+      <AppLayout.Footer />
     </AppLayout>
   );
 };
