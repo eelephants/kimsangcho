@@ -8,6 +8,8 @@ import SwiperCore, {
   Navigation,
   Pagination,
   EffectCoverflow,
+  A11y,
+  Autoplay,
 } from 'swiper/core';
 import 'swiper/swiper.min.css';
 import 'swiper/components/effect-fade/effect-fade.min.css';
@@ -22,7 +24,14 @@ import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
 import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
 import { mq } from '../../lib/utils/helper';
 
-SwiperCore.use([EffectFade, Navigation, Pagination, EffectCoverflow]);
+SwiperCore.use([
+  EffectFade,
+  Navigation,
+  Pagination,
+  EffectCoverflow,
+  A11y,
+  Autoplay,
+]);
 
 const CloseOutlineIcon = styled(CloseOutline)`
   color: #bfbbbb;
@@ -54,12 +63,43 @@ const Contents = () => {
 
 const SecondContents = ({ className }) => {
   return (
-    <p css={[stickyElement]} className={className}>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae,
-      impedit ducimus fuga iusto quam esse pariatur fugit architecto alias
-      maiores dignissimos aut vero dolore hic eum blanditiis odio autem
-      corrupti.
-    </p>
+    <div css={[stickyElement]} className={className}>
+      <Swiper
+        spaceBetween={30}
+        // effect={'fade'}
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000 }}
+        slidesPerView={1}
+      >
+        <SwiperSlide className="intro">
+          As a 2nd year developer, I have experience developing/distributing web
+          and app services. I was mainly in charge of the front stage in web
+          service development, and the BACK stage was also developed as needed.
+          <br />
+          <br /> I started my first career with a small team, and gained a lot
+          of experience in a short period of time.
+        </SwiperSlide>
+        <SwiperSlide className="intro">
+          I am a developer who values ​​"collaboration" with team members in
+          various roles. Because if you are not alone, you can lead to better
+          creative results and unexpected possibilities.
+          <br />
+          <br /> We believe that business growth can be achieved through trust
+          between team members.
+        </SwiperSlide>
+        <SwiperSlide className="intro">
+          We believe in the infinite possibilities of "effort". We believe that
+          changing yourself is "effort". <br />
+          <br /> When I finished 10 years of playing career due to a 20-year-old
+          injury, when I said that I was going to New Zealand without knowing
+          how to read English, or when I said that I was going to work as a
+          developer after graduating from college, everyone expressed concerns
+          that it was an absurd path, but day by day "Effort" of "I" made me who
+          I am today.
+        </SwiperSlide>
+      </Swiper>
+    </div>
   );
 };
 
@@ -467,9 +507,25 @@ const stickyElement = css`
   left: 0;
   opactiy: 0;
   display: none;
-  font-size: 40px;
+  font-size: 2rem;
   padding: 0 200px 200px 200px;
+  line-height: 1.3;
 
+  .intro {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(51, 51, 51, 1) 47%
+    );
+    height: 500px;
+    max-height: 500px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  }
   color: #fff;
   .original {
     z-index: 100;
