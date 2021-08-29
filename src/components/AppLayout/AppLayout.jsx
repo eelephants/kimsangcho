@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { motion } from 'framer-motion';
@@ -8,8 +8,11 @@ import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv
 import PortfolioIcon from '../../assets/gotoMain.svg';
 import GithubIcon from '../../assets/githubIcon.svg';
 import { useSiteMetadata } from '../../hooks/useQuery';
+import { ArrowUpCircle } from '@emotion-icons/bootstrap/ArrowUpCircle';
+import { ArrowUpCircleFill } from '@emotion-icons/bootstrap/ArrowUpCircleFill';
 
 import { useSceneState } from '../../store/sceneInfo';
+import styled from '@emotion/styled';
 
 const AppLayout = ({ children }) => {
   const { title, description } = useSiteMetadata();
@@ -73,6 +76,7 @@ const Main = forwardRef(({ children }, ref) => {
 
 const Footer = () => {
   const { currentScene } = useSceneState();
+  const [isCover, setIsCover] = useState(false);
   const variants = {
     transform: {
       x: [5000, 0, 0],
@@ -81,19 +85,28 @@ const Footer = () => {
     stop: { x: [0, 0, 5000], transition: { duration: 1 } },
   };
 
+  const ArrowUpCircleFillIcon = styled(ArrowUpCircleFill)`
+    color: #fff;
+    width: 100%;
+    height: auto;
+  `;
+
+  const ArrowUpCircleIcon = styled(ArrowUpCircle)`
+    color: #fff;
+    width: 100%;
+    height: auto;
+  `;
+
   return (
     <motion.footer
       variants={variants}
       animate={currentScene !== 0 && currentScene !== 1 ? 'transform' : 'stop'}
       css={footerStyle}
+      onMouseEnter={() => setIsCover(true)}
+      onMouseLeave={() => setIsCover(false)}
+      onClick={() => window.scrollTo(0, 0)}
     >
-      <img
-        herf="/"
-        src={GithubIcon}
-        alt="portfolio"
-        width="100%"
-        height="auto"
-      />
+      {isCover ? <ArrowUpCircleFillIcon /> : <ArrowUpCircleIcon />}
     </motion.footer>
   );
 };
@@ -127,15 +140,15 @@ const headerbarStyle = css`
 `;
 
 const footerStyle = css`
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   position: fixed;
   z-index: 9999;
   bottom: 0;
   right: 0;
-  border: solid;
   border-radius: 50%;
-  margin: 0 20px 20px 0;
+  margin: 0 40px 40px 0;
+  cursor: pointer;
 `;
 
 const linkWrapperSttyle = css`
