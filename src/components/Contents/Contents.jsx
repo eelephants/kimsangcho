@@ -347,6 +347,10 @@ const ForthContents = ({
     },
     stop: { x: [0, 0, -5000], transition: { duration: 1 } },
   };
+
+  const jumpVariants = {
+    stop: { y: [0, -20, 0], transition: { repeat: Infinity, repeatDelay: 3 } },
+  };
   const width = window.innerWidth / 2.5 + 'px';
 
   const onClickDetail = useCallback(() => {
@@ -406,11 +410,32 @@ const ForthContents = ({
           flex: 0.5;
           font-size: 1.5rem;
           text-align: center;
+          position: relative;
         `}
       >
+        <motion.div
+          css={css`
+            color: white;
+            letter-spacing: 0.2rem;
+            position: absolute;
+            top: -190px;
+            left: 0;
+            right: 0px;
+            margin-right: auto;
+            margin-left: auto;
+            font-weight: bold;
+            font-size: 4rem;
+            z-index: 500;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 3px grey;
+          `}
+          variants={jumpVariants}
+          animate={'stop'}
+        >
+          {title}
+        </motion.div>
         {desc}
       </div>
-
       <Button
         isShow
         backGroundcolor="black"
