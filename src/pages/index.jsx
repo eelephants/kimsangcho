@@ -222,6 +222,7 @@ const Index = ({ data, location }) => {
               duration={item.duration}
               type={item.type}
               desc={item.desc}
+              url={item.url}
               role={item.role}
               images={item.images}
               language={item.language}

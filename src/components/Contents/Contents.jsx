@@ -22,7 +22,7 @@ import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
 import { ArrowLeftCircle } from '@emotion-icons/remix-fill/ArrowLeftCircle';
 import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
 import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
-import { mq } from '../../lib/utils/helper';
+import { makeColor, mq } from '../../lib/utils/helper';
 
 SwiperCore.use([
   EffectFade,
@@ -68,7 +68,9 @@ const SecondContents = ({ className }) => {
         spaceBetween={30}
         // effect={'fade'}
         navigation
-        pagination={{ clickable: true }}
+        pagination={{
+          clickable: true,
+        }}
         autoplay={{ delay: 5000 }}
         slidesPerView={1}
       >
@@ -109,6 +111,7 @@ const ThirdContents = ({
   title,
   duration,
   type,
+  url,
   desc,
   role,
   images,
@@ -344,9 +347,17 @@ const ThirdContents = ({
         }}
       >
         <div className="first-desc">
-          <h1>{title}</h1>
+          <div
+            css={css`
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            `}
+          >
+            <h1>{title}</h1>
+          </div>
           <h3>
-            {duration} / {type}
+            {duration} /&nbsp;{type}
           </h3>
           <div>
             <label>#Desc</label>
@@ -360,11 +371,42 @@ const ThirdContents = ({
         <hr css={divideLine} />
         <div className="second-desc">
           {language.map((item, index) => (
-            <div key={index} css={circle}>
+            <div
+              key={index}
+              css={css`
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                background-color: rgba(${makeColor(item)});
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.8rem;
+                padding: 5px;
+                margin: 0.2rem;
+                text-transform: uppercase;
+                box-shadow: 1px 1px 1px 1px #000000;
+              `}
+            >
               {item}
             </div>
           ))}
         </div>
+        <Button
+          isShow
+          backGroundcolor="black"
+          boxWidth="100%"
+          boxHeight="35px"
+          boxCenter
+          boxShadow
+          css={css`
+            color: white;
+            letter-spacing: 0.3rem;
+            text-style: border;
+          `}
+        >
+          DETAILS
+        </Button>
       </div>
     </motion.div>
   );
@@ -558,6 +600,15 @@ const stickyElement = css`
         font-weight: bold;
         text-transform: upperCase;
       }
+      & .url {
+        color: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s linear;
+        &:hover {
+          color: #000;
+        }
+      }
       & h3 {
         font-size: 1.1rem;
         font-weight: 700;
@@ -581,8 +632,10 @@ const stickyElement = css`
       height: 50%;
       display: flex;
       flex-wrap: wrap;
-      min-heigth: 10px;
-      over-flow: hidden;
+      min-height: 10px;
+      max-height: 200px;
+      overflow: hidden;
+      margin-bottom: 15px;
     }
   }
 `;
