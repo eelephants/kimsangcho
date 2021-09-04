@@ -1,6 +1,9 @@
-const round = (number) => {
-  return Math.round(number);
-};
+import * as Color from '../styles/color.json';
+
+const makeColor = (name) =>
+  Color[name] ? Color[name].join(',') : '0, 0, 0, 1';
+
+const round = (number) => Math.round(number);
 
 const importAll = (r) => {
   let images = {};
@@ -26,4 +29,4 @@ const mq = (n) => {
   return result;
 };
 
-export { round, importAll, mq };
+export { round, importAll, mq, makeColor };
