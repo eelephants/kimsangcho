@@ -1,7 +1,7 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useLayoutEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
-import { motion } from 'framer-motion';
+import { motion, useSpring } from 'framer-motion';
 import HomeIcon from '../../assets/c6730f_331e4a84182944a9a7a892945436f3de_mv2.webp';
 import AboutIcon from '../../assets/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.webp';
 import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
@@ -77,6 +77,8 @@ const Main = forwardRef(({ children }, ref) => {
 const Footer = () => {
   const { currentScene } = useSceneState();
   const [isCover, setIsCover] = useState(false);
+
+  const spring = useSpring(0, { damping: 300, stiffness: 200 });
   const variants = {
     transform: {
       x: [5000, 0, 0],
@@ -97,6 +99,19 @@ const Footer = () => {
     height: auto;
   `;
 
+  useLayoutEffect(() => {
+    spring.onChange((latest) => {
+      window.scrollTo(0, latest);
+    });
+  }, [spring]);
+
+  const onClickMoveToTop = () => {
+    spring.set(window.pageYOffset, false);
+    setTimeout(() => {
+      spring.set(0);
+    }, 50);
+  };
+
   return (
     <motion.footer
       variants={variants}
@@ -104,7 +119,7 @@ const Footer = () => {
       css={footerStyle}
       onMouseEnter={() => setIsCover(true)}
       onMouseLeave={() => setIsCover(false)}
-      onClick={() => window.scrollTo(0, 0)}
+      onClick={onClickMoveToTop}
     >
       {isCover ? <ArrowUpCircleFillIcon /> : <ArrowUpCircleIcon />}
     </motion.footer>
