@@ -164,7 +164,7 @@ const sceneReducer = (state, action) => {
     case SET_USE_REF:
       return produce(state, (draft) => {
         _.forEach(action.data, (item, index) => {
-          draft.sceneInfo[index].objs.container = item;
+          draft.sceneInfo[index].objs.container = item.current;
         });
 
         _.forEach(draft.sceneInfo, (item, index) => {
@@ -174,14 +174,14 @@ const sceneReducer = (state, action) => {
 
           if (index === 2) {
             item.objs.canvas =
-              item.objs.container.current.querySelector('#video-canvas-0');
-            item.objs.context = item.objs.container.current
+              item.objs.container.querySelector('#video-canvas-0');
+            item.objs.context = item.objs.container
               .querySelector('#video-canvas-0')
               .getContext('2d');
           }
 
           _.forEach(
-            item.objs.container.current.querySelectorAll('.sticky-elem'),
+            item.objs.container.querySelectorAll('.sticky-elem'),
             (element, index) => {
               item.objs[`message${convert[String(index)]}`] = element;
             }
@@ -199,7 +199,7 @@ const sceneReducer = (state, action) => {
           } else if (item.type === 'video') {
             item.scrollHeight = window.innerHeight * 0.7;
           }
-          item.objs.container.current.style.height = `${item.scrollHeight}px`;
+          item.objs.container.style.height = `${item.scrollHeight}px`;
         });
       });
 
@@ -257,8 +257,6 @@ const sceneReducer = (state, action) => {
           draft.currentScene--;
           document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
         }
-
-        // console.log(state);
       });
 
     case PLAY_ANIMATION:
@@ -361,7 +359,6 @@ const sceneReducer = (state, action) => {
             break;
 
           case 3:
-            console.log(state, 'state');
             if (scrollRatio <= 0.2) {
               applyTransform(
                 'messageA',

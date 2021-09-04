@@ -295,8 +295,11 @@ const ThirdContents = ({
             });
           }}
         >
-          {images.map((item) => (
-            <SwiperSlide style={{ width: '100%' }}>
+          {images.map((item, index) => (
+            <SwiperSlide
+              style={{ width: '100%' }}
+              key={index + new Date().getMilliseconds}
+            >
               <div
                 className="original-hide"
                 onMouseEnter={() => {
@@ -372,7 +375,7 @@ const ThirdContents = ({
         <div className="second-desc">
           {language.map((item, index) => (
             <div
-              key={index}
+              key={index + new Date().getMilliseconds}
               css={css`
                 width: 45px;
                 height: 45px;
@@ -471,8 +474,11 @@ const ForthContents = ({
           }}
           pagination={true}
         >
-          {images.map((item) => (
-            <SwiperSlide style={{ width }}>
+          {images.map((item, index) => (
+            <SwiperSlide
+              style={{ width }}
+              key={index + new Date().getMilliseconds}
+            >
               <div
                 css={css`
                   width: ${window.innerWidth / 2.5}px;

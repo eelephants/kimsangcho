@@ -4,7 +4,6 @@ import AppLayout from '../components/AppLayout/AppLayout';
 import { mq } from '../lib/utils/helper';
 
 const About = ({ data, location }) => {
-  console.log(data);
   return (
     <AppLayout>
       <div
@@ -16,7 +15,9 @@ const About = ({ data, location }) => {
             background: 'hotpink',
           },
         }}
-      ></div>
+      >
+        about
+      </div>
     </AppLayout>
   );
 };
