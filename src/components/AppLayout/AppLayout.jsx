@@ -38,12 +38,16 @@ const Header = forwardRef(({ location }, ref) => {
           </li>
         </ul>
         <div>
-          <Icon
-            target="_blank"
-            herf="https://github.com/SangchoKim"
-            src={GithubIcon}
-            alt="portfolio"
-          />
+          <a target="_blank" href="https://github.com/SangchoKim">
+            <img
+              css={{
+                width: '2.2rem',
+                height: '2.2rem',
+              }}
+              src={GithubIcon}
+              alt="portfolio"
+            />
+          </a>
         </div>
       </div>
     </header>
@@ -51,7 +55,6 @@ const Header = forwardRef(({ location }, ref) => {
 });
 
 function Side({ location }) {
-  console.log(location);
   return (
     <aside css={sidebarStyle}>
       <div>
@@ -83,7 +86,7 @@ const Footer = () => {
   const { currentScene } = useSceneState();
   const [isCover, setIsCover] = useState(false);
 
-  const spring = useSpring(0, { damping: 300, stiffness: 200 });
+  const spring = useSpring(0, { damping: 300, stiffness: 1000 });
   const variants = {
     transform: {
       x: [5000, 0, 0],

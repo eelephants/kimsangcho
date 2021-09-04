@@ -21,6 +21,7 @@ import {
   PLAY_ANIMATION,
   SET_CANVAS_IMAGE,
   useSceneState,
+  SET_INIT,
 } from '../store/sceneInfo';
 
 import {
@@ -90,7 +91,7 @@ const Index = ({ data, location }) => {
         forthSectionRef,
       ],
     });
-    console.log(window.innerWidth);
+    console.log(window.innerWidth, '----');
     sceneDeispatch({ type: SET_EACH_SECTION_HEIGHT });
   };
 
@@ -192,6 +193,14 @@ const Index = ({ data, location }) => {
     console.log(id);
   }, []);
 
+  // TODO: 미디어 쿼리 (반응형)
+  // TODO: 상단 화면 이미지 채우기
+  // TODO: 헤더 아이콘 바꾸기
+  // TODO: 컨텐츠 이미지 채우기
+  // TODO: 컨텐츠 디테일 화면 만들기
+  // TODO: 어비웃 화면 만들기
+  // TODO: 컨택트 화면 만들기
+
   return (
     <AppLayout>
       <AppLayout.Header location={location} ref={headerRef} />
@@ -232,6 +241,7 @@ const Index = ({ data, location }) => {
               handleInit={onClickInit}
               isShow={item.isShow}
               isSideShow={item.isSideShow}
+              handleDetailProject={handleDetailProject}
             />
           ))}
         </WrappedContents>
