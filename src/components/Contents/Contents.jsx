@@ -111,7 +111,6 @@ const ThirdContents = ({
   title,
   duration,
   type,
-  url,
   desc,
   role,
   images,
@@ -122,6 +121,7 @@ const ThirdContents = ({
   handleInit,
   isShow,
   isSideShow,
+  handleDetailProject,
 }) => {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
@@ -399,6 +399,7 @@ const ThirdContents = ({
           boxHeight="35px"
           boxCenter
           boxShadow
+          onClick={handleDetailProject}
           css={css`
             color: white;
             letter-spacing: 0.3rem;
