@@ -38,7 +38,12 @@ const Header = forwardRef(({ location }, ref) => {
           </li>
         </ul>
         <div>
-          <Icon herf="/" src={GithubIcon} alt="portfolio" />
+          <Icon
+            target="_blank"
+            herf="https://github.com/SangchoKim"
+            src={GithubIcon}
+            alt="portfolio"
+          />
         </div>
       </div>
     </header>
@@ -222,7 +227,7 @@ const NaviTitle = (props) => (
 );
 
 const Icon = (props) => (
-  <Link to={props.herf}>
+  <Link to={props.herf} target={props.target}>
     <img
       {...props}
       css={{
