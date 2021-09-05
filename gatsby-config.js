@@ -4,6 +4,15 @@ module.exports = {
     description: 'test',
   },
   plugins: [
+    'gatsby-transformer-remark',
+    'gatsby-plugin-mdx',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-emotion',
+    'gatsby-plugin-gatsby-cloud',
+    'gatsby-plugin-image',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sitemap',
     {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
@@ -31,6 +40,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: 'image',
+        path: `${__dirname}/content/image`,
+      },
+    },
+    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
@@ -50,14 +66,5 @@ module.exports = {
         ],
       },
     },
-    'gatsby-transformer-remark',
-    'gatsby-plugin-mdx',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-emotion',
-    'gatsby-plugin-gatsby-cloud',
-    'gatsby-plugin-image',
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sitemap',
   ],
 };

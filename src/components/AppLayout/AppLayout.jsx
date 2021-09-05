@@ -78,8 +78,17 @@ function Side({ location }) {
   );
 }
 
-const Main = forwardRef(({ children }, ref) => {
-  return <main ref={ref}>{children}</main>;
+const Main = forwardRef(({ children, styles }, ref) => {
+  return (
+    <main
+      ref={ref}
+      css={css`
+        ${{ ...styles }}
+      `}
+    >
+      {children}
+    </main>
+  );
 });
 
 const Footer = () => {
@@ -142,12 +151,19 @@ AppLayout.Footer = Footer;
 const globalStyle = css`
   font-family: 'barlow';
   height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(51, 51, 51, 1) 47%
+  );
+  block-size: auto;
 `;
 
 const headerbarStyle = css`
   width: 100%;
   height: 10vh;
   position: fixed;
+  top: 0;
   align-items: center;
   display: flex;
   flex-direction: row;

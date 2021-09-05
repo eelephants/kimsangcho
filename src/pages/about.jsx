@@ -2,25 +2,35 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import AppLayout from '../components/AppLayout/AppLayout';
 import { mq } from '../lib/utils/helper';
-
+import MainVideo from '../assets/video/main.mp4';
+import BoxGeometry from '../components/BoxGeometry';
+import Dimmed from '../components/Dimmed';
+import Video from '../components/Video';
+import { css } from '@emotion/react';
 const About = ({ data, location }) => {
+  const resumes = data.allMarkdownRemark.edges;
+
+  const resume = resumes.map(({ node }) => node)[0];
+
   return (
     <AppLayout>
-      <div
-        css={{
-          [mq('small')]: {
-            background: 'gray',
-          },
-          [mq('large')]: {
-            background: 'hotpink',
-          },
-        }}
-      >
-        about
-      </div>
+      <AppLayout.Header location={location} />
+      <AppLayout.Main styles={{ color: 'white', textDecoration: 'none' }}>
+        <div css={firstSection}>
+          <Dimmed width="100%" height="70vh" opacity="0.5" />
+          <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: resume.html }} />
+      </AppLayout.Main>
+      <AppLayout.Footer />
     </AppLayout>
   );
 };
+
+const firstSection = css`
+  padding-top: 10vh;
+  height: 70vh;
+`;
 
 export default About;
 
