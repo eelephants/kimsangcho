@@ -19,7 +19,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* height: 30vh; */
 }
 
 .subject-warpper .prImage-wrapper{
@@ -114,8 +113,8 @@
     <div>Email. wjdrms1919@gmail.com</div>
     <div>Phone. +82 010-9655-6387</div>
     <h3 class="title">Channel.</h3>
-    <div>Blog. <a href="https://sangcho.tistory.com">https://sangcho.tistory.com</a></div>
-    <div>Github. <a href="https://github.com/SangchoKim">https://github.com/SangchoKim</a></div>
-    <div>Facebook. <a href="https://www.facebook.com/belle.korea.store">https://www.facebook.com/belle.korea.store</a></div>
+    <div>Blog. <a href="https://sangcho.tistory.com" target="_blank">https://sangcho.tistory.com</a></div>
+    <div>Github. <a href="https://github.com/SangchoKim" target="_blank">https://github.com/SangchoKim</a></div>
+    <div>Facebook. <a href="https://www.facebook.com/belle.korea.store" target="_blank">https://www.facebook.com/belle.korea.store</a></div>
 </div>
 
