@@ -1,70 +1,121 @@
 <style>
 .subject-warpper{
+    width: 50%;
+    margin: 0 auto;
     font-size: 1.5rem;
     position: absolute;
-    top: 40vh;
+    top: 30vh;
     left: 50%;
     transform: translateX(-50%);
 }
+
+.contact-warpper{
+    width: 50%;
+    margin: 0 auto;
+    padding: 15px 0;
+}
+
+.intro-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 30vh; */
+}
+
 .subject-warpper .prImage-wrapper{
-   width: 18rem;
+   width: 16rem;
    height: auto;
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
 }
 .subject-warpper img{
    width: 100%;
    height: 100%;
 }
-</style>
 
+
+.contact-warpper .title{
+  color: rgb(142, 145, 98);
+   font-size: 1.5rem;
+}
+
+.contact-warpper div {
+    margin-bottom: 7px;
+    word-spacing: 9px;
+    font-size: 1.3rem;
+}
+
+.contact-warpper a {
+    color: #dddd;
+}
+
+.subject-warpper .mobile{ 
+    display: none;
+}
+
+.subject-warpper .title{
+  
+  color: rgb(142, 145, 98);
+  font-size: 1.5rem;
+}
+
+.subject-warpper div {
+    margin-bottom: 7px;
+    word-spacing: 9px;
+    font-size: 1.3rem;
+}
+
+.subject-warpper a {
+    color: #dddd;
+}
+
+.empty {
+    height: 80vh;
+    overflow: hidden;
+    display: none;
+}
+
+@media screen and (max-width: 1280px) {
+    .subject-warpper .mobile {
+        display: block;
+    } 
+    .contact-warpper{
+        display: none;
+    }
+
+    .empty {
+        display: block;
+    }
+}
+</style>
 
 <div class="subject-warpper">
     <h1 align="center">Santos &nbsp;|&nbsp; 나아가는 프론트 개발자</h1>
     <h4 align="center">2년차, 나아가는 프론트 개발자 김상초입니다.</h4>
-    <div align="center" class="prImage-wrapper">
-        <img src="../image/kimsangcho.jpg" alt="kimsangcho">
+    <div class="intro-wrapper">
+        <div align="center" class="prImage-wrapper">
+            <img src="../image/kimsangcho.jpg" alt="kimsangcho" >
+        </div>
+    </div>
+    <div class="mobile">
+        <h3 class="title">Contact.</h3>
+        <div>Email. wjdrms1919@gmail.com</div>
+        <div>Phone. +82 010-9655-6387</div>
+        <h3 class="title">Channel.</h3>
+        <div>Blog. <a href="https://sangcho.tistory.com" type="_blank">https://sangcho.tistory.com</a></div>
+        <div>Github. <a href="https://github.com/SangchoKim">https://github.com/SangchoKim</a></div>
+        <div>Facebook. <a href="https://www.facebook.com/belle.korea.store">https://www.facebook.com/belle.korea.store</a></div>
     </div>
 </div>
 
----
-<p> * 이 글은 코어자바스크립트 책을 참고하여 기록하였습니다. </p>
+<div class="empty" ></div> 
 
+<div class="contact-warpper" >
+    <h3 class="title">Contact.</h3>
+    <div>Email. wjdrms1919@gmail.com</div>
+    <div>Phone. +82 010-9655-6387</div>
+    <h3 class="title">Channel.</h3>
+    <div>Blog. <a href="https://sangcho.tistory.com">https://sangcho.tistory.com</a></div>
+    <div>Github. <a href="https://github.com/SangchoKim">https://github.com/SangchoKim</a></div>
+    <div>Facebook. <a href="https://www.facebook.com/belle.korea.store">https://www.facebook.com/belle.korea.store</a></div>
+</div>
 
-## 1. 정리
-
-
-```
-1. 자바스크립트는 프로토타입을 기반으로 클래스와 비슷하게 동작할 수 있도록 다양한 기법들이 도입되어짐. 
-
-2. 프로토타입 메서드는 클래스의 prototype 내부에 정의된 메서드를 일컫으며, 인스턴스가 자신의 것처럼 호출이 가능함.
-
-3. 스태틱 메서드는 클래스에 직접 정의한 메서드이며, 클래스에 의해서만 호출이 가능함.
-
-4. 클래스 상속을 흉내내기 위한 방법 (ES5)
-    1) SubClass.prototype에 SuperClass의 인스턴스 할당 > 프로퍼티를 모두 삭제하는 방법 
-    2) 빈 함수(Bridge)를 활용하는 방법 
-    3) Object.create를 이용하는 방법
-
-5. super는 상위 클래스에 접근할 수 있는 방법. 
-
-6. ES5에서 클래스 상속을 흉내내기 위한 방법들은 ES6에서 간단하게 class를 이용하여 처리할 수 있음.
-```
-
-</br>
-
-<span>읽어 주셔서 감사합니다.</span>
-
----
-
-<strong><참고자료></strong>
-</br>
-
-[책] [#코어자바스트립트][core-javascript] - 정재남 지음 -
-</br>
-
-
-<strong><클래스></strong> 정리 end
-
----
-
-[core-javascript]: https://www.aladin.co.kr/shop/wproduct.aspx?ISBN=K532636268&start=pnaver_02
-[naver]: https://www.aladin.co.kr/shop/wproduct.aspx?ISBN=K532636268&start=pnaver_02
