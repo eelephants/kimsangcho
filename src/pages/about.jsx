@@ -11,6 +11,7 @@ const About = ({ data, location }) => {
   const resumes = data.allMarkdownRemark.edges;
 
   const resume = resumes.map(({ node }) => node)[0];
+  console.log(resumes);
 
   return (
     <AppLayout>
@@ -20,12 +21,23 @@ const About = ({ data, location }) => {
           <Dimmed width="100%" height="70vh" opacity="0.5" />
           <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: resume.html }} />
+        <div
+          css={resumeWrapper}
+          dangerouslySetInnerHTML={{ __html: resume.html }}
+        />
       </AppLayout.Main>
       <AppLayout.Footer />
     </AppLayout>
   );
 };
+
+const resumeWrapper = css`
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(51, 51, 51, 1) 47%
+  );
+`;
 
 const firstSection = css`
   padding-top: 10vh;
@@ -45,6 +57,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             date(formatString: "MMMM DD, YYYY")
+            category
           }
         }
       }

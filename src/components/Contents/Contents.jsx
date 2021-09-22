@@ -107,6 +107,7 @@ const SecondContents = ({ className }) => {
 
 const ThirdContents = ({
   id,
+  detailUrl,
   className,
   title,
   duration,
@@ -141,6 +142,14 @@ const ThirdContents = ({
   const onClickInit = useCallback(() => {
     handleInit(id);
   }, [isSideShow, isShow]);
+
+  const onClickDetail = useCallback(
+    (event) => {
+      event.preventDefault();
+      handleDetailProject(detailUrl);
+    },
+    [detailUrl]
+  );
 
   const variants = {
     rotate: {
@@ -402,7 +411,7 @@ const ThirdContents = ({
           boxHeight="35px"
           boxCenter
           boxShadow
-          onClick={handleDetailProject}
+          onClick={onClickDetail}
           css={css`
             color: white;
             letter-spacing: 0.3rem;

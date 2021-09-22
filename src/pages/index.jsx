@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { graphql } from 'gatsby';
+import { graphql, navigate } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
 import Video from '../components/Video';
@@ -189,17 +189,17 @@ const Index = ({ data, location }) => {
     [portPolioData]
   );
 
-  const handleDetailProject = useCallback((id) => {
-    console.log(id);
+  const handleDetailProject = useCallback((path) => {
+    navigate(path);
   }, []);
 
   // TODO: 미디어 쿼리 (반응형)
   // TODO: 상단 화면 이미지 채우기
-  // TODO: 헤더 아이콘 바꾸기
+  // TODO: 헤더 아이콘 바꾸기 --- done
   // TODO: 컨텐츠 이미지 채우기
   // TODO: 컨텐츠 디테일 화면 만들기
-  // TODO: 어비웃 화면 만들기
-  // TODO: 컨택트 화면 만들기
+  // TODO: 어비웃 화면 만들기 --- done
+  // TODO: 컨택트 화면 만들기 --- done
 
   return (
     <AppLayout>
@@ -226,6 +226,7 @@ const Index = ({ data, location }) => {
             <Contents.ThirdContents
               key={index}
               id={item.id}
+              detailUrl={item.detailUrl}
               className={item.className}
               title={item.title}
               duration={item.duration}
