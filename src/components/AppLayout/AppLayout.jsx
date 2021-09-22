@@ -34,7 +34,11 @@ const Header = forwardRef(({ location }, ref) => {
             <NaviTitle herf="/about" name="about" />
           </li>
           <li>
-            <NaviTitle herf="/contact" name="contact" />
+            <NaviContact
+              href="mailto:wjdrms1919@gmail.com"
+              name="contact"
+              target="_self"
+            />
           </li>
         </ul>
         <div>
@@ -238,6 +242,12 @@ const naviTitleStyle = css`
     color: #fff;
   }
 `;
+
+const NaviContact = (props) => (
+  <a href={props.href} css={naviTitleStyle} target={props.target}>
+    {props.name}
+  </a>
+);
 
 const NaviTitle = (props) => (
   <Link to={props.herf} css={naviTitleStyle}>
