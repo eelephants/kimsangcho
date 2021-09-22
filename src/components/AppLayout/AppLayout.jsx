@@ -2,7 +2,7 @@ import React, { forwardRef, useLayoutEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { motion, useSpring } from 'framer-motion';
-import HomeIcon from '../../assets/c6730f_331e4a84182944a9a7a892945436f3de_mv2.webp';
+import HomeIcon from '../../assets/logo.png';
 import AboutIcon from '../../assets/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.webp';
 import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
 import PortfolioIcon from '../../assets/gotoMain.svg';
@@ -23,7 +23,13 @@ const Header = forwardRef(({ location }, ref) => {
   return (
     <header css={headerbarStyle} ref={ref}>
       <div>
-        <Icon herf="/" src={HomeIcon} alt="home" />
+        <Icon
+          herf="/"
+          src={HomeIcon}
+          alt="home"
+          width="3.5rem"
+          height="3.5rem"
+        />
       </div>
       <div css={linkWrapperSttyle}>
         <ul css={linkbarStyle}>
@@ -260,8 +266,8 @@ const Icon = (props) => (
     <img
       {...props}
       css={{
-        width: '2.2rem',
-        height: '2.2rem',
+        width: props.width,
+        height: props.height,
       }}
     />
   </Link>
