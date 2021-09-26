@@ -657,12 +657,8 @@ const stickyElement = css`
 `;
 
 const divideLine = css`
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(93, 38, 38, 1) 42%
-  );
-  height: 5px;
+  background: #ddd;
+  height: 2px;
   border: none;
   border-radius: 50px;
   opacity: 0.7;

@@ -170,7 +170,6 @@ const BoxGeometry = ({ width, height, position, resize }) => {
         width,
         height,
         position,
-        border: '1px solid red',
         top: '45%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
