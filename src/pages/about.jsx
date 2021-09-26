@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { graphql } from 'gatsby';
 import AppLayout from '../components/AppLayout/AppLayout';
 import { mq } from '../lib/utils/helper';
@@ -8,14 +8,24 @@ import Dimmed from '../components/Dimmed';
 import Video from '../components/Video';
 import { css } from '@emotion/react';
 const About = ({ data, location }) => {
+  useEffect(() => {
+    // scroll
+    window.addEventListener('scroll', eventScroll);
+    return () => {
+      window.removeEventListener('scroll', eventScroll);
+    };
+  }, []);
+
+  const [scrollY, setScrollY] = useState(0);
   const resumes = data.allMarkdownRemark.edges;
 
   const resume = resumes.map(({ node }) => node)[0];
-  console.log(resumes);
+
+  const eventScroll = () => setScrollY(window.scrollY);
 
   return (
     <AppLayout>
-      <AppLayout.Header location={location} />
+      <AppLayout.Header location={location} scrollY={scrollY} />
       <AppLayout.Main styles={{ color: 'white', textDecoration: 'none' }}>
         <div css={firstSection}>
           <Dimmed width="100%" height="70vh" opacity="0.5" />
@@ -40,7 +50,6 @@ const resumeWrapper = css`
 `;
 
 const firstSection = css`
-  padding-top: 10vh;
   height: 70vh;
 `;
 
