@@ -70,19 +70,59 @@ export default function TemplatePost({ data, location }) {
             `}
           >
             <div></div>
-            <div>App</div>
+            <div>
+              <span
+                css={css`
+                  transform: rotate(90deg) translate(-4rem, 0px);
+                  display: inline-block;
+                  font-size: 1.2rem;
+                `}
+              >
+                App
+              </span>
+            </div>
           </div>
-          <div>
-            <p>
+          <div
+            css={css`
+              position: relative;
+            `}
+          >
+            <div
+              css={css`
+                position: absolute;
+                transform: rotate(25deg);
+                top: -20%;
+                left: 10%;
+                width: 40%;
+              `}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -139 106 139">
+                <path
+                  d="M 0 -1 L 0 -139 L 106 -139 L 106 0 L 0 -1 Z"
+                  stroke="#FFF"
+                  stroke-width="0.3"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <p
+              css={css`max-width: 30%;
+                        position: absolute;
+                        line-height: 2;
+                        left: 19%;
+                        top: 25%;
+                        font-size: 1.1rem;
+                    }`}
+            >
               TransBeat is a music creator that helps people stay active. By
               transforming movements into music rhythms, the app aims to
               motivate you through more delightful workouts. No more fatigue,
               simply stay enjoyed, engaged, and energized on the road to
               reaching your next goal.
             </p>
-            <p>test</p>
+            {/* <p>test</p>
             <hr />
-            <span>test</span>
+            <span>test</span> */}
           </div>
         </section>
         <section
