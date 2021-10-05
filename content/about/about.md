@@ -30,16 +30,17 @@
 
 .subject-warpper .prImage-wrapper .birth{
    position: absolute;
-   top: 15px;
-   right: -100px;
-   color: rgb(52, 160, 65);
+   top: 12px;
+   right: -109px;
+   color: #fc6076;
    font-wight: bold;
+   font-size: 1.7rem;
 }
 
 .subject-warpper .prImage-wrapper::after{
     position: absolute;
     content: '';
-    border-bottom: 1px rgb(52, 160, 65) solid;
+    border-bottom: 1px #fc6076 solid;
     top: -49px;
     right: -50px;
     height: 76px;
@@ -54,7 +55,7 @@
 
 
 .contact-warpper .title{
-   color: rgb(52, 160, 65);
+   color:  #fc6076;
    font-size: 1.5rem;
 }
 
@@ -74,7 +75,7 @@
 
 .subject-warpper .title{
   
-  color: rgb(52, 160, 65);
+  color: #fc6076; 
   font-size: 1.5rem;
 }
 

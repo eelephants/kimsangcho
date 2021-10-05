@@ -1,4 +1,4 @@
-import React, { forwardRef, useLayoutEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useLayoutEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { motion, useSpring } from 'framer-motion';
@@ -7,6 +7,7 @@ import AboutIcon from '../../assets/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.
 import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
 import PortfolioIcon from '../../assets/gotoMain.svg';
 import GithubIcon from '../../assets/githubIcon.svg';
+import GithubWhiteIcon from '../../assets/github_white.png';
 import { useSiteMetadata } from '../../hooks/useQuery';
 import { ArrowUpCircle } from '@emotion-icons/bootstrap/ArrowUpCircle';
 import { ArrowUpCircleFill } from '@emotion-icons/bootstrap/ArrowUpCircleFill';
@@ -19,16 +20,26 @@ const AppLayout = ({ children }) => {
   return <div css={globalStyle}>{children}</div>;
 };
 
-const Header = forwardRef(({ location }, ref) => {
+const Header = forwardRef(({ location, scrollY }, ref) => {
   return (
-    <header css={headerbarStyle} ref={ref}>
+    <header
+      css={[
+        headerbarStyle,
+        css`
+          color: ${scrollY === 0 ? '#fff' : '#000'};
+          background: ${scrollY === 0 && 'transparent'};
+          background-image: ${scrollY !== 0 &&
+          'linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%)'};
+          transition: background-image 0.5s ease;
+        `,
+      ]}
+      ref={ref}
+    >
       <div>
-        <Icon
+        <NaviTitle
           herf="/"
-          src={HomeIcon}
-          alt="home"
-          width="3.5rem"
-          height="3.5rem"
+          name="kim sangcho ™"
+          style={{ 'font-size': '1.7rem', 'font-family': 'lobster' }}
         />
       </div>
       <div css={linkWrapperSttyle}>
@@ -54,7 +65,7 @@ const Header = forwardRef(({ location }, ref) => {
                 width: '2.2rem',
                 height: '2.2rem',
               }}
-              src={GithubIcon}
+              src={scrollY === 0 ? GithubWhiteIcon : GithubIcon}
               alt="portfolio"
             />
           </a>
@@ -93,7 +104,12 @@ const Main = forwardRef(({ children, styles }, ref) => {
     <main
       ref={ref}
       css={css`
-        ${{ ...styles }}
+      linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(51, 51, 51, 1) 47%
+      );
+        ${{ ...styles }};
       `}
     >
       {children}
@@ -178,10 +194,8 @@ const headerbarStyle = css`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background: #fff;
   padding: 0;
   z-index: 900;
-  background-image: linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%);
   div:first-of-type {
     flex: 2;
     padding: 0 100px;
@@ -238,25 +252,36 @@ const navStyle = css`
   }
 `;
 
-const naviTitleStyle = css`
+const naviContact = css`
   text-decoration: none;
   font-size: 1.1rem;
-  color: #000;
+  color: inherit;
   transition: all 0.3s linear;
-
   &:hover {
     color: #fff;
   }
 `;
 
 const NaviContact = (props) => (
-  <a href={props.href} css={naviTitleStyle} target={props.target}>
+  <a href={props.href} css={naviContact} target={props.target}>
     {props.name}
   </a>
 );
 
 const NaviTitle = (props) => (
-  <Link to={props.herf} css={naviTitleStyle}>
+  <Link
+    to={props.herf}
+    css={css`
+      text-decoration: none;
+      font-size: 1.1rem;
+      color: inherit;
+      transition: all 0.3s linear;
+      &:hover {
+        color: #fff;
+      }
+      ${props.style};
+    `}
+  >
     {props.name}
   </Link>
 );

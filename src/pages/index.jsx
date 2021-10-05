@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import { graphql, navigate } from 'gatsby';
 import { css } from '@emotion/react';
 import AppLayout from '../components/AppLayout';
@@ -49,6 +49,8 @@ import { motion } from 'framer-motion';
 // })}
 
 const Index = ({ data, location }) => {
+  const [scrollY, setScrollY] = useState(0);
+
   const firstSectionRef = useRef();
   const secondSectionRef = useRef();
   const thirdSectionRef = useRef();
@@ -91,7 +93,6 @@ const Index = ({ data, location }) => {
         forthSectionRef,
       ],
     });
-    console.log(window.innerWidth, '----');
     sceneDeispatch({ type: SET_EACH_SECTION_HEIGHT });
   };
 
@@ -130,6 +131,7 @@ const Index = ({ data, location }) => {
 
   // // 스크롤 이벤트
   const scrollLoop = async () => {
+    setScrollY(window.scrollY);
     await sceneDeispatch({ type: SCROLL_LOOP });
     await sceneDeispatch({ type: PLAY_ANIMATION });
   };
@@ -203,7 +205,7 @@ const Index = ({ data, location }) => {
 
   return (
     <AppLayout>
-      <AppLayout.Header location={location} ref={headerRef} />
+      <AppLayout.Header location={location} ref={headerRef} scrollY={scrollY} />
       <AppLayout.Main ref={mainRef}>
         <div css={firstSection} ref={firstSectionRef} id="scroll-section-0">
           <BoxGeometry
@@ -272,7 +274,7 @@ const Index = ({ data, location }) => {
 };
 
 const firstSection = css`
-  padding-top: 10vh;
+  // padding-top: 10vh;
   height: 70vh;
 `;
 
