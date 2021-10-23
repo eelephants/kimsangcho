@@ -1,13 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import { graphql } from 'gatsby';
 import AppLayout from '../components/AppLayout/AppLayout';
 import { css } from '@emotion/react';
-import MainVideo from '../assets/video/main.mp4';
-import Dimmed from '../components/Dimmed';
-import Video from '../components/Video';
+import styled from '@emotion/styled';
+import BodyClassMain1 from '../assets/bodyClass_detail1.png';
+import BodyClassMain2 from '../assets/bodyClass_detail2.png';
+import BodyClassMain3 from '../assets/bodyClass_detail3.png';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Navigation } from 'swiper/core';
+import 'swiper/swiper.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import Button from '../components/Button';
+import { ArrowLeftS } from '@emotion-icons/remix-fill/ArrowLeftS';
+import { ArrowRightS } from '@emotion-icons/remix-fill/ArrowRightS';
+
+const mainImages = {
+  bodyClass: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
+};
+
+SwiperCore.use([Navigation]);
 
 export default function TemplatePost({ data, location }) {
+  const ArrowBackCircleIcon = styled(ArrowLeftS)`
+    color: #000;
+    width: 80%;
+    height: auto;
+  `;
+
+  const RightArrowCircleIcon = styled(ArrowRightS)`
+    color: #000;
+    width: 80%;
+    height: auto;
+  `;
+
   const post = data.markdownRemark;
   const [scrollY, setScrollY] = useState(0);
   useEffect(() => {
@@ -18,7 +44,13 @@ export default function TemplatePost({ data, location }) {
     };
   }, []);
 
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+
   const eventScroll = () => setScrollY(window.scrollY);
+
+  const getImage = (name) => mainImages[name];
+
   return (
     <AppLayout>
       <AppLayout.Header location={location} scrollY={scrollY} />
@@ -50,6 +82,7 @@ export default function TemplatePost({ data, location }) {
               font-size: 4rem;
               ext-transform: uppercase;
               letter-spacing: 1rem;
+              font-weight: bold;
             `}
           >
             <div>{post.frontmatter.title}</div>
@@ -78,7 +111,7 @@ export default function TemplatePost({ data, location }) {
                   font-size: 1.2rem;
                 `}
               >
-                App
+                {post.frontmatter.category}
               </span>
             </div>
           </div>
@@ -114,15 +147,26 @@ export default function TemplatePost({ data, location }) {
                         font-size: 1.1rem;
                     }`}
             >
-              TransBeat is a music creator that helps people stay active. By
-              transforming movements into music rhythms, the app aims to
-              motivate you through more delightful workouts. No more fatigue,
-              simply stay enjoyed, engaged, and energized on the road to
-              reaching your next goal.
+              {post.frontmatter.intro}
             </p>
-            {/* <p>test</p>
-            <hr />
-            <span>test</span> */}
+            <div
+              css={css`max-width: 30%;
+                        position: absolute;
+                        line-height: 1.5;
+                        right: 15%;
+                        top: 10%;
+                        font-size: 1.1rem;
+                    }`}
+            >
+              <p>
+                {post.frontmatter.startDate} - {post.frontmatter.endDate}
+              </p>
+              <hr />
+              <p css={[roleTitle]}>Skill:</p>
+              {post.frontmatter.skills.map((item) => (
+                <p css={[roleTitle]}>{item}</p>
+              ))}
+            </div>
           </div>
         </section>
         <section
@@ -135,7 +179,8 @@ export default function TemplatePost({ data, location }) {
           ]}
         >
           <img
-            src="https://source.unsplash.com/random"
+            src={getImage(post.frontmatter.images)[0]}
+            alt={post.frontmatter.images}
             css={{ width: '100%' }}
           />
         </section>
@@ -160,11 +205,66 @@ export default function TemplatePost({ data, location }) {
             `,
           ]}
         >
-          <img
-            src="https://source.unsplash.com/random/1"
-            css={{ width: '100%' }}
-          />
-          {/* <div dangerouslySetInnerHTML={{ __html: post.html }} /> */}
+          <Button
+            className="slideBtn"
+            small
+            isShow
+            backGroundcolor="transparent"
+            absolute
+            left="0"
+            style={{
+              top: '50%',
+            }}
+            ref={navigationPrevRef}
+          >
+            <ArrowBackCircleIcon />
+          </Button>
+          <Button
+            className="slideBtn"
+            small
+            isShow
+            backGroundcolor="transparent"
+            absolute
+            right="0"
+            style={{
+              top: '50%',
+            }}
+            ref={navigationNextRef}
+          >
+            <RightArrowCircleIcon />
+          </Button>
+          <div css={{ width: '100%', margin: '0 auto' }}>
+            <Swiper
+              navigation={true}
+              navigation={{
+                prevEl: navigationPrevRef.current,
+                nextEl: navigationNextRef.current,
+              }}
+              onSwiper={(swiper) => {
+                // Delay execution for the refs to be defined
+                setTimeout(() => {
+                  // Override prevEl & nextEl now that refs are defined
+                  swiper.params.navigation.prevEl = navigationPrevRef.current;
+                  swiper.params.navigation.nextEl = navigationNextRef.current;
+
+                  // Re-init navigation
+                  swiper.navigation.destroy();
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+                });
+              }}
+            >
+              {getImage(post.frontmatter.images).map((item, index) => (
+                <SwiperSlide className="intro" key={index}>
+                  <img
+                    src={item}
+                    alt={post.frontmatter.images}
+                    css={{ width: '100%' }}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </section>
       </AppLayout.Main>
     </AppLayout>
@@ -173,7 +273,15 @@ export default function TemplatePost({ data, location }) {
 
 const boxWrapper = css`
   height: 100vh;
-  border: 1px solid red;
+  .slideBtn {
+    svg:hover {
+      color: #ff9a44;
+    }
+  }
+`;
+
+const roleTitle = css`
+  line-height: 0.8;
 `;
 
 export const query = graphql`
@@ -189,7 +297,12 @@ export const query = graphql`
       html
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        startDate(formatString: "MM/YY")
+        endDate(formatString: "MM/YY")
+        category
+        skills
+        intro
+        images
       }
     }
   }

@@ -12,6 +12,7 @@ const Button = forwardRef(
       absolute,
       top,
       left,
+      right,
       isShow,
       transform,
       children,
@@ -20,6 +21,7 @@ const Button = forwardRef(
       boxHeight,
       boxCenter,
       boxShadow,
+      className,
       ...rest
     },
     ref
@@ -48,14 +50,17 @@ const Button = forwardRef(
           font-size: 1rem;
           position: ${absolute ? 'absolute' : 'static'};
           z-index: ${absolute ? 500 : 0};
-          top: ${top ? top : 0}px;
-          left: ${left ? left : 0}px;
+          top: ${top && top}px;
+          left: ${left && left}px;
+          right: ${right && right}px;
           transform: ${transform};
           margin: ${boxCenter ? '0 auto' : '0'};
           box-shadow: ${boxShadow
             ? '0px 10px 13px -7px #000000,  5px 5px 15px 5px rgba(0, 0, 0, 0)'
             : ''};
         `}
+        style={{ ...rest.style }}
+        className={className}
       >
         <motion.button
           {...rest}
