@@ -70,6 +70,7 @@ const Button = forwardRef(
           }}
           css={css`
             border-radius: ${circle ? '50%' : 0};
+            color: inherit;
             width: 100%;
             height: 100%;
             cursor: pointer;

@@ -29,7 +29,7 @@ const Header = forwardRef(({ location, scrollY }, ref) => {
           color: ${scrollY === 0 ? '#fff' : '#000'};
           background: ${scrollY === 0 && 'transparent'};
           background-image: ${scrollY !== 0 &&
-          'linear-gradient(-20deg, #fc6076 0%, #ff9a44 100%)'};
+          'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(204,192,192,1) 93%)'};
           transition: background-image 0.5s ease;
         `,
       ]}
