@@ -14,6 +14,7 @@ import 'swiper/components/navigation/navigation.min.css';
 import Button from '../components/Button';
 import { ArrowLeftS } from '@emotion-icons/remix-fill/ArrowLeftS';
 import { ArrowRightS } from '@emotion-icons/remix-fill/ArrowRightS';
+import { AccessAlarm } from '@emotion-icons/material/AccessAlarm';
 
 const mainImages = {
   bodyClass: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
@@ -31,6 +32,12 @@ export default function TemplatePost({ data, location }) {
   const RightArrowCircleIcon = styled(ArrowRightS)`
     color: #000;
     width: 80%;
+    height: auto;
+  `;
+
+  const Task = styled(AccessAlarm)`
+    color: #000;
+    width: 100%;
     height: auto;
   `;
 
@@ -194,7 +201,69 @@ export default function TemplatePost({ data, location }) {
             `,
           ]}
         >
-          <div dangerouslySetInnerHTML={{ __html: post.html }} />
+          <div
+            css={css`
+              transform: rotate(90deg);
+              display: inline-block;
+              font-size: 1.2rem;
+              color: white;
+              position: absolute;
+              top: 20%;
+              right: 17%;
+            `}
+          >
+            <div
+              css={css`
+                border: 1px solid white;
+              `}
+            ></div>
+            <span>Role</span>
+          </div>
+          <div
+            css={css`
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100%;
+              overflow: hidden;
+            `}
+          >
+            <ul
+              css={css`
+                width: 50%;
+                height: 80%;
+                border: 1px solid;
+                list-style-type: none;
+                font-size: 1.3rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0;
+                padding: 0;
+              `}
+            >
+              {post.frontmatter.roles.map((item, index) => (
+                <li
+                  css={css`
+                    flex: 1;
+                    align-self: start;
+                    padding: 3rem 1rem;
+                  `}
+                >
+                  <div css={roleWrapper}>
+                    <div className="image-wrapper circle">
+                      <Task />
+                    </div>
+                    <div className="title-wrapper">{item}</div>
+                  </div>
+                  <div css={roleWrapper}>
+                    <div className="image-wrapper"></div>
+                    <div className="desc-wrapper"># {item}</div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
         <section
           css={[
@@ -284,6 +353,29 @@ const roleTitle = css`
   line-height: 0.8;
 `;
 
+const roleWrapper = css`
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  .image-wrapper {
+    width: 5%;
+    margin-right: 15px;
+    &.circle {
+      padding: 7px;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+  }
+  .title-wrapper {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .desc-wrapper {
+    text-indent: 2rem;
+    margin-top: 1rem;
+  }
+`;
+
 export const query = graphql`
   query BlogPostBySlug($slug: String!) {
     site {
@@ -303,6 +395,7 @@ export const query = graphql`
         skills
         intro
         images
+        roles
       }
     }
   }
