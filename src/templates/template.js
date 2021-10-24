@@ -35,6 +35,18 @@ export default function TemplatePost({ data, location }) {
     height: auto;
   `;
 
+  const ArrowBackWhiteCircleIcon = styled(ArrowLeftS)`
+    color: #fff;
+    width: 50%;
+    height: auto;
+  `;
+
+  const RightArrowWhiteCircleIcon = styled(ArrowRightS)`
+    color: #fff;
+    width: 50%;
+    height: auto;
+  `;
+
   const Task = styled(AccessAlarm)`
     color: #000;
     width: 100%;
@@ -43,6 +55,7 @@ export default function TemplatePost({ data, location }) {
 
   const post = data.markdownRemark;
   const [scrollY, setScrollY] = useState(0);
+  const [isShow, setIsShow] = useState(0);
   useEffect(() => {
     // scroll
     window.addEventListener('scroll', eventScroll);
@@ -53,6 +66,8 @@ export default function TemplatePost({ data, location }) {
 
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
+  const navigationRoleNextRef = useRef(null);
+  const navigationRolePrevRef = useRef(null);
 
   const eventScroll = () => setScrollY(window.scrollY);
 
@@ -203,6 +218,97 @@ export default function TemplatePost({ data, location }) {
         >
           <div
             css={css`
+              font-size: 1.2rem;
+              color: white;
+              position: relative;
+              top: 10%;
+              left: 10%;
+              width: 30%;
+              // border: 1px solid;
+            `}
+          >
+            <Button
+              className="slideBtn"
+              small
+              isShow
+              backGroundcolor="transparent"
+              absolute
+              left="0"
+              style={{
+                left: '-12%',
+              }}
+              ref={navigationRolePrevRef}
+            >
+              <ArrowBackWhiteCircleIcon />
+            </Button>
+            <Button
+              className="slideBtn"
+              small
+              isShow
+              backGroundcolor="transparent"
+              absolute
+              right="0"
+              style={{
+                right: '-12%',
+              }}
+              ref={navigationRoleNextRef}
+            >
+              <RightArrowWhiteCircleIcon />
+            </Button>
+            <Swiper
+              navigation={true}
+              slidesPerView={5}
+              navigation={{
+                prevEl: navigationRolePrevRef.current,
+                nextEl: navigationRoleNextRef.current,
+              }}
+              onSwiper={(swiper) => {
+                // Delay execution for the refs to be defined
+                setTimeout(() => {
+                  // Override prevEl & nextEl now that refs are defined
+                  swiper.params.navigation.prevEl =
+                    navigationRolePrevRef.current;
+                  swiper.params.navigation.nextEl =
+                    navigationRoleNextRef.current;
+
+                  // Re-init navigation
+                  swiper.navigation.destroy();
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+                });
+              }}
+            >
+              {post.frontmatter.roles.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <div
+                    onClick={() => setIsShow(index)}
+                    css={css`
+                      cursor: pointer;
+                      padding: 7px 30px;
+                      background-color: #fff;
+                      border-radius: 150px;
+                      width: 10%;
+                      color: #000;
+                      text-align: center;
+                      font-size: 1rem;
+                      font-weight: bold;
+                      text-shadow: 2px 2px 2px gray;
+                      box-shadow: 0px 10px 13px -7px #000000,
+                        5px 5px 15px 5px #0000;
+                      :hover {
+                        background-color: #ddd;
+                      }
+                    `}
+                  >
+                    {index + 1}
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          <div
+            css={css`
               transform: rotate(90deg);
               display: inline-block;
               font-size: 1.2rem;
@@ -226,43 +332,26 @@ export default function TemplatePost({ data, location }) {
               align-items: center;
               height: 100%;
               overflow: hidden;
+              font-size: 1.3rem;
+              // border: 1px solid;
             `}
           >
-            <ul
-              css={css`
-                width: 50%;
-                height: 80%;
-                border: 1px solid;
-                list-style-type: none;
-                font-size: 1.3rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                margin: 0;
-                padding: 0;
-              `}
-            >
-              {post.frontmatter.roles.map((item, index) => (
-                <li
-                  css={css`
-                    flex: 1;
-                    align-self: start;
-                    padding: 3rem 1rem;
-                  `}
-                >
-                  <div css={roleWrapper}>
-                    <div className="image-wrapper circle">
-                      <Task />
-                    </div>
-                    <div className="title-wrapper">{item}</div>
-                  </div>
-                  <div css={roleWrapper}>
-                    <div className="image-wrapper"></div>
-                    <div className="desc-wrapper"># {item}</div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            {post.frontmatter.roles.map((item, index) => (
+              <div
+                key={index}
+                css={css`
+                  display: ${isShow === index ? 'block' : 'none'};
+                `}
+              >
+                <div css={roleWrapper}>
+                  <div className="number-wrapper">{index + 1}.</div>
+                  <div className="title-wrapper">{item}</div>
+                </div>
+                <div css={roleWrapper}>
+                  <div className="desc-wrapper"># {item}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
         <section
@@ -344,7 +433,7 @@ const boxWrapper = css`
   height: 100vh;
   .slideBtn {
     svg:hover {
-      color: #ff9a44;
+      color: #aaa;
     }
   }
 `;
@@ -354,17 +443,14 @@ const roleTitle = css`
 `;
 
 const roleWrapper = css`
-  display: flex;
-  align-items: center;
   font-size: 1rem;
-  .image-wrapper {
-    width: 5%;
-    margin-right: 15px;
-    &.circle {
-      padding: 7px;
-      background-color: #fff;
-      border-radius: 50%;
-    }
+  text-align: center;
+  font-weight: 100;
+  .number-wrapper {
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: bold;
   }
   .title-wrapper {
     font-size: 1.5rem;

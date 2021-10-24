@@ -7,7 +7,7 @@ draft: false
 skills: ['react', 'mysql', 'redux', 'scss']
 images: 'bodyClass'
 intro: 'The online lecture on practical sex techniques for tonight, the body class, suggests a new lifestyle for a more enjoyable and healthy sex culture.'
-roles: ['Overall web screen function composition', 'Added shopping cart function', 'Payment function supplement']
+roles: ['Overall web screen function composition1', 'Added shopping cart function2', 'Payment function supplement3', 'Payment function supplement4', 'Payment function supplement5', 'Payment function supplement6']
 ---
 
 
