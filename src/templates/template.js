@@ -343,12 +343,16 @@ export default function TemplatePost({ data, location }) {
                   display: ${isShow === index ? 'block' : 'none'};
                 `}
               >
-                <div css={roleWrapper}>
+                <div css={[roleWrapper, titleWrapper]}>
                   <div className="number-wrapper">{index + 1}.</div>
-                  <div className="title-wrapper">{item}</div>
+                  <div className="title-wrapper">{item.name}</div>
                 </div>
                 <div css={roleWrapper}>
-                  <div className="desc-wrapper"># {item}</div>
+                  {item.desc.map((el, index) => (
+                    <div key={index} className="desc-wrapper">
+                      # {el}
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
@@ -442,6 +446,10 @@ const roleTitle = css`
   line-height: 0.8;
 `;
 
+const titleWrapper = css`
+  margin-bottom: 3rem;
+`;
+
 const roleWrapper = css`
   font-size: 1rem;
   text-align: center;
@@ -453,8 +461,9 @@ const roleWrapper = css`
     font-weight: bold;
   }
   .title-wrapper {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
+    text-transform: capitalize;
   }
   .desc-wrapper {
     text-indent: 2rem;
@@ -481,7 +490,10 @@ export const query = graphql`
         skills
         intro
         images
-        roles
+        roles {
+          name
+          desc
+        }
       }
     }
   }
