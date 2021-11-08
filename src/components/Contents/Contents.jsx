@@ -17,6 +17,7 @@ import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import Button from '../Button';
+import TestIcon from '../../assets/svg/test.svg';
 import { StaticImage } from 'gatsby-plugin-image';
 import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
 import { ArrowLeftCircle } from '@emotion-icons/remix-fill/ArrowLeftCircle';
@@ -227,7 +228,7 @@ const ThirdContents = ({
         >
           <RightArrowCircleIcon />
         </Button>
-
+        <TestIcon />
         <Button
           small
           backGroundcolor="transparent"
@@ -267,7 +268,7 @@ const ThirdContents = ({
             width={window.innerWidth / 2.5}
             height={window.innerWidth / 2.5}
           ></canvas>
-          <canvas
+          {/* <canvas
             className="flip"
             css={{
               [mq('small')]: {
@@ -280,7 +281,7 @@ const ThirdContents = ({
             alt=""
             width={window.innerWidth / 2.5}
             height={window.innerWidth / 7.5}
-          ></canvas>
+          ></canvas> */}
         </div>
         <Swiper
           spaceBetween={50}
@@ -327,7 +328,7 @@ const ThirdContents = ({
                   css={{ width: '100%', display: 'inline-block' }}
                 />
               </div>
-              <div
+              {/* <div
                 className="flip-hide"
                 css={{
                   width: window.innerWidth / 2.5,
@@ -338,7 +339,7 @@ const ThirdContents = ({
                   src={item.src}
                   css={{ width: '100%', opacity: 0.5, display: 'inline-block' }}
                 />
-              </div>
+              </div> */}
             </SwiperSlide>
           ))}
         </Swiper>

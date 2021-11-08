@@ -416,8 +416,8 @@ const portpoioReducer = (state, action) => {
         const itemFlipHides = document.querySelectorAll(`#${id} .flip-hide`);
 
         itemOriginal.style.display = itemOriginalStyle;
-        itemFlip.style.display = itemFlipStyle;
-        itemFlip.style.padding = itemWrapperStyle;
+        // itemFlip.style.display = itemFlipStyle;
+        // itemFlip.style.padding = itemWrapperStyle;
         itemWrapper.style.padding = itemWrapperStyle;
 
         Array.from(itemFronts).forEach(
