@@ -223,15 +223,15 @@ const portpoioReducer = (state, action) => {
             description[index].style.width = '100%';
           } else {
             description[index].style.right = `${cw * 0.4}px`;
-            description[index].style.top = `${65}px`;
+            // description[index].style.top = `${65}px`;
             description[index].style.maxWidth = `${cw * 0.55}px`;
             description[index].style.maxHeight = `${ch * 0.75}px`;
           }
 
           ctx.beginPath();
           ctx.moveTo(0, 0);
-          ctx.lineTo(cw, 85);
-          ctx.lineTo(cw, cw - 85);
+          ctx.lineTo(cw, 0);
+          ctx.lineTo(cw, cw);
           ctx.lineTo(0, cw);
           ctx.lineWidth = 5;
           ctx.strokeStyle = 'rgba(51, 51, 51, 1) 47%';
@@ -292,13 +292,13 @@ const portpoioReducer = (state, action) => {
 
           item.style.top = `${original.height * 0.8}px`;
 
-          ctx.beginPath();
-          ctx.moveTo(0, 0);
-          ctx.lineTo(cw, 0);
-          ctx.lineTo(cw, ch - 85);
-          ctx.lineTo(0, ch);
+          // ctx.beginPath();
+          // ctx.moveTo(0, 0);
+          // ctx.lineTo(cw, 0);
+          // ctx.lineTo(cw, ch - 85);
+          // ctx.lineTo(0, ch);
 
-          ctx.clip();
+          // ctx.clip();
 
           const imgElem = new Image();
           imgElem.src = draft.portPolioData.map((item) => item.imageThumnail)[

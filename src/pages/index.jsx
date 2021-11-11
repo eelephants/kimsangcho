@@ -112,7 +112,7 @@ const Index = ({ data, location }) => {
     setEachSectionHeight();
     setTotalScrollHeight();
     setOriginalPortpolio();
-    setFlipPortpolio();
+    // setFlipPortpolio();
   };
 
   const covertRadian = (angle) => {
