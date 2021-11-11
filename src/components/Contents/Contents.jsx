@@ -228,7 +228,7 @@ const ThirdContents = ({
         >
           <RightArrowCircleIcon />
         </Button>
-        <TestIcon />
+
         <Button
           small
           backGroundcolor="transparent"
@@ -254,9 +254,11 @@ const ThirdContents = ({
             css={{
               [mq('small')]: {
                 position: 'relative',
+                boxShadow: '5px 5px 15px 5px #000000',
               },
               [mq('large')]: {
                 position: 'relative',
+                boxShadow: '5px 5px 15px 5px #000000',
               },
             }}
             onMouseEnter={() => {
@@ -267,7 +269,7 @@ const ThirdContents = ({
             }}
             width={window.innerWidth / 2.5}
             height={window.innerWidth / 2.5}
-          ></canvas>
+          />
           {/* <canvas
             className="flip"
             css={{

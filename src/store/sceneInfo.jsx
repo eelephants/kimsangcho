@@ -296,7 +296,7 @@ const sceneReducer = (state, action) => {
               currentYoffset,
               draft
             );
-            if (scrollRatio <= 0.22) {
+            if (scrollRatio <= 0.15) {
               // in
               applyStyle('messageA', 'in', objs, values, currentYoffset, draft);
             } else {
@@ -311,7 +311,7 @@ const sceneReducer = (state, action) => {
               );
             }
 
-            if (scrollRatio <= 0.42) {
+            if (scrollRatio <= 0.35) {
               // in
               applyStyle('messageB', 'in', objs, values, currentYoffset, draft);
             } else {
@@ -326,7 +326,7 @@ const sceneReducer = (state, action) => {
               );
             }
 
-            if (scrollRatio <= 0.62) {
+            if (scrollRatio <= 0.55) {
               // in
               applyStyle('messageC', 'in', objs, values, currentYoffset, draft);
             } else {
@@ -341,7 +341,7 @@ const sceneReducer = (state, action) => {
               );
             }
 
-            if (scrollRatio <= 0.82) {
+            if (scrollRatio <= 0.75) {
               // in
               applyStyle('messageD', 'in', objs, values, currentYoffset, draft);
             } else {
