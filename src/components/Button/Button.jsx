@@ -50,9 +50,9 @@ const Button = forwardRef(
           font-size: 1rem;
           position: ${absolute ? 'absolute' : 'static'};
           z-index: ${absolute ? 500 : 0};
-          top: ${top && top}px;
-          left: ${left && left}px;
-          right: ${right && right}px;
+          top: ${top && typeof top === Number ? top + 'px' : top};
+          left: ${left && typeof left === Number ? left + 'px' : left};
+          right: ${right && typeof right === Number ? right + 'px' : right};
           transform: ${transform};
           margin: ${boxCenter ? '0 auto' : '0'};
           box-shadow: ${boxShadow
