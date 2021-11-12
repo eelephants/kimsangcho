@@ -36,25 +36,25 @@ SwiperCore.use([
 ]);
 
 const CloseOutlineIcon = styled(CloseOutline)`
-  color: #bfbbbb;
+  color: rgba(204, 192, 192, 1);
   width: 50%;
   height: auto;
 `;
 
 const ArrowBackCircleIcon = styled(ArrowLeftCircle)`
-  color: #bfbbbb;
+  color: rgba(204, 192, 192, 1);
   width: 80%;
   height: auto;
 `;
 
 const RightArrowCircleIcon = styled(ArrowRightCircle)`
-  color: #bfbbbb;
+  color: rgba(204, 192, 192, 1);
   width: 80%;
   height: auto;
 `;
 
 const ArrowGoBackIcon = styled(ArrowGoBack)`
-  color: #bfbbbb;
+  color: rgba(204, 192, 192, 1);
   width: 80%;
   height: auto;
 `;
@@ -286,7 +286,7 @@ const ThirdContents = ({
             absolute
             top="0%"
             left="100%"
-            transform="translate(-90%)"
+            transform="translate(-90%, 20%)"
             isShow={isSideShow}
             onMouseEnter={() => {
               !isSideShow ? onMouseEnterFromCanvas() : null;
@@ -359,84 +359,85 @@ const ThirdContents = ({
             ))}
           </Swiper>
         </div>
-      </div>
-
-      <div
-        className="description"
-        css={{
-          [mq('small')]: {
-            position: 'static',
-            width: '100%',
-            right: 0,
-            top: 0,
-          },
-          [mq('large')]: {
-            position: 'absolute',
-          },
-        }}
-      >
-        <div className="first-desc">
-          <div
-            css={css`
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-            `}
-          >
-            <h1>{title}</h1>
-          </div>
-          <h3>
-            {duration} /&nbsp;{type}
-          </h3>
-          <div>
-            <label>#Desc</label>
-            <span>- {desc}</span>
-          </div>
-          <div>
-            <label>#Role</label>
-            <span>- {role}</span>
-          </div>
-        </div>
-        <hr css={divideLine} />
-        <div className="second-desc">
-          {language.map((item, index) => (
+        <div
+          className="description"
+          css={{
+            [mq('small')]: {
+              position: 'static',
+              width: '100%',
+              right: 0,
+              top: 0,
+            },
+            [mq('large')]: {
+              position: 'absolute',
+            },
+          }}
+        >
+          <div className="first-desc">
             <div
-              key={index + new Date().getMilliseconds}
+              className="title-wrapper"
               css={css`
-                width: 45px;
-                height: 45px;
-                border-radius: 50%;
-                background-color: rgba(${makeColor(item)});
                 display: flex;
+                justify-content: space-between;
                 align-items: center;
-                justify-content: center;
-                font-size: 0.8rem;
-                padding: 5px;
-                margin: 0.2rem;
-                text-transform: uppercase;
-                box-shadow: 1px 1px 1px 1px #000000;
               `}
             >
-              {item}
+              <h1>{title}</h1>
             </div>
-          ))}
+            <h3>
+              {duration} /&nbsp;{type}
+            </h3>
+            <div className="explain-wrapper">
+              <label>#Desc</label>
+              <span>- {desc}</span>
+            </div>
+            <div className="explain-wrapper">
+              <label>#Role</label>
+              <span>- {role}</span>
+            </div>
+          </div>
+          <hr css={divideLine} />
+          <div className="second-desc">
+            {language.map((item, index) => (
+              <div
+                key={index + new Date().getMilliseconds}
+                css={css`
+                  width: 45px;
+                  height: 45px;
+                  border-radius: 50%;
+                  // background-color: rgba(${makeColor(item)});
+                  background-color: #303030;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 0.8rem;
+                  padding: 5px;
+                  margin: 0.2rem;
+                  text-transform: uppercase;
+                  box-shadow: 1px 1px 3px 1px #000;
+                `}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+          <Button
+            isShow
+            backGroundcolor="#000"
+            boxWidth="100%"
+            boxHeight="35px"
+            boxCenter
+            boxShadow
+            onClick={onClickDetail}
+            css={css`
+              color: white;
+              letter-spacing: 0.3rem;
+              text-style: border;
+            `}
+          >
+            DETAILS
+          </Button>
         </div>
-        <Button
-          isShow
-          backGroundcolor="black"
-          boxWidth="100%"
-          boxHeight="35px"
-          boxCenter
-          boxShadow
-          onClick={onClickDetail}
-          css={css`
-            color: white;
-            letter-spacing: 0.3rem;
-            text-style: border;
-          `}
-        >
-          DETAILS
-        </Button>
       </div>
     </motion.div>
   );
@@ -553,7 +554,7 @@ const ForthContents = ({
       </div>
       <Button
         isShow
-        backGroundcolor="black"
+        backGroundcolor="#000"
         boxWidth="300px"
         boxHeight="50px"
         boxCenter
@@ -618,7 +619,7 @@ const stickyElement = css`
   }
   button {
     svg:hover {
-      color: deeppink;
+      color: #4b4453;
     }
   }
   .description {
@@ -627,10 +628,14 @@ const stickyElement = css`
     .first-desc {
       height: 50%;
       letter-spacing: 3px;
+      & .title-wrapper {
+        margin: 0;
+      }
       & h1 {
         font-size: 1.7rem;
         font-weight: bold;
         text-transform: upperCase;
+        margin: 0;
       }
       & .url {
         color: #fff;
@@ -638,14 +643,17 @@ const stickyElement = css`
         text-decoration: none;
         transition: all 0.3s linear;
         &:hover {
-          color: #000;
+          color: #4b4453;
         }
       }
       & h3 {
         font-size: 1.1rem;
         font-weight: 700;
-        color: #ddd;
+        color: #fff;
         padding: 10px 0 10px 0;
+      }
+      & .explain-wrapper {
+        line-height: 1.7;
       }
       & div {
         margin: 20px 0;
@@ -673,7 +681,7 @@ const stickyElement = css`
 `;
 
 const divideLine = css`
-  background: #ddd;
+  background: #b0a8b9;
   height: 2px;
   border: none;
   border-radius: 50px;

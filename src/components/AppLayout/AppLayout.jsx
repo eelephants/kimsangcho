@@ -39,7 +39,7 @@ const Header = forwardRef(({ location, scrollY }, ref) => {
         <NaviTitle
           herf="/"
           name="kim sangcho ™"
-          style={{ fontSize: '1.7rem', fontFamily: 'lobster' }}
+          style={{ fontSize: '1.9rem', fontFamily: 'lobster' }}
         />
       </div>
       <div css={linkWrapperSttyle}>
@@ -131,13 +131,13 @@ const Footer = () => {
   };
 
   const ArrowUpCircleFillIcon = styled(ArrowUpCircleFill)`
-    color: #fff;
+    color: rgba(204, 192, 192, 1);
     width: 100%;
     height: auto;
   `;
 
   const ArrowUpCircleIcon = styled(ArrowUpCircle)`
-    color: #fff;
+    color: rgba(204, 192, 192, 1);
     width: 100%;
     height: auto;
   `;
@@ -254,7 +254,7 @@ const navStyle = css`
 
 const naviContact = css`
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: inherit;
   transition: all 0.3s linear;
   &:hover {
