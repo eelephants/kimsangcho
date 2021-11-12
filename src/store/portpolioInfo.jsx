@@ -411,14 +411,17 @@ const portpoioReducer = (state, action) => {
 
         const itemWrapper = document.querySelector(`#${id}`);
         const itemOriginal = document.querySelector(`#${id} .original`);
-        const itemFlip = document.querySelector(`#${id} .flip`);
+        const itemFlip = document.querySelector(`#${id} .original-box`);
         const itemFronts = document.querySelectorAll(`#${id} .original-hide`);
-        const itemFlipHides = document.querySelectorAll(`#${id} .flip-hide`);
+        const itemFlipHides = document.querySelectorAll(
+          `#${id} .original-hide-box`
+        );
 
         itemOriginal.style.display = itemOriginalStyle;
-        // itemFlip.style.display = itemFlipStyle;
+        itemFlip.style.display = itemFlipStyle;
+
         // itemFlip.style.padding = itemWrapperStyle;
-        itemWrapper.style.padding = itemWrapperStyle;
+        // itemWrapper.style.padding = itemWrapperStyle;
 
         Array.from(itemFronts).forEach(
           (item) => (item.style.display = itemFrontStyle)

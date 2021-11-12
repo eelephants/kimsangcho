@@ -16,6 +16,7 @@ const importAll = (r) => {
 const bp = {
   small: 500,
   large: 1300,
+  xLarge: 1700,
 };
 
 const mq = (n) => {
