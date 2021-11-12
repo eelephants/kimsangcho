@@ -172,7 +172,7 @@ const ThirdContents = ({
             flexDirection: 'row',
           },
         },
-        { height: sceneInfo[2].scrollHeight / sceneInfo.length + 'px' },
+        { height: sceneInfo[2].scrollHeight / (sceneInfo.length * 1.2) + 'px' },
       ]}
       className={className}
       id={id}
@@ -240,7 +240,7 @@ const ThirdContents = ({
         <div
           className="original-hide-box"
           css={css`
-            display: none;
+            // display: none;
             width: ${window.innerWidth / 2.5 + 'px'};
             height: ${window.innerWidth / 2.5 + 'px'};
             max-width: 500px;
@@ -251,54 +251,6 @@ const ThirdContents = ({
             }
           `}
         >
-          <Swiper
-            spaceBetween={50}
-            effect={'fade'}
-            navigation={{
-              prevEl: navigationPrevRef.current,
-              nextEl: navigationNextRef.current,
-            }}
-            slidesPerView="auto"
-            onSwiper={(swiper) => {
-              // Delay execution for the refs to be defined
-              setTimeout(() => {
-                // Override prevEl & nextEl now that refs are defined
-                swiper.params.navigation.prevEl = navigationPrevRef.current;
-                swiper.params.navigation.nextEl = navigationNextRef.current;
-
-                // Re-init navigation
-                swiper.navigation.destroy();
-                swiper.navigation.init();
-                swiper.navigation.update();
-              });
-            }}
-          >
-            {images.map((item, index) => (
-              <SwiperSlide
-                style={{ width: '100%' }}
-                key={index + new Date().getMilliseconds}
-              >
-                <div
-                  className="original-hide"
-                  onMouseEnter={() => {
-                    !isSideShow ? onMouseEnterFromCanvas() : null;
-                  }}
-                  onMouseLeave={() => {
-                    !isSideShow ? onMouseLeaveFromCanvas() : null;
-                  }}
-                  css={{
-                    width: window.innerWidth / 2.5,
-                    height: window.innerWidth / 2.5,
-                  }}
-                >
-                  <img
-                    src={item.src}
-                    css={{ width: '100%', display: 'inline-block' }}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
           <Button
             small
             backGroundcolor="transparent"
@@ -343,6 +295,69 @@ const ThirdContents = ({
           >
             <CloseOutlineIcon />
           </Button>
+          <Swiper
+            style={{
+              boxShadow: '5px 5px 15px 5px #000000',
+            }}
+            spaceBetween={50}
+            effect={'fade'}
+            navigation={{
+              prevEl: navigationPrevRef.current,
+              nextEl: navigationNextRef.current,
+            }}
+            slidesPerView="auto"
+            onSwiper={(swiper) => {
+              // Delay execution for the refs to be defined
+              setTimeout(() => {
+                // Override prevEl & nextEl now that refs are defined
+                swiper.params.navigation.prevEl = navigationPrevRef.current;
+                swiper.params.navigation.nextEl = navigationNextRef.current;
+
+                // Re-init navigation
+                swiper.navigation.destroy();
+                swiper.navigation.init();
+                swiper.navigation.update();
+              });
+            }}
+          >
+            {images.map((item, index) => (
+              <SwiperSlide
+                style={{
+                  width: '100%',
+                }}
+                key={index + new Date().getMilliseconds}
+              >
+                <div
+                  className="original-hide"
+                  onMouseEnter={() => {
+                    !isSideShow ? onMouseEnterFromCanvas() : null;
+                  }}
+                  onMouseLeave={() => {
+                    !isSideShow ? onMouseLeaveFromCanvas() : null;
+                  }}
+                  css={{
+                    width: window.innerWidth / 2.5,
+                    height: window.innerWidth / 2.5,
+                    maxWidth: '500px',
+                    maxHeight: '500px',
+                    [mq('small')]: {},
+                    [mq('large')]: {},
+                    [mq('xLarge')]: {
+                      left: '10%',
+                    },
+                  }}
+                >
+                  <img
+                    src={item.src}
+                    css={{
+                      width: '100%',
+                      display: 'inline-block',
+                    }}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
 

@@ -39,7 +39,7 @@ const Header = forwardRef(({ location, scrollY }, ref) => {
         <NaviTitle
           herf="/"
           name="kim sangcho ™"
-          style={{ 'font-size': '1.7rem', 'font-family': 'lobster' }}
+          style={{ fontSize: '1.7rem', fontFamily: 'lobster' }}
         />
       </div>
       <div css={linkWrapperSttyle}>
