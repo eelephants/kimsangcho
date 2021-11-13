@@ -227,34 +227,39 @@ export default function TemplatePost({ data, location }) {
               // border: 1px solid;
             `}
           >
-            <Button
-              className="slideBtn"
-              small
-              isShow
-              backGroundcolor="transparent"
-              absolute
-              left="0"
-              style={{
-                left: '-12%',
-              }}
-              ref={navigationRolePrevRef}
-            >
-              <ArrowBackWhiteCircleIcon />
-            </Button>
-            <Button
-              className="slideBtn"
-              small
-              isShow
-              backGroundcolor="transparent"
-              absolute
-              right="0"
-              style={{
-                right: '-12%',
-              }}
-              ref={navigationRoleNextRef}
-            >
-              <RightArrowWhiteCircleIcon />
-            </Button>
+            {post.frontmatter.roles.length > 5 && (
+              <>
+                <Button
+                  className="slideBtn"
+                  small
+                  isShow
+                  backGroundcolor="transparent"
+                  absolute
+                  left="0"
+                  style={{
+                    left: '-12%',
+                  }}
+                  ref={navigationRolePrevRef}
+                >
+                  <ArrowBackWhiteCircleIcon />
+                </Button>
+                <Button
+                  className="slideBtn"
+                  small
+                  isShow
+                  backGroundcolor="transparent"
+                  absolute
+                  right="0"
+                  style={{
+                    right: '-12%',
+                  }}
+                  ref={navigationRoleNextRef}
+                >
+                  <RightArrowWhiteCircleIcon />
+                </Button>
+              </>
+            )}
+
             <Swiper
               navigation={true}
               slidesPerView={5}
@@ -340,14 +345,17 @@ export default function TemplatePost({ data, location }) {
               <div
                 key={index}
                 css={css`
-                  display: ${isShow === index ? 'block' : 'none'};
+                  display: ${isShow === index ? 'flex' : 'none'};
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
                 `}
               >
                 <div css={[roleWrapper, titleWrapper]}>
                   <div className="number-wrapper">{index + 1}.</div>
                   <div className="title-wrapper">{item.name}</div>
                 </div>
-                <div css={roleWrapper}>
+                <div css={[roleWrapper, descWrapper]}>
                   {item.desc.map((el, index) => (
                     <div key={index} className="desc-wrapper">
                       # {el}
@@ -437,7 +445,7 @@ const boxWrapper = css`
   height: 100vh;
   .slideBtn {
     svg:hover {
-      color: #aaa;
+      color: rgba(204, 192, 192, 1);
     }
   }
 `;
@@ -448,6 +456,7 @@ const roleTitle = css`
 
 const titleWrapper = css`
   margin-bottom: 3rem;
+  max-width: 800px;
 `;
 
 const roleWrapper = css`
@@ -468,7 +477,12 @@ const roleWrapper = css`
   .desc-wrapper {
     text-indent: 2rem;
     margin-top: 1rem;
-  }
+    text-align: left;
+`;
+
+const descWrapper = css`
+  max-width: 500px;
+  margin: auto 0;
 `;
 
 export const query = graphql`
