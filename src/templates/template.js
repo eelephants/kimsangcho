@@ -4,6 +4,7 @@ import { graphql } from 'gatsby';
 import AppLayout from '../components/AppLayout/AppLayout';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import BodyClassMain from '../assets/body-class_main.gif';
 import BodyClassMain1 from '../assets/bodyClass_detail1.png';
 import BodyClassMain2 from '../assets/bodyClass_detail2.png';
 import BodyClassMain3 from '../assets/bodyClass_detail3.png';
@@ -17,6 +18,10 @@ import { ArrowRightS } from '@emotion-icons/remix-fill/ArrowRightS';
 import { AccessAlarm } from '@emotion-icons/material/AccessAlarm';
 
 const mainImages = {
+  bodyClass: BodyClassMain,
+};
+
+const subImages = {
   bodyClass: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
 };
 
@@ -71,7 +76,7 @@ export default function TemplatePost({ data, location }) {
 
   const eventScroll = () => setScrollY(window.scrollY);
 
-  const getImage = (name) => mainImages[name];
+  const getImage = (name) => subImages[name];
 
   return (
     <AppLayout>
@@ -201,7 +206,7 @@ export default function TemplatePost({ data, location }) {
           ]}
         >
           <img
-            src={getImage(post.frontmatter.images)[0]}
+            src={mainImages[post.frontmatter.images]}
             alt={post.frontmatter.images}
             css={{ width: '100%' }}
           />
@@ -223,8 +228,8 @@ export default function TemplatePost({ data, location }) {
               position: relative;
               top: 10%;
               left: 10%;
-              width: 30%;
-              // border: 1px solid;
+              width: 380px;
+              max-width: 380px;
             `}
           >
             {post.frontmatter.roles.length > 5 && (
@@ -237,7 +242,7 @@ export default function TemplatePost({ data, location }) {
                   absolute
                   left="0"
                   style={{
-                    left: '-12%',
+                    left: '-14%',
                   }}
                   ref={navigationRolePrevRef}
                 >
