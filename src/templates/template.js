@@ -19,10 +19,16 @@ import { AccessAlarm } from '@emotion-icons/material/AccessAlarm';
 
 const mainImages = {
   bodyClass: BodyClassMain,
+  merrac: BodyClassMain,
+  airForce: BodyClassMain,
+  hdc: BodyClassMain,
 };
 
 const subImages = {
   bodyClass: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
+  merrac: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
+  airForce: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
+  hdc: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
 };
 
 SwiperCore.use([Navigation]);
@@ -507,6 +513,7 @@ export const query = graphql`
         endDate(formatString: "MM/YY")
         category
         skills
+        draft
         intro
         images
         roles {
