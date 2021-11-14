@@ -1,20 +1,17 @@
 ---
-title: 'airForce'
+title: 'AirForce'
 date: 2021-11-16
-startDate: 2021-01-01
-endDate: 2021-03-01
+startDate: 2020-09-01
+endDate: 2021-02-01
 category: 'Web'
 draft: false
-skills: ['react', 'mysql', 'redux', 'scss']
+skills: ['javaScript', 'jQuery', 'html5', 'css3','java','mySql']
 images: 'airForce'
-intro: 'The online lecture on practical sex techniques for tonight, the body class, suggests a new lifestyle for a more enjoyable and healthy sex culture.'
+intro: 'A system that efficiently integrates and manages weather big data and enables real-time detection and prediction.'
 roles: [
-    {name : 'Addition of shopping cart function planning and development', desc: ['Adobe-enabled shopping cart feature logic planning','Establish development standards and guides','UI development using React and ES6']},
-    {name : 'Optimize application performance',desc: ['State management and service separation using context function']}, 
-    {name : 'Participate in API architecture design',desc: ['Designing communications using RESTfult APIs','Design the corresponding Query using MySQL as DB'] }, 
-    {name : 'Payment function supplement5 (TEST)',desc: ['Overall web screen function composition'] },
-    {name: 'Payment function supplement6 (TEST)',desc: ['Overall web screen function composition'] },
-     {name : 'Participate in API architecture designParticipate in API architecture designParticipate in API architecture designParticipate in API architecture designParticipate in API architecture designParticipate in API architecture design (TEST)',desc: ['Overall web screen function compositionOverall web screen function compositionOverall web screen function compositionOverall web screen function compositionOverall web screen function compositionOverall web screen function compositionOverall web screen function compositionOverall web screen function compositionOverall web screen function composition']},
+    {name : 'Hazardous weather forecasting and maintenance', desc: ['Development of detection and tracking technology functions and display according to data conditions', 'Development of detection and prediction performance verification function and display according to data conditions']},
+    {name : 'Improvement and maintenance of hazardous weather forecasting methods',desc: ['Develop predictive technology functions and display them according to data conditions','Development of predictive information support function and display according to data conditions']}, 
+    {name : 'Improve website web page accessibility',desc: ['Detection and prediction information web service UI development','UI design with screen composition optimized for web pages']}, 
     ]
 ---
 
