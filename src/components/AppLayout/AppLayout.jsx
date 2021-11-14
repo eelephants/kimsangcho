@@ -273,7 +273,7 @@ const NaviTitle = (props) => (
     to={props.herf}
     css={css`
       text-decoration: none;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       color: inherit;
       transition: all 0.3s linear;
       &:hover {
