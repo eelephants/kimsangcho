@@ -5,7 +5,7 @@ startDate: 2020-09-01
 endDate: 2021-02-01
 category: 'Web'
 draft: false
-skills: ['javaScript', 'jQuery', 'html', 'css','mySql','php']
+skills: ['javaScript', 'jQuery', 'html5', 'css3','mySql','php']
 images: 'merrac'
 intro: 'Northwest Pacific Action Plan Marine Environmental Emergency Preparedness and Response Regional Action Center Site'
 roles: [

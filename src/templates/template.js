@@ -16,20 +16,24 @@ import Button from '../components/Button';
 import { ArrowLeftS } from '@emotion-icons/remix-fill/ArrowLeftS';
 import { ArrowRightS } from '@emotion-icons/remix-fill/ArrowRightS';
 import { AccessAlarm } from '@emotion-icons/material/AccessAlarm';
+import { FileX } from '@emotion-icons/bootstrap';
+import { flushSync } from 'react-dom';
 
 const mainImages = {
   bodyClass: BodyClassMain,
   merrac: BodyClassMain,
-  airForce: BodyClassMain,
+  airForce: '',
   hdc: BodyClassMain,
 };
 
 const subImages = {
   bodyClass: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
   merrac: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
-  airForce: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
+  airForce: [],
   hdc: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
 };
+
+const noImageComment = `Sorry, Leakage to the outside is prohibited, so it is impossible to share the site`;
 
 SwiperCore.use([Navigation]);
 
@@ -211,11 +215,34 @@ export default function TemplatePost({ data, location }) {
             `,
           ]}
         >
-          <img
-            src={mainImages[post.frontmatter.images]}
-            alt={post.frontmatter.images}
-            css={{ width: '100%' }}
-          />
+          {mainImages[post.frontmatter.images] ? (
+            <img
+              src={mainImages[post.frontmatter.images]}
+              alt={post.frontmatter.images}
+              css={{ width: '100%' }}
+            />
+          ) : (
+            <div
+              css={{
+                width: '100%',
+                backgroundColor: '#303030',
+                height: '100%',
+                color: '#EC87E4',
+                fontSize: '2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <span
+                css={{
+                  padding: '0 100px 0 100px',
+                }}
+              >
+                {noImageComment}
+              </span>
+            </div>
+          )}
         </section>
         <section
           css={[
@@ -386,66 +413,93 @@ export default function TemplatePost({ data, location }) {
             `,
           ]}
         >
-          <Button
-            className="slideBtn"
-            small
-            isShow
-            backGroundcolor="transparent"
-            absolute
-            left="0"
-            style={{
-              top: '50%',
-            }}
-            ref={navigationPrevRef}
-          >
-            <ArrowBackCircleIcon />
-          </Button>
-          <Button
-            className="slideBtn"
-            small
-            isShow
-            backGroundcolor="transparent"
-            absolute
-            right="0"
-            style={{
-              top: '50%',
-            }}
-            ref={navigationNextRef}
-          >
-            <RightArrowCircleIcon />
-          </Button>
-          <div css={{ width: '100%', margin: '0 auto' }}>
-            <Swiper
-              navigation={true}
-              navigation={{
-                prevEl: navigationPrevRef.current,
-                nextEl: navigationNextRef.current,
-              }}
-              onSwiper={(swiper) => {
-                // Delay execution for the refs to be defined
-                setTimeout(() => {
-                  // Override prevEl & nextEl now that refs are defined
-                  swiper.params.navigation.prevEl = navigationPrevRef.current;
-                  swiper.params.navigation.nextEl = navigationNextRef.current;
+          {getImage(post.frontmatter.images).length ? (
+            <>
+              <Button
+                className="slideBtn"
+                small
+                isShow
+                backGroundcolor="transparent"
+                absolute
+                left="0"
+                style={{
+                  top: '50%',
+                }}
+                ref={navigationPrevRef}
+              >
+                <ArrowBackCircleIcon />
+              </Button>
+              <Button
+                className="slideBtn"
+                small
+                isShow
+                backGroundcolor="transparent"
+                absolute
+                right="0"
+                style={{
+                  top: '50%',
+                }}
+                ref={navigationNextRef}
+              >
+                <RightArrowCircleIcon />
+              </Button>
+              <div css={{ width: '100%', margin: '0 auto' }}>
+                <Swiper
+                  navigation={true}
+                  navigation={{
+                    prevEl: navigationPrevRef.current,
+                    nextEl: navigationNextRef.current,
+                  }}
+                  onSwiper={(swiper) => {
+                    // Delay execution for the refs to be defined
+                    setTimeout(() => {
+                      // Override prevEl & nextEl now that refs are defined
+                      swiper.params.navigation.prevEl =
+                        navigationPrevRef.current;
+                      swiper.params.navigation.nextEl =
+                        navigationNextRef.current;
 
-                  // Re-init navigation
-                  swiper.navigation.destroy();
-                  swiper.navigation.init();
-                  swiper.navigation.update();
-                });
+                      // Re-init navigation
+                      swiper.navigation.destroy();
+                      swiper.navigation.init();
+                      swiper.navigation.update();
+                    });
+                  }}
+                >
+                  {getImage(post.frontmatter.images).map((item, index) => (
+                    <SwiperSlide className="intro" key={index}>
+                      <img
+                        src={item}
+                        alt={post.frontmatter.images}
+                        css={{ width: '100%' }}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            </>
+          ) : (
+            <div
+              css={{
+                width: '100%',
+                backgroundColor: '#303030',
+                height: '100%',
+                color: '#EC87E4',
+                fontSize: '2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              {getImage(post.frontmatter.images).map((item, index) => (
-                <SwiperSlide className="intro" key={index}>
-                  <img
-                    src={item}
-                    alt={post.frontmatter.images}
-                    css={{ width: '100%' }}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
+              <span
+                css={{
+                  padding: '0 100px 0 100px',
+                }}
+              >
+                {noImageComment}
+              </span>
+            </div>
+          )}
         </section>
       </AppLayout.Main>
     </AppLayout>
