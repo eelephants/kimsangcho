@@ -101,7 +101,7 @@ const initialInfo = {
       type: 'Mobile',
       detailUrl: '/hdc',
       url: 'https://apps.apple.com/us/app/ipark-%EB%AA%A8%EB%B0%94%EC%9D%BC/id1516767886',
-      desc: 'This is the official IPARK app. You can search a variety of related information such as sales, contracts, move-in, and AS.',
+      desc: 'Create 3 IPARK apps for users, engineers and admin. Please click the Details button for more details.',
       role: 'Front-end',
       language: ['rn', 'redux', 'redux-saga', 'mysql', 'java'],
       etc: ['git', 'trello', 'slack', 'notion'],
