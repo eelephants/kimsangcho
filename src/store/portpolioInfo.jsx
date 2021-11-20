@@ -3,10 +3,13 @@ import produce from 'immer';
 import _ from 'lodash';
 import { round, importAll } from '../lib/utils/helper';
 
-import Portpolio1 from '../../src/assets/Portpolio1.jpg';
-import Portpolio2 from '../../src/assets/Portpolio2.png';
-import Portpolio3 from '../../src/assets/Portpolio3.png';
-import Portpolio4 from '../../src/assets/Portpolio4.png';
+import {
+  Portpolio1,
+  Portpolio2,
+  Portpolio3,
+  Portpolio4,
+  BodyClassLogin,
+} from '../assets/index.js';
 
 export const SET_ORIGINAL_PORTPOLIO = 'SET_ORIGINAL_PORTPOLIO';
 export const SET_ORIGINAL_HIDE_PORTPOLIO = 'SET_ORIGINAL_HIDE_PORTPOLIO';
@@ -24,7 +27,7 @@ const initialInfo = {
       id: 'portpolioA',
       imageThumnail: Portpolio1,
       images: [
-        { src: Portpolio1, name: 'portpolio1' },
+        { src: BodyClassLogin, name: 'portpolio1' },
         { src: Portpolio2, name: 'portpolio1' },
         { src: Portpolio3, name: 'portpolio1' },
         { src: Portpolio4, name: 'portpolio1' },
