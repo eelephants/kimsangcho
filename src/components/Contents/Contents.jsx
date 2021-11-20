@@ -350,8 +350,11 @@ const ThirdContents = ({
                   <img
                     src={item.src}
                     css={{
-                      width: '100%',
-                      display: 'inline-block',
+                      width: 'auto',
+                      height: '100%',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: 'contain',
                     }}
                   />
                 </div>
