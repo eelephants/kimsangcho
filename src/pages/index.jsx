@@ -164,7 +164,7 @@ const Index = ({ data, location }) => {
           id,
           itemOriginalStyle: 'none',
           itemFlipStyle: 'none',
-          itemFrontStyle: 'block',
+          itemFrontStyle: 'flex',
           itemFlipHideStyle: 'block',
           itemWrapperStyle: '0 200px 0 200px',
         },
