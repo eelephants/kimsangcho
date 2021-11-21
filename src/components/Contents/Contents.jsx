@@ -116,6 +116,7 @@ const ThirdContents = ({
   type,
   desc,
   role,
+  reason,
   images,
   language,
   onMouseLeave,
@@ -211,14 +212,28 @@ const ThirdContents = ({
               },
             }}
             onMouseEnter={() => {
-              !isSideShow ? onMouseEnterFromCanvas() : null;
+              images.length && !isSideShow ? onMouseEnterFromCanvas() : null;
             }}
             onMouseLeave={() => {
-              !isSideShow ? onMouseLeaveFromCanvas() : null;
+              images.length && !isSideShow ? onMouseLeaveFromCanvas() : null;
             }}
             width={window.innerWidth / 2.5}
             height={window.innerWidth / 2.5}
           ></canvas>
+          {!images.length && (
+            <span
+              css={{
+                fontSize: '1rem;',
+                fontWeight: 'bold',
+                position: 'absolute',
+                zIndex: 999,
+                right: 0,
+                top: '100%',
+              }}
+            >
+              {reason && '* ' + reason}
+            </span>
+          )}
           <Button
             rotate
             circle
@@ -352,11 +367,7 @@ const ThirdContents = ({
                   <img
                     src={item.src}
                     css={{
-                      width: '100%',
-                      height: '100%',
-                      backgroundPosition: 'center',
-                      backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'cover',
+                      width: !item?.mobile ? '100%' : null,
                     }}
                   />
                 </div>

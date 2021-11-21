@@ -236,6 +236,7 @@ const Index = ({ data, location }) => {
               desc={item.desc}
               url={item.url}
               role={item.role}
+              reason={item.reason}
               images={item.images}
               language={item.language}
               onMouseLeave={onMouseLeaveFromCanvas}
