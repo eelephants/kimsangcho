@@ -8,6 +8,7 @@ import {
   Portpolio2,
   Portpolio3,
   Portpolio4,
+  BodyClassTitleMain,
   BodyClassLogin,
   BodyClassMain2,
   BodyClassMain1,
@@ -15,6 +16,15 @@ import {
   BodyClassTrainer,
   BodyClassCart,
   BodyClassMy,
+  MerracTitleMain,
+  MerracAdmin,
+  Polrep1,
+  Polrep2,
+  Polrep3,
+  WebGis1,
+  WebGis2,
+  WebGis3,
+  WebGis4,
 } from '../assets/index.js';
 
 export const SET_ORIGINAL_PORTPOLIO = 'SET_ORIGINAL_PORTPOLIO';
@@ -31,7 +41,7 @@ const initialInfo = {
   portPolioData: [
     {
       id: 'portpolioA',
-      imageThumnail: Portpolio1,
+      imageThumnail: BodyClassTitleMain,
       images: [
         { src: BodyClassLogin, name: 'BodyClassLogin' },
         { src: BodyClassMain2, name: 'BodyClassMain2' },
@@ -56,12 +66,17 @@ const initialInfo = {
     },
     {
       id: 'portpolioB',
-      imageThumnail: Portpolio2,
+      imageThumnail: MerracTitleMain,
       images: [
-        { src: Portpolio2, name: 'portpolio2' },
-        { src: Portpolio1, name: 'portpolio2' },
-        { src: Portpolio3, name: 'portpolio2' },
-        { src: Portpolio4, name: 'portpolio2' },
+        { src: MerracTitleMain, name: 'MerracTitleMain' },
+        { src: MerracAdmin, name: 'MerracAdmin' },
+        { src: Polrep1, name: 'Polrep1' },
+        { src: Polrep2, name: 'Polrep2' },
+        { src: Polrep3, name: 'Polrep3' },
+        { src: WebGis1, name: 'WebGis1' },
+        { src: WebGis2, name: 'WebGis2' },
+        { src: WebGis3, name: 'WebGis3' },
+        { src: WebGis4, name: 'WebGis4' },
       ],
       className: 'sticky-elem main-message b',
       title: 'MERRAC',
