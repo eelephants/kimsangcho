@@ -298,6 +298,7 @@ const ThirdContents = ({
           <Swiper
             style={{
               boxShadow: '5px 5px 15px 5px #000000',
+              backGroundcolor: '#000',
             }}
             spaceBetween={50}
             effect={'fade'}
@@ -305,7 +306,7 @@ const ThirdContents = ({
               prevEl: navigationPrevRef.current,
               nextEl: navigationNextRef.current,
             }}
-            slidesPerView="auto"
+            slidesPerView={true}
             onSwiper={(swiper) => {
               // Delay execution for the refs to be defined
               setTimeout(() => {
@@ -321,12 +322,7 @@ const ThirdContents = ({
             }}
           >
             {images.map((item, index) => (
-              <SwiperSlide
-                style={{
-                  width: '100%',
-                }}
-                key={index + new Date().getMilliseconds}
-              >
+              <SwiperSlide key={index + new Date().getMilliseconds}>
                 <div
                   className="original-hide"
                   onMouseEnter={() => {
@@ -336,10 +332,16 @@ const ThirdContents = ({
                     !isSideShow ? onMouseLeaveFromCanvas() : null;
                   }}
                   css={{
-                    width: window.innerWidth / 2.5,
-                    height: window.innerWidth / 2.5,
+                    // width: window.innerWidth / 2.5,
+                    // height: window.innerWidth / 2.5,
                     maxWidth: '500px',
                     maxHeight: '500px',
+                    minWidth: '500px',
+                    minHeight: '500px',
+                    background: '#303030',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+
                     [mq('small')]: {},
                     [mq('large')]: {},
                     [mq('xLarge')]: {
@@ -350,11 +352,11 @@ const ThirdContents = ({
                   <img
                     src={item.src}
                     css={{
-                      width: 'auto',
+                      width: '100%',
                       height: '100%',
                       backgroundPosition: 'center',
                       backgroundRepeat: 'no-repeat',
-                      backgroundSize: 'contain',
+                      backgroundSize: 'cover',
                     }}
                   />
                 </div>

@@ -9,6 +9,12 @@ import {
   Portpolio3,
   Portpolio4,
   BodyClassLogin,
+  BodyClassMain2,
+  BodyClassMain1,
+  BodyClassClass,
+  BodyClassTrainer,
+  BodyClassCart,
+  BodyClassMy,
 } from '../assets/index.js';
 
 export const SET_ORIGINAL_PORTPOLIO = 'SET_ORIGINAL_PORTPOLIO';
@@ -27,10 +33,13 @@ const initialInfo = {
       id: 'portpolioA',
       imageThumnail: Portpolio1,
       images: [
-        { src: BodyClassLogin, name: 'portpolio1' },
-        { src: Portpolio2, name: 'portpolio1' },
-        { src: Portpolio3, name: 'portpolio1' },
-        { src: Portpolio4, name: 'portpolio1' },
+        { src: BodyClassLogin, name: 'BodyClassLogin' },
+        { src: BodyClassMain2, name: 'BodyClassMain2' },
+        { src: BodyClassMain1, name: 'BodyClassMain1' },
+        { src: BodyClassClass, name: 'BodyClassClass' },
+        { src: BodyClassTrainer, name: 'BodyClassTrainer' },
+        { src: BodyClassCart, name: 'BodyClassCart' },
+        { src: BodyClassMy, name: 'BodyClassMy' },
       ],
       className: 'sticky-elem main-message a',
       title: 'body-class',
