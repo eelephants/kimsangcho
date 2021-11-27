@@ -205,7 +205,7 @@ const Index = ({ data, location }) => {
 
   return (
     <AppLayout>
-      <AppLayout.Header location={location} ref={headerRef} scrollY={scrollY} />
+      <AppLayout.Header />
       <AppLayout.Main ref={mainRef}>
         <div css={firstSection} ref={firstSectionRef} id="scroll-section-0">
           <BoxGeometry
