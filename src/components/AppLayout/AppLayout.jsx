@@ -1,4 +1,10 @@
-import React, { forwardRef, useEffect, useLayoutEffect, useState } from 'react';
+import React, {
+  forwardRef,
+  useEffect,
+  useLayoutEffect,
+  useState,
+  memo,
+} from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { motion, useSpring } from 'framer-motion';
@@ -20,60 +26,83 @@ const AppLayout = ({ children }) => {
   return <div css={globalStyle}>{children}</div>;
 };
 
-const Header = forwardRef(({ location, scrollY }, ref) => {
-  return (
-    <header
-      css={[
-        headerbarStyle,
-        css`
-          color: ${scrollY === 0 ? '#fff' : '#000'};
-          background: ${scrollY === 0 && 'transparent'};
-          background-image: ${scrollY !== 0 &&
-          'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(204,192,192,1) 93%)'};
-          transition: background-image 0.5s ease;
-        `,
-      ]}
-      ref={ref}
-    >
-      <div>
-        <NaviTitle
-          herf="/"
-          name="kim sangcho ™"
-          style={{ fontSize: '1.9rem', fontFamily: 'lobster' }}
-        />
-      </div>
-      <div css={linkWrapperSttyle}>
-        <ul css={linkbarStyle}>
-          <li>
-            <NaviTitle herf="/" name="home" />
-          </li>
-          <li>
-            <NaviTitle herf="/about" name="about" />
-          </li>
-          <li>
-            <NaviContact
-              href="mailto:wjdrms1919@gmail.com"
-              name="contact"
-              target="_self"
-            />
-          </li>
-        </ul>
+const Header = memo(
+  forwardRef(({ location, scrollY }, ref) => {
+    const [isHover, setIsHover] = useState(false);
+
+    console.log(isHover);
+
+    const onHover = (event, isHovered) => {
+      event.nativeEvent.stopImmediatePropagation();
+      setIsHover(isHovered);
+    };
+
+    return (
+      <header
+        css={[
+          headerbarStyle,
+          css`
+            color: ${scrollY === 0 ? '#fff' : '#000'};
+            background: ${scrollY === 0 && 'transparent'};
+            background-image: ${scrollY !== 0 &&
+            'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(204,192,192,1) 93%)'};
+            transition: background-image 0.5s ease;
+          `,
+        ]}
+        ref={ref}
+      >
         <div>
-          <a target="_blank" href="https://github.com/SangchoKim">
-            <img
-              css={{
-                width: '2.2rem',
-                height: '2.2rem',
-              }}
-              src={scrollY === 0 ? GithubWhiteIcon : GithubIcon}
-              alt="portfolio"
-            />
-          </a>
+          <NaviTitle
+            herf="/"
+            name="kim sangcho ™"
+            style={{ fontSize: '1.9rem', fontFamily: 'lobster' }}
+          />
         </div>
-      </div>
-    </header>
-  );
-});
+        <div css={linkWrapperSttyle}>
+          <ul css={linkbarStyle} onMouseLeave={(e) => onHover(e, false)}>
+            <li>
+              <NaviTitle herf="/" name="home" />
+            </li>
+            <li>
+              <NaviTitle herf="/about" name="about" />
+            </li>
+            <li data-id="1" onMouseEnter={(e) => onHover(e, true)}>
+              <NaviConxtact
+                href="mailto:wjdrms1919@gmail.com"
+                name="contact"
+                target="_self"
+                setIsHover={setIsHover}
+              />
+            </li>
+            {isHover && (
+              <div
+                css={{
+                  width: '2.2rem',
+                  height: '2.2rem',
+                  backgroundColor: 'red',
+                }}
+              >
+                fff
+              </div>
+            )}
+          </ul>
+          <div>
+            <a target="_blank" href="https://github.com/SangchoKim">
+              <img
+                css={{
+                  width: '2.2rem',
+                  height: '2.2rem',
+                }}
+                src={scrollY === 0 ? GithubWhiteIcon : GithubIcon}
+                alt="portfolio"
+              />
+            </a>
+          </div>
+        </div>
+      </header>
+    );
+  })
+);
 
 function Side({ location }) {
   return (
@@ -262,11 +291,19 @@ const naviContact = css`
   }
 `;
 
-const NaviContact = (props) => (
-  <a href={props.href} css={naviContact} target={props.target}>
-    {props.name}
-  </a>
-);
+const NaviConxtact = memo((props) => {
+  return (
+    <a
+      href={props.href}
+      css={naviContact}
+      target={props.target}
+      // onMouseEnter={(e) => onHover(e, true)}
+      // onMouseLeave={(e) => onHover(e, false)}
+    >
+      {props.name}
+    </a>
+  );
+});
 
 const NaviTitle = (props) => (
   <Link
