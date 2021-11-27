@@ -1,8 +1,11 @@
 import Portpolio1 from './Portpolio1.jpg';
 import Portpolio2 from './Portpolio2.png';
-
 import Portpolio3 from './Portpolio3.png';
 import Portpolio4 from './Portpolio4.png';
+
+import BodyClassGif from './body-class_main.gif';
+import MerracGif from './merrac.gif';
+
 import BodyClassTitleMain from './body-class_title_main.png';
 import BodyClassLogo from './body-class_logo.png';
 import BodyClassLogin from './body-class_login.png';
@@ -37,6 +40,7 @@ export {
   Portpolio2,
   Portpolio3,
   Portpolio4,
+  BodyClassGif,
   BodyClassLogo,
   BodyClassTitleMain,
   BodyClassLogin,
@@ -46,6 +50,7 @@ export {
   BodyClassTrainer,
   BodyClassCart,
   BodyClassMy,
+  MerracGif,
   MerracTitleMain1,
   MerracTitleMain2,
   MerracMenu1,

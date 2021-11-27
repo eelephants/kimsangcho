@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-
 import { graphql } from 'gatsby';
 import AppLayout from '../components/AppLayout/AppLayout';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import BodyClassMain from '../assets/body-class_main.gif';
-import BodyClassMain1 from '../assets/bodyClass_detail1.png';
-import BodyClassMain2 from '../assets/bodyClass_detail2.png';
-import BodyClassMain3 from '../assets/bodyClass_detail3.png';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.min.css';
@@ -19,18 +14,25 @@ import { AccessAlarm } from '@emotion-icons/material/AccessAlarm';
 import { FileX } from '@emotion-icons/bootstrap';
 import { flushSync } from 'react-dom';
 
+import {
+  BodyClassGif,
+  MerracGif,
+  BodyClassLogin,
+  BodyClassMain2,
+  BodyClassMain1,
+} from '../assets/index.js';
 const mainImages = {
-  bodyClass: BodyClassMain,
-  merrac: BodyClassMain,
+  bodyClass: BodyClassGif,
+  merrac: MerracGif,
   airForce: '',
-  hdc: BodyClassMain,
+  hdc: '',
 };
 
 const subImages = {
-  bodyClass: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
-  merrac: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
+  bodyClass: [BodyClassMain1, BodyClassMain2, BodyClassLogin],
+  merrac: [BodyClassMain1, BodyClassMain2, BodyClassLogin],
   airForce: [],
-  hdc: [BodyClassMain1, BodyClassMain2, BodyClassMain3],
+  hdc: [BodyClassMain1, BodyClassMain2, BodyClassLogin],
 };
 
 const noImageComment = `Sorry, Leakage to the outside is prohibited, so it is impossible to share the site`;
