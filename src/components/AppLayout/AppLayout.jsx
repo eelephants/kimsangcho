@@ -32,25 +32,25 @@ const AppLayout = ({ children }) => {
 
 const InstagramIcon = styled(Instagram)`
   color: #000;
-  width: 50px;
+  width: 40px;
   height: auto;
 `;
 
 const FacebookIcon = styled(FacebookCircle)`
   color: #000;
-  width: 50px;
+  width: 40px;
   height: auto;
 `;
 
 const EmailOutlineIcon = styled(EmailOutline)`
   color: #000;
-  width: 50px;
+  width: 40px;
   height: auto;
 `;
 
 const LinkedinSquareIcon = styled(LinkedinSquare)`
   color: #000;
-  width: 50px;
+  width: 40px;
   height: auto;
 `;
 
@@ -102,12 +102,7 @@ const Header = memo(
               <NaviTitle herf="/about" name="about" />
             </li>
             <li>
-              <NaviConxtact
-                href="mailto:wjdrms1919@gmail.com"
-                name="contact"
-                target="_self"
-                onHover={onHover}
-              />
+              <NaviConxtact name="contact" onHover={onHover} />
             </li>
             {isHover && (
               <motion.div
@@ -128,17 +123,57 @@ const Header = memo(
                     '0px 10px 13px -7px #000000,  5px 5px 15px 5px rgba(0, 0, 0, 0)',
                 }}
               >
-                <span css={{ display: 'inline-block', width: '100px' }}>
-                  <EmailOutlineIcon />
+                <span
+                  css={{
+                    display: 'inline-block',
+                    width: '100px',
+                    textAlign: 'center',
+                  }}
+                >
+                  <NaviConxtact
+                    href="mailto:wjdrms1919@gmail.com"
+                    name={<EmailOutlineIcon />}
+                    target="_self"
+                  />
                 </span>
-                <span css={{ display: 'inline-block', width: '100px' }}>
-                  <LinkedinSquareIcon />
+                <span
+                  css={{
+                    display: 'inline-block',
+                    width: '100px',
+                    textAlign: 'center',
+                  }}
+                >
+                  <NaviConxtact
+                    href="https://www.linkedin.com/in/rlatkdch14/"
+                    name={<LinkedinSquareIcon />}
+                    target="_blank"
+                  />
                 </span>
-                <span css={{ display: 'inline-block', width: '100px' }}>
-                  <InstagramIcon />
+                <span
+                  css={{
+                    display: 'inline-block',
+                    width: '100px',
+                    textAlign: 'center',
+                  }}
+                >
+                  <NaviConxtact
+                    href="https://www.instagram.com/santos_cho/?hl=ko"
+                    name={<InstagramIcon />}
+                    target="_blank"
+                  />
                 </span>
-                <span css={{ display: 'inline-block', width: '100px' }}>
-                  <FacebookIcon />
+                <span
+                  css={{
+                    display: 'inline-block',
+                    width: '100px',
+                    textAlign: 'center',
+                  }}
+                >
+                  <NaviConxtact
+                    href="https://www.facebook.com/belle.korea.store/"
+                    name={<FacebookIcon />}
+                    target="_blank"
+                  />
                 </span>
               </motion.div>
             )}
@@ -346,20 +381,21 @@ const naviContact = css`
   font-size: 1.3rem;
   color: inherit;
   transition: all 0.3s linear;
+  cursor: pointer;
   &:hover {
     color: #fff;
   }
 `;
 
-const NaviConxtact = memo((props) => {
+const NaviConxtact = memo(({ href, target, onHover, name }) => {
   return (
     <a
-      href={props.href}
+      href={href}
       css={naviContact}
-      target={props.target}
-      onMouseEnter={(e) => props.onHover(e, true)}
+      target={target}
+      onMouseEnter={(e) => onHover && onHover(e, true)}
     >
-      {props.name}
+      {name}
     </a>
   );
 });
