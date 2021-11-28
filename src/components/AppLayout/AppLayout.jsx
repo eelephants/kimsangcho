@@ -17,6 +17,10 @@ import GithubWhiteIcon from '../../assets/github_white.png';
 import { useSiteMetadata } from '../../hooks/useQuery';
 import { ArrowUpCircle } from '@emotion-icons/bootstrap/ArrowUpCircle';
 import { ArrowUpCircleFill } from '@emotion-icons/bootstrap/ArrowUpCircleFill';
+import { Instagram } from '@emotion-icons/boxicons-logos/Instagram';
+import { FacebookCircle } from '@emotion-icons/boxicons-logos/FacebookCircle';
+import { EmailOutline } from '@emotion-icons/evaicons-outline/EmailOutline';
+import { LinkedinSquare } from '@emotion-icons/boxicons-logos/LinkedinSquare';
 
 import { useSceneState } from '../../store/sceneInfo';
 import styled from '@emotion/styled';
@@ -25,6 +29,30 @@ const AppLayout = ({ children }) => {
   const { title, description } = useSiteMetadata();
   return <div css={globalStyle}>{children}</div>;
 };
+
+const InstagramIcon = styled(Instagram)`
+  color: #000;
+  width: 50px;
+  height: auto;
+`;
+
+const FacebookIcon = styled(FacebookCircle)`
+  color: #000;
+  width: 50px;
+  height: auto;
+`;
+
+const EmailOutlineIcon = styled(EmailOutline)`
+  color: #000;
+  width: 50px;
+  height: auto;
+`;
+
+const LinkedinSquareIcon = styled(LinkedinSquare)`
+  color: #000;
+  width: 50px;
+  height: auto;
+`;
 
 const Header = memo(
   forwardRef(({ location, scrollY }, ref) => {
@@ -35,6 +63,13 @@ const Header = memo(
     const onHover = (event, isHovered) => {
       event.nativeEvent.stopImmediatePropagation();
       setIsHover(isHovered);
+    };
+
+    const variants = {
+      transform: {
+        y: [0, 20],
+        transition: { duration: 1 },
+      },
     };
 
     return (
@@ -51,41 +86,64 @@ const Header = memo(
         ]}
         ref={ref}
       >
-        <div>
+        <div class="title-wrapper">
           <NaviTitle
             herf="/"
             name="kim sangcho ™"
             style={{ fontSize: '1.9rem', fontFamily: 'lobster' }}
           />
         </div>
-        <div css={linkWrapperSttyle}>
-          <ul css={linkbarStyle} onMouseLeave={(e) => onHover(e, false)}>
+        <div css={linkWrapperSttyle} onMouseLeave={(e) => onHover(e, false)}>
+          <ul css={linkbarStyle}>
             <li>
               <NaviTitle herf="/" name="home" />
             </li>
             <li>
               <NaviTitle herf="/about" name="about" />
             </li>
-            <li data-id="1" onMouseEnter={(e) => onHover(e, true)}>
+            <li>
               <NaviConxtact
                 href="mailto:wjdrms1919@gmail.com"
                 name="contact"
                 target="_self"
-                setIsHover={setIsHover}
+                onHover={onHover}
               />
             </li>
             {isHover && (
-              <div
+              <motion.div
+                variants={variants}
+                animate={'transform'}
                 css={{
-                  width: '2.2rem',
-                  height: '2.2rem',
-                  backgroundColor: 'red',
+                  width: '235px',
+                  minWidth: '235px',
+                  height: '3.5rem',
+                  backgroundColor: 'rgba(204,192,192,1)',
+                  position: 'absolute',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-evenly',
+                  top: '35px',
+                  borderRadius: '15px',
+                  boxShadow:
+                    '0px 10px 13px -7px #000000,  5px 5px 15px 5px rgba(0, 0, 0, 0)',
                 }}
               >
-                fff
-              </div>
+                <span css={{ display: 'inline-block', width: '100px' }}>
+                  <EmailOutlineIcon />
+                </span>
+                <span css={{ display: 'inline-block', width: '100px' }}>
+                  <LinkedinSquareIcon />
+                </span>
+                <span css={{ display: 'inline-block', width: '100px' }}>
+                  <InstagramIcon />
+                </span>
+                <span css={{ display: 'inline-block', width: '100px' }}>
+                  <FacebookIcon />
+                </span>
+              </motion.div>
             )}
           </ul>
+
           <div>
             <a target="_blank" href="https://github.com/SangchoKim">
               <img
@@ -225,9 +283,11 @@ const headerbarStyle = css`
   justify-content: space-between;
   padding: 0;
   z-index: 900;
-  div:first-of-type {
+  .title-wrapper {
     flex: 2;
-    padding: 0 100px;
+    padding: 0 40px;
+  }
+  div:first-of-type {
   }
 `;
 
@@ -297,8 +357,7 @@ const NaviConxtact = memo((props) => {
       href={props.href}
       css={naviContact}
       target={props.target}
-      // onMouseEnter={(e) => onHover(e, true)}
-      // onMouseLeave={(e) => onHover(e, false)}
+      onMouseEnter={(e) => props.onHover(e, true)}
     >
       {props.name}
     </a>
