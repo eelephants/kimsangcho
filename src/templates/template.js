@@ -20,6 +20,29 @@ import {
   BodyClassLogin,
   BodyClassMain2,
   BodyClassMain1,
+  BodyClassTitleMain,
+  BodyClassClass,
+  BodyClassTrainer,
+  BodyClassCart,
+  BodyClassMy,
+  MerracTitleMain1,
+  MerracTitleMain2,
+  MerracMenu1,
+  MerracMenu2,
+  MerracAdmin,
+  Polrep1,
+  Polrep2,
+  Polrep3,
+  WebGis1,
+  WebGis2,
+  WebGis3,
+  WebGis4,
+  HdcSplash,
+  HdcView1,
+  HdcView2,
+  HdcView3,
+  HdcView4,
+  HdcView5,
 } from '../assets/index.js';
 const mainImages = {
   bodyClass: BodyClassGif,
@@ -29,10 +52,32 @@ const mainImages = {
 };
 
 const subImages = {
-  bodyClass: [BodyClassMain1, BodyClassMain2, BodyClassLogin],
-  merrac: [BodyClassMain1, BodyClassMain2, BodyClassLogin],
+  bodyClass: [
+    BodyClassTitleMain,
+    BodyClassLogin,
+    BodyClassMain2,
+    BodyClassMain1,
+    BodyClassClass,
+    BodyClassTrainer,
+    BodyClassCart,
+    BodyClassMy,
+  ],
+  merrac: [
+    MerracTitleMain1,
+    MerracTitleMain2,
+    MerracMenu1,
+    MerracMenu2,
+    MerracAdmin,
+    Polrep1,
+    Polrep2,
+    Polrep3,
+    WebGis1,
+    WebGis2,
+    WebGis3,
+    WebGis4,
+  ],
   airForce: [],
-  hdc: [BodyClassMain1, BodyClassMain2, BodyClassLogin],
+  hdc: [HdcSplash, HdcView5, HdcView4, HdcView3, HdcView2, HdcView1],
 };
 
 const noImageComment = `Sorry, Leakage to the outside is prohibited, so it is impossible to share the site`;
@@ -412,6 +457,7 @@ export default function TemplatePost({ data, location }) {
             css`
               position: sticky;
               top: 0px;
+              background: #fff;
             `,
           ]}
         >
@@ -445,9 +491,15 @@ export default function TemplatePost({ data, location }) {
               >
                 <RightArrowCircleIcon />
               </Button>
-              <div css={{ width: '100%', margin: '0 auto' }}>
+              <div
+                css={{
+                  width: '100%',
+                  margin: '0 auto',
+                }}
+              >
                 <Swiper
                   navigation={true}
+                  autoHeight={true}
                   navigation={{
                     prevEl: navigationPrevRef.current,
                     nextEl: navigationNextRef.current,
