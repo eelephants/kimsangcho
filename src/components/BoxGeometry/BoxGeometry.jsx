@@ -133,6 +133,7 @@ const BoxGeometry = ({ width, height, position, resize }) => {
     canvasRef.current.appendChild(renderer.domElement);
 
     const geometry = new THREE.BoxGeometry();
+
     const loader = new THREE.TextureLoader();
 
     const materials = [
@@ -157,9 +158,9 @@ const BoxGeometry = ({ width, height, position, resize }) => {
     ];
 
     const cube = new THREE.Mesh(geometry, materials);
-
     setCubes(cube);
     scene.add(cube);
+
     renderer.render(scene, camera);
 
     const animate = () => {
@@ -180,6 +181,22 @@ const BoxGeometry = ({ width, height, position, resize }) => {
     };
 
     animates();
+
+    var raycaster = new THREE.Raycaster();
+    var mouse = new THREE.Vector2();
+    function onMouseClick(event) {
+      raycaster.setFromCamera(mouse, camera);
+      var isIntersected = raycaster.intersectObject(cube);
+      if (isIntersected) {
+        console.log('Mesh clicked!');
+      }
+    }
+    function onMouseMove(event) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+    window.addEventListener('click', onMouseClick, false);
+    window.addEventListener('mousemove', onMouseMove, false);
   }, []);
 
   const requestAnimationFrame = (() => {
