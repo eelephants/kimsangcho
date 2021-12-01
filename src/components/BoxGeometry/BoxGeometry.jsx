@@ -1,7 +1,40 @@
 import { useCallback, useRef, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import * as THREE from 'three';
-import BodyclassLogo from '../../assets/bodyclass_logo.png';
+import {
+  Portpolio1,
+  Portpolio2,
+  Portpolio3,
+  Portpolio4,
+  BodyClassLogo,
+  BodyClassTitleMain,
+  BodyClassLogin,
+  BodyClassMain2,
+  BodyClassMain1,
+  BodyClassClass,
+  BodyClassTrainer,
+  BodyClassCart,
+  BodyClassMy,
+  MerracTitleMain1,
+  MerracTitleMain2,
+  MerracMenu1,
+  MerracMenu2,
+  MerracAdmin,
+  Polrep1,
+  Polrep2,
+  Polrep3,
+  WebGis1,
+  WebGis2,
+  WebGis3,
+  WebGis4,
+  AirforceTitleMain,
+  HdcSplash,
+  HdcView1,
+  HdcView2,
+  HdcView3,
+  HdcView4,
+  HdcView5,
+} from '../../assets/index.js';
 
 const BoxGeometry = ({ width, height, position, resize }) => {
   const canvasRef = useRef();
@@ -104,22 +137,22 @@ const BoxGeometry = ({ width, height, position, resize }) => {
 
     const materials = [
       new THREE.MeshBasicMaterial({
-        map: loader.load(BodyclassLogo),
+        map: loader.load(BodyClassTitleMain),
       }),
       new THREE.MeshBasicMaterial({
-        color: '#ddd',
+        map: loader.load(MerracTitleMain1),
       }),
       new THREE.MeshBasicMaterial({
-        color: '#000',
+        map: loader.load(AirforceTitleMain),
       }),
       new THREE.MeshBasicMaterial({
-        color: '#605FE8',
+        map: loader.load(HdcSplash),
       }),
       new THREE.MeshBasicMaterial({
-        color: '#48E885',
+        map: loader.load(MerracTitleMain2),
       }),
       new THREE.MeshBasicMaterial({
-        color: '#E8C93C',
+        map: loader.load(BodyClassClass),
       }),
     ];
 
