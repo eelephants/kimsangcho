@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 const Video = ({ videoSrcURL, videoTitle, ...props }) => {
   return (
     <div css={videoWrapperStyle}>
-      <video loop autoPlay css={videoStyle} controlsList="nodownload">
+      <video loop autoPlay muted css={videoStyle} controlsList="nodownload">
         <source src={videoSrcURL} title={videoTitle} type="video/mp4" />
       </video>
     </div>

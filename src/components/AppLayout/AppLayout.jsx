@@ -86,7 +86,7 @@ const Header = memo(
         ]}
         ref={ref}
       >
-        <div class="title-wrapper">
+        <div className="title-wrapper">
           <NaviTitle
             herf="/"
             name="kim sangcho ™"
