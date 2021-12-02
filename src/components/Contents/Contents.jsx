@@ -227,8 +227,12 @@ const ThirdContents = ({
                 fontWeight: 'bold',
                 position: 'absolute',
                 zIndex: 999,
-                right: 0,
-                top: '100%',
+                top: '101%',
+                [mq('small')]: {},
+                [mq('large')]: {},
+                [mq('xLarge')]: {
+                  right: '-10%',
+                },
               }}
             >
               {reason && '* ' + reason}
@@ -255,7 +259,6 @@ const ThirdContents = ({
         <div
           className="original-hide-box"
           css={css`
-            // display: none;
             width: ${window.innerWidth / 2.5 + 'px'};
             height: ${window.innerWidth / 2.5 + 'px'};
             max-width: 500px;
@@ -490,19 +493,15 @@ const ForthContents = ({
     <motion.div
       css={[
         thirdContentsWrapper,
-        {
-          height: sceneInfo[3].scrollHeight / 4,
-        },
+        // {
+        //   height: sceneInfo[3].scrollHeight / 4,
+        // },
       ]}
       className={className}
       variants={variants}
       animate={sceneInfo[3].values[animate] ? 'transform' : 'stop'}
     >
-      <div
-        css={css`
-          flex: 2;
-        `}
-      >
+      <div css={css``}>
         <Swiper
           effect={'coverflow'}
           grabCursor={true}
@@ -539,7 +538,6 @@ const ForthContents = ({
       </div>
       <div
         css={css`
-          flex: 0.5;
           font-size: 1.5rem;
           text-align: center;
           position: relative;
@@ -550,7 +548,7 @@ const ForthContents = ({
             color: white;
             letter-spacing: 0.2rem;
             position: absolute;
-            top: -190px;
+            top: -120px;
             left: 0;
             right: 0px;
             margin-right: auto;
@@ -566,7 +564,15 @@ const ForthContents = ({
         >
           {title}
         </motion.div>
-        {desc}
+        <div
+          css={{
+            margin: '50px auto',
+            lineHeight: 2,
+            maxWidth: '70%',
+          }}
+        >
+          {desc}
+        </div>
       </div>
       <Button
         isShow
@@ -720,14 +726,13 @@ const circle = css`
 `;
 
 const thirdContentsWrapper = css`
-  margin: 0;
+  max-width: 80%;
+  margin: 0 auto;
   left: 0;
   font-size: 40px;
   color: #fff;
-  // border: red 1px solid;
   display: none;
   flex-direction: column;
-  padding: 40px 70px;
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   background: linear-gradient(
     90deg,

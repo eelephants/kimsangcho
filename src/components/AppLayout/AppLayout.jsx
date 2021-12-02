@@ -58,8 +58,6 @@ const Header = memo(
   forwardRef(({ location, scrollY }, ref) => {
     const [isHover, setIsHover] = useState(false);
 
-    console.log(isHover);
-
     const onHover = (event, isHovered) => {
       event.nativeEvent.stopImmediatePropagation();
       setIsHover(isHovered);
@@ -90,7 +88,7 @@ const Header = memo(
           <NaviTitle
             herf="/"
             name="kim sangcho ™"
-            style={{ fontSize: '1.9rem', fontFamily: 'lobster' }}
+            style={{ fontSize: '2vw', fontFamily: 'lobster' }}
           />
         </div>
         <div css={linkWrapperSttyle} onMouseLeave={(e) => onHover(e, false)}>
@@ -109,15 +107,15 @@ const Header = memo(
                 variants={variants}
                 animate={'transform'}
                 css={{
-                  width: '235px',
-                  minWidth: '235px',
-                  height: '3.5rem',
+                  width: '13vw',
+                  minWidth: '13vw',
+                  height: '3vw',
                   backgroundColor: 'rgba(204,192,192,1)',
                   position: 'absolute',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-evenly',
-                  top: '35px',
+                  top: '50px',
                   borderRadius: '15px',
                   boxShadow:
                     '0px 10px 13px -7px #000000,  5px 5px 15px 5px rgba(0, 0, 0, 0)',
@@ -183,8 +181,8 @@ const Header = memo(
             <a target="_blank" href="https://github.com/SangchoKim">
               <img
                 css={{
-                  width: '2.2rem',
-                  height: '2.2rem',
+                  width: '2.3vw',
+                  height: '2.3vw',
                 }}
                 src={scrollY === 0 ? GithubWhiteIcon : GithubIcon}
                 alt="portfolio"
@@ -378,7 +376,7 @@ const navStyle = css`
 
 const naviContact = css`
   text-decoration: none;
-  font-size: 1.3rem;
+  font-size: 1.3vw;
   color: inherit;
   transition: all 0.3s linear;
   cursor: pointer;
@@ -405,7 +403,7 @@ const NaviTitle = (props) => (
     to={props.herf}
     css={css`
       text-decoration: none;
-      font-size: 1.3rem;
+      font-size: 1.3vw;
       color: inherit;
       transition: all 0.3s linear;
       &:hover {
