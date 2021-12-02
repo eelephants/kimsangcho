@@ -65,6 +65,8 @@ const BoxGeometry = ({ width, height, position, resize }) => {
     setIsDragging(false);
   };
 
+  const onMouseClick = (event) => {};
+
   const onMouseMoveEvent = (event) => {
     const deltaMove = {
       x: event.nativeEvent.offsetX - previousMousePosition.x || 0,
@@ -80,6 +82,8 @@ const BoxGeometry = ({ width, height, position, resize }) => {
           'XYZ'
         )
       );
+
+      console.log(deltaRotationQuaternion);
       cubes.quaternion.multiplyQuaternions(
         deltaRotationQuaternion,
         cubes.quaternion
@@ -182,21 +186,22 @@ const BoxGeometry = ({ width, height, position, resize }) => {
 
     animates();
 
-    var raycaster = new THREE.Raycaster();
-    var mouse = new THREE.Vector2();
-    function onMouseClick(event) {
-      raycaster.setFromCamera(mouse, camera);
-      var isIntersected = raycaster.intersectObject(cube);
-      if (isIntersected) {
-        console.log('Mesh clicked!');
-      }
-    }
-    function onMouseMove(event) {
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    }
-    window.addEventListener('click', onMouseClick, false);
-    window.addEventListener('mousemove', onMouseMove, false);
+    // var raycaster = new THREE.Raycaster();
+    // var mouse = new THREE.Vector2();
+    // function onMouseClick(event) {
+    //   raycaster.setFromCamera(mouse, camera);
+    //   var isIntersected = raycaster.intersectObject(cube);
+    //   if (isIntersected) {
+    //     console.log('Mesh clicked!');
+    //   }
+    // }
+    // function onMouseMove(event) {
+    //   console.log(event.clientX);
+    //   mouse.x = (event.clientX / canvasRef.innerWidth) * 2 - 1;
+    //   mouse.y = -(event.clientY / canvasRef.innerHeight) * 2 + 1;
+    // }
+    // window.addEventListener('click', onMouseClick, false);
+    // window.addEventListener('mousemove', onMouseMove, false);
   }, []);
 
   const requestAnimationFrame = (() => {
@@ -235,6 +240,7 @@ const BoxGeometry = ({ width, height, position, resize }) => {
         onMouseMove={onMouseMoveEvent}
         onMouseDown={onMouseDownEvent}
         onMouseUp={onMouseUpEvent}
+        onClick={onMouseClick}
       ></div>
     </div>
   );
