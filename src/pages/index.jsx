@@ -233,6 +233,9 @@ const Index = ({ data, location }) => {
               title={item.title}
               duration={item.duration}
               type={item.type}
+              android={item.android}
+              ios={item.ios}
+              gitUrl={item.gitUrl}
               desc={item.desc}
               url={item.url}
               role={item.role}
@@ -260,7 +263,12 @@ const Index = ({ data, location }) => {
               id={item.id}
               title={item.title}
               images={item.images}
+              android={item.android}
+              ios={item.ios}
+              type={item.type}
+              gitUrl={item.gitUrl}
               sceneInfo={sceneInfo}
+              url={item.url}
               className={item.className}
               animate={item.animate}
               desc={item.desc}
