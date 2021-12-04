@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
@@ -25,7 +26,11 @@ import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
 import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
 import { makeColor, mq } from '../../lib/utils/helper';
 import { useSceneState } from '../../store/sceneInfo';
-
+import GithubWhiteIcon from '../../assets/github_white.png';
+import { Link } from '@emotion-icons/boxicons-regular/Link';
+import { Android } from '@emotion-icons/boxicons-logos/Android';
+import { Apple } from '@emotion-icons/boxicons-logos/Apple';
+import { Github } from '@emotion-icons/boxicons-logos/Github';
 SwiperCore.use([
   EffectFade,
   Navigation,
@@ -56,6 +61,29 @@ const RightArrowCircleIcon = styled(ArrowRightCircle)`
 const ArrowGoBackIcon = styled(ArrowGoBack)`
   color: rgba(204, 192, 192, 1);
   width: 80%;
+  height: auto;
+`;
+
+const LinkIcon = styled(Link)`
+  color: #fff;
+  width: 1.5vw;
+  height: auto;
+`;
+const AndroidIcon = styled(Android)`
+  color: #fff;
+  width: 1.5vw;
+  height: auto;
+`;
+
+const AppleIcon = styled(Apple)`
+  color: #fff;
+  width: 1.5vw;
+  height: auto;
+`;
+
+const GithubIcon = styled(Github)`
+  color: #fff;
+  width: 1.5vw;
   height: auto;
 `;
 
@@ -110,10 +138,14 @@ const SecondContents = ({ className }) => {
 const ThirdContents = ({
   id,
   detailUrl,
+  url,
+  gitUrl,
   className,
   title,
   duration,
   type,
+  android,
+  ios,
   desc,
   role,
   reason,
@@ -130,7 +162,6 @@ const ThirdContents = ({
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
   const { sceneInfo } = useSceneState();
-
   const onMouseLeaveFromCanvas = useCallback(() => {
     onMouseLeave(id);
   }, [isShow]);
@@ -402,6 +433,35 @@ const ThirdContents = ({
               `}
             >
               <h1>{title}</h1>
+              <div>
+                {url && (
+                  <a target="_blank" href={url}>
+                    <LinkIcon />
+                  </a>
+                )}
+                {type === 'Mobile' && (
+                  <>
+                    {android && (
+                      <a target="_blank" href={android}>
+                        <AndroidIcon />
+                      </a>
+                    )}
+                    {ios && (
+                      <a target="_blank" href={ios}>
+                        <AppleIcon />
+                      </a>
+                    )}
+                  </>
+                )}
+                {gitUrl && (
+                  <a
+                    target="_blank"
+                    href={`https://github.com/SangchoKim/${gitUrl}`}
+                  >
+                    <GithubIcon />
+                  </a>
+                )}
+              </div>
             </div>
             <h3>
               {duration} /&nbsp;{type}
@@ -467,6 +527,11 @@ const ForthContents = ({
   className,
   title,
   id,
+  type,
+  url,
+  ios,
+  android,
+  gitUrl,
   animate,
   images,
   desc,
@@ -493,9 +558,9 @@ const ForthContents = ({
     <motion.div
       css={[
         thirdContentsWrapper,
-        // {
-        //   height: sceneInfo[3].scrollHeight / 4,
-        // },
+        {
+          height: sceneInfo[3].scrollHeight / 4,
+        },
       ]}
       className={className}
       variants={variants}
@@ -503,6 +568,7 @@ const ForthContents = ({
     >
       <div css={css``}>
         <Swiper
+          // autoplay
           effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
@@ -523,13 +589,21 @@ const ForthContents = ({
             >
               <div
                 css={css`
-                  width: ${window.innerWidth / 2.5}px;
-                  height: ${window.innerWidth / 2.5}px;
+                  min-width: ${window.innerWidth / 3}px;
+                  min-height: ${window.innerWidth / 4}px;
+                  max-width: ${window.innerWidth / 3}px;
+                  max-height: ${window.innerWidth / 4}px;
+                  background: #303030;
+                  margin: auto;
                 `}
               >
                 <img
                   src={item.src}
-                  css={{ width: '100%', display: 'inline-block' }}
+                  css={{
+                    width: '100%',
+                    display: 'inline-block',
+                    backgroundSize: 'contain',
+                  }}
                 />
               </div>
             </SwiperSlide>
@@ -548,11 +622,9 @@ const ForthContents = ({
             color: white;
             letter-spacing: 0.2rem;
             position: absolute;
-            top: -120px;
+            top: -30px;
             left: 0;
             right: 0px;
-            margin-right: auto;
-            margin-left: auto;
             font-weight: bold;
             font-size: 4rem;
             z-index: 500;
@@ -563,10 +635,39 @@ const ForthContents = ({
           animate={'stop'}
         >
           {title}
+          <div className="url-wrapper">
+            {url && (
+              <a target="_blank" href={url}>
+                <LinkIcon />
+              </a>
+            )}
+            {type === 'Mobile' && (
+              <>
+                {android && (
+                  <a target="_blank" href={android}>
+                    <AndroidIcon />
+                  </a>
+                )}
+                {ios && (
+                  <a target="_blank" href={ios}>
+                    <AppleIcon />
+                  </a>
+                )}
+              </>
+            )}
+            {gitUrl && (
+              <a
+                target="_blank"
+                href={`https://github.com/SangchoKim/${gitUrl}`}
+              >
+                <GithubIcon />
+              </a>
+            )}
+          </div>
         </motion.div>
         <div
           css={{
-            margin: '50px auto',
+            margin: '150px auto 100px auto',
             lineHeight: 2,
             maxWidth: '70%',
           }}
@@ -733,12 +834,15 @@ const thirdContentsWrapper = css`
   color: #fff;
   display: none;
   flex-direction: column;
+  justify-content: center;
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(51, 51, 51, 1) 47%
   );
+  .url-wrapper {
+  }
 `;
 
 export default Contents;
