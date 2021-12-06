@@ -595,6 +595,9 @@ const ForthContents = ({
                   max-height: ${window.innerWidth / 4}px;
                   background: #303030;
                   margin: auto;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
                 `}
               >
                 <img
