@@ -35,6 +35,27 @@ import HdcView3 from './hdc_view3.png';
 import HdcView4 from './hdc_view4.png';
 import HdcView5 from './hdc_view5.png';
 
+import RfLogin from './rf_login.png';
+import RfMain from './rf_main.png';
+
+import Younme1 from './younme1.png';
+import Younme2 from './younme2.png';
+import Younme3 from './younme3.png';
+import Younme4 from './younme4.png';
+import Younme5 from './younme5.png';
+import Younme6 from './younme6.png';
+import Younme7 from './younme7.png';
+import Younme8 from './younme8.png';
+import Younme9 from './younme9.png';
+import Younme10 from './younme10.png';
+import Younme11 from './younme11.png';
+import Younme12 from './younme12.png';
+import Younme13 from './younme13.png';
+import Younme14 from './younme14.png';
+import Younme15 from './younme15.png';
+import Younme16 from './younme16.png';
+import Younme17 from './younme17.png';
+
 export {
   Portpolio1,
   Portpolio2,
@@ -70,4 +91,23 @@ export {
   HdcView3,
   HdcView4,
   HdcView5,
+  RfLogin,
+  RfMain,
+  Younme1,
+  Younme2,
+  Younme3,
+  Younme4,
+  Younme5,
+  Younme6,
+  Younme7,
+  Younme8,
+  Younme9,
+  Younme10,
+  Younme11,
+  Younme12,
+  Younme13,
+  Younme14,
+  Younme15,
+  Younme16,
+  Younme17,
 };
