@@ -75,23 +75,25 @@ import MessiAdmin3 from './messi_admin3.png';
 import MessiAdmin4 from './messi_admin4.png';
 import MessiAdmin5 from './messi_admin5.png';
 
-import Younme1 from './younme1.png';
-import Younme2 from './younme2.png';
-import Younme3 from './younme3.png';
-import Younme4 from './younme4.png';
-import Younme5 from './younme5.png';
-import Younme6 from './younme6.png';
-import Younme7 from './younme7.png';
-import Younme8 from './younme8.png';
-import Younme9 from './younme9.png';
-import Younme10 from './younme10.png';
-import Younme11 from './younme11.png';
-import Younme12 from './younme12.png';
-import Younme13 from './younme13.png';
-import Younme14 from './younme14.png';
-import Younme15 from './younme15.png';
-import Younme16 from './younme16.png';
-import Younme17 from './younme17.png';
+import YounmeLogin1 from './younme_login1.png';
+import YounmeLogin2 from './younme_login2.png';
+import YounmeMain1 from './younme_main.png';
+import YounmeAlbum1 from './younme_album1.png';
+import YounmeAlbum2 from './younme_album2.png';
+import YounmeAlbum3 from './younme_album3.png';
+import YounmeAlbum4 from './younme_album4.png';
+import YounmeChat1 from './younme_chat1.png';
+import YounmeChat2 from './younme_chat2.png';
+import YounmeChat3 from './younme_chat3.png';
+import YounmeChat4 from './younme_chat4.png';
+import YounmeChat5 from './younme_chat5.png';
+import YounmeChat6 from './younme_chat6.png';
+import YounmeChat7 from './younme_chat7.png';
+import YounmeChat8 from './younme_chat8.png';
+import YounmeChat9 from './younme_chat9.png';
+import YounmeMypage1 from './younme_mypage1.png';
+import YounmeCalendar1 from './younme_calendar1.png';
+import YounmeCalendar2 from './younme_calendar2.png';
 
 export {
   Portpolio1,
@@ -166,21 +168,23 @@ export {
   MessiAdmin3,
   MessiAdmin4,
   MessiAdmin5,
-  Younme1,
-  Younme2,
-  Younme3,
-  Younme4,
-  Younme5,
-  Younme6,
-  Younme7,
-  Younme8,
-  Younme9,
-  Younme10,
-  Younme11,
-  Younme12,
-  Younme13,
-  Younme14,
-  Younme15,
-  Younme16,
-  Younme17,
+  YounmeLogin1,
+  YounmeLogin2,
+  YounmeMain1,
+  YounmeAlbum1,
+  YounmeAlbum2,
+  YounmeAlbum3,
+  YounmeAlbum4,
+  YounmeChat1,
+  YounmeChat2,
+  YounmeChat3,
+  YounmeChat4,
+  YounmeChat5,
+  YounmeChat6,
+  YounmeChat7,
+  YounmeChat8,
+  YounmeChat9,
+  YounmeMypage1,
+  YounmeCalendar1,
+  YounmeCalendar2,
 };
