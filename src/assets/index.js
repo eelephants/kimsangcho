@@ -38,6 +38,23 @@ import HdcView5 from './hdc_view5.png';
 import RfLogin from './rf_login.png';
 import RfMain from './rf_main.png';
 
+import Together1 from './together1.png';
+import Together2 from './together2.png';
+import Together3 from './together3.png';
+import Together4 from './together4.png';
+import Together5 from './together5.png';
+import Together6 from './together6.png';
+import Together7 from './together7.png';
+import Together8 from './together8.png';
+import Together9 from './together9.png';
+import Together10 from './together10.png';
+import Together11 from './together11.png';
+import Together12 from './together12.png';
+import Together13 from './together13.png';
+import Together14 from './together14.png';
+import Together15 from './together15.png';
+import Together16 from './together16.png';
+
 import MessiLogin from './messi_login.png';
 import MessiMain from './messi_main.png';
 import MessiMain2 from './messi_main2.png';
@@ -132,6 +149,22 @@ export {
   HdcView5,
   RfLogin,
   RfMain,
+  Together1,
+  Together2,
+  Together3,
+  Together4,
+  Together5,
+  Together6,
+  Together7,
+  Together8,
+  Together9,
+  Together10,
+  Together11,
+  Together12,
+  Together13,
+  Together14,
+  Together15,
+  Together16,
   MessiLogin,
   MessiMain,
   MessiMain2,
