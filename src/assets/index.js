@@ -38,6 +38,43 @@ import HdcView5 from './hdc_view5.png';
 import RfLogin from './rf_login.png';
 import RfMain from './rf_main.png';
 
+import MessiLogin from './messi_login.png';
+import MessiMain from './messi_main.png';
+import MessiMain2 from './messi_main2.png';
+import MessiMain3 from './messi_main3.png';
+import MessiAbout1 from './messi_about1.png';
+import MessiAbout2 from './messi_about2.png';
+import MessiAbout3 from './messi_about3.png';
+import MessiNews1 from './messi_news1.png';
+import MessiNews2 from './messi_news2.png';
+import MessiNews3 from './messi_news3.png';
+import MessiNews4 from './messi_news4.png';
+import MessiNews5 from './messi_news5.png';
+import MessiMypage1 from './messi_mypage1.png';
+import MessiMypage2 from './messi_mypage2.png';
+import MessiMypage3 from './messi_mypage3.png';
+import MessiShop1 from './messi_shop1.png';
+import MessiShop2 from './messi_shop2.png';
+import MessiShop3 from './messi_shop3.png';
+import MessiShop4 from './messi_shop4.png';
+import MessiShop5 from './messi_shop5.png';
+import MessiShop6 from './messi_shop6.png';
+import MessiShop7 from './messi_shop7.png';
+import MessiShop8 from './messi_shop8.png';
+import MessiShop9 from './messi_shop9.png';
+import MessiShop10 from './messi_shop10.png';
+import MessiShop11 from './messi_shop11.png';
+import MessiShop12 from './messi_shop12.png';
+import MessiShop13 from './messi_shop13.png';
+import MessiShop14 from './messi_shop14.png';
+import MessiShop15 from './messi_shop15.png';
+import MessiShop16 from './messi_shop16.png';
+import MessiAdmin1 from './messi_admin1.png';
+import MessiAdmin2 from './messi_admin2.png';
+import MessiAdmin3 from './messi_admin3.png';
+import MessiAdmin4 from './messi_admin4.png';
+import MessiAdmin5 from './messi_admin5.png';
+
 import Younme1 from './younme1.png';
 import Younme2 from './younme2.png';
 import Younme3 from './younme3.png';
@@ -93,6 +130,42 @@ export {
   HdcView5,
   RfLogin,
   RfMain,
+  MessiLogin,
+  MessiMain,
+  MessiMain2,
+  MessiMain3,
+  MessiAbout1,
+  MessiAbout2,
+  MessiAbout3,
+  MessiNews1,
+  MessiNews2,
+  MessiNews3,
+  MessiNews4,
+  MessiNews5,
+  MessiShop1,
+  MessiShop2,
+  MessiShop3,
+  MessiShop4,
+  MessiShop5,
+  MessiShop6,
+  MessiShop7,
+  MessiShop8,
+  MessiShop9,
+  MessiShop10,
+  MessiShop11,
+  MessiShop12,
+  MessiShop13,
+  MessiShop14,
+  MessiShop15,
+  MessiShop16,
+  MessiMypage1,
+  MessiMypage2,
+  MessiMypage3,
+  MessiAdmin1,
+  MessiAdmin2,
+  MessiAdmin3,
+  MessiAdmin4,
+  MessiAdmin5,
   Younme1,
   Younme2,
   Younme3,
