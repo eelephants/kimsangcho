@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { graphql } from 'gatsby';
 import AppLayout from '../components/AppLayout/AppLayout';
-import { mq } from '../lib/utils/helper';
+import { isBrowser, mq } from '../lib/utils/helper';
 import MainVideo from '../assets/video/main.mp4';
 import BoxGeometry from '../components/BoxGeometry';
 import Dimmed from '../components/Dimmed';
@@ -10,9 +10,9 @@ import { css } from '@emotion/react';
 const About = ({ data, location }) => {
   useEffect(() => {
     // scroll
-    window.addEventListener('scroll', eventScroll);
+    isBrowser() && window.addEventListener('scroll', eventScroll);
     return () => {
-      window.removeEventListener('scroll', eventScroll);
+      isBrowser() && window.removeEventListener('scroll', eventScroll);
     };
   }, []);
 
@@ -21,7 +21,7 @@ const About = ({ data, location }) => {
 
   const resume = resumes.map(({ node }) => node)[0];
 
-  const eventScroll = () => setScrollY(window.scrollY);
+  const eventScroll = () => setScrollY(isBrowser() && window.scrollY);
 
   return (
     <AppLayout>

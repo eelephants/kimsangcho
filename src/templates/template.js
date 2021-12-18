@@ -44,6 +44,7 @@ import {
   HdcView4,
   HdcView5,
 } from '../assets/index.js';
+import { isBrowser } from '../lib/utils/helper';
 const mainImages = {
   bodyClass: BodyClassGif,
   merrac: MerracGif,
@@ -120,9 +121,9 @@ export default function TemplatePost({ data, location }) {
   const [isShow, setIsShow] = useState(0);
   useEffect(() => {
     // scroll
-    window.addEventListener('scroll', eventScroll);
+    isBrowser() && window.addEventListener('scroll', eventScroll);
     return () => {
-      window.removeEventListener('scroll', eventScroll);
+      isBrowser() && window.removeEventListener('scroll', eventScroll);
     };
   }, []);
 
@@ -131,7 +132,7 @@ export default function TemplatePost({ data, location }) {
   const navigationRoleNextRef = useRef(null);
   const navigationRolePrevRef = useRef(null);
 
-  const eventScroll = () => setScrollY(window.scrollY);
+  const eventScroll = () => setScrollY(isBrowser() && window.scrollY);
 
   const getImage = (name) => subImages[name];
 

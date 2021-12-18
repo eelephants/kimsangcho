@@ -21,7 +21,7 @@ import { Instagram } from '@emotion-icons/boxicons-logos/Instagram';
 import { FacebookCircle } from '@emotion-icons/boxicons-logos/FacebookCircle';
 import { EmailOutline } from '@emotion-icons/evaicons-outline/EmailOutline';
 import { LinkedinSquare } from '@emotion-icons/boxicons-logos/LinkedinSquare';
-
+import { isBrowser } from '../../lib/utils/helper.js';
 import { useSceneState } from '../../store/sceneInfo';
 import styled from '@emotion/styled';
 
@@ -264,11 +264,17 @@ const Footer = () => {
 
   useLayoutEffect(() => {
     spring.onChange((latest) => {
+      if (!isBrowser()) {
+        return;
+      }
       window.scrollTo(0, latest);
     });
   }, [spring]);
 
   const onClickMoveToTop = () => {
+    if (!isBrowser()) {
+      return;
+    }
     spring.set(window.pageYOffset, false);
     setTimeout(() => {
       spring.set(0);
