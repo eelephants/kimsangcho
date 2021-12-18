@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import _ from 'lodash';
+import { isBrowser } from '../lib/utils/helper';
 
 export default function useWindowSize() {
-  const isSSR = typeof window !== 'undefined';
   const [windowSize, setWindowSize] = useState({
-    width: isSSR ? 1200 : window.innerWidth,
-    height: isSSR ? 800 : window.innerHeight,
+    width: !isBrowser() ? 1200 : window.innerWidth,
+    height: !isBrowser() ? 800 : window.innerHeight,
   });
 
   const changeWindowSize = _.debounce(() => {
-    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    setWindowSize({
+      width: isBrowser() && window.innerWidth,
+      height: isBrowser() && window.innerHeight,
+    });
   }, 1000);
 
   useEffect(() => {

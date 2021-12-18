@@ -32,6 +32,7 @@
     "gatsby-plugin-mdx": "^2.5.1",
     "gatsby-plugin-react-helmet": "^4.5.0",
     "gatsby-plugin-react-svg": "^3.1.0",
+    "gatsby-plugin-remove-console": "^0.0.2",
     "gatsby-plugin-sharp": "^3.6.0",
     "gatsby-plugin-sitemap": "^4.1.0",
     "gatsby-source-filesystem": "^3.6.0",
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@fontsource/barlow": "^4.4.1",
     "@fontsource/open-sans": "^4.4.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "emotion-icons": "^3.15.0",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",

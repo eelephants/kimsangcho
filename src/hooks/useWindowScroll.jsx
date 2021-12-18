@@ -1,9 +1,10 @@
 import { useRef, useEffect } from 'react';
+import { isBrowser } from '../lib/utils/helper';
 
 export default function useWindowScroll() {
   const dom = useRef({
     currentScene: 0,
-    yOffset: window.pageYOffset,
+    yOffset: isBrowser() && window.pageYOffset,
     prevScrollHeight: 0,
   });
 
@@ -24,14 +25,14 @@ export default function useWindowScroll() {
   };
 
   const changeWindowScroll = () => {
-    scrollEvent && scrollEvent(window.pageYOffset);
+    scrollEvent && scrollEvent(isBrowser() && window.pageYOffset);
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', changeWindowScroll);
+    isBrowser() && window.addEventListener('scroll', changeWindowScroll);
 
     return () => {
-      window.removeEventListener('scroll', changeWindowScroll);
+      isBrowser() && window.removeEventListener('scroll', changeWindowScroll);
     };
   }, []);
 

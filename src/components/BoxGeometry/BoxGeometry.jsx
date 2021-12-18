@@ -35,6 +35,7 @@ import {
   HdcView4,
   HdcView5,
 } from '../../assets/index.js';
+import { isBrowser } from '../../lib/utils/helper.js';
 
 const BoxGeometry = ({ width, height, position, resize }) => {
   const canvasRef = useRef();
@@ -97,6 +98,9 @@ const BoxGeometry = ({ width, height, position, resize }) => {
   };
 
   const requestAnimationCustomFrame = (function () {
+    if (!isBrowser()) {
+      return;
+    }
     return (
       window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
@@ -205,11 +209,17 @@ const BoxGeometry = ({ width, height, position, resize }) => {
   }, []);
 
   const requestAnimationFrame = (() => {
+    if (!isBrowser()) {
+      return;
+    }
     return (
       window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame ||
       function (callback) {
+        if (!isBrowser()) {
+          return;
+        }
         window.setTimeout(callback, 1000 / 60);
       }
     );

@@ -38,6 +38,7 @@ import {
   usePortpolioState,
 } from '../store/portpolioInfo';
 import { motion } from 'framer-motion';
+import { isBrowser } from '../lib/utils/helper';
 
 // {data.allMarkdownRemark.edges.map((edge) => {
 //   return (
@@ -69,9 +70,9 @@ const Index = ({ data, location }) => {
     // load
     setLayout();
     // scroll
-    window.addEventListener('scroll', eventScroll);
+    isBrowser() && window.addEventListener('scroll', eventScroll);
     return () => {
-      window.removeEventListener('scroll', eventScroll);
+      isBrowser() && window.removeEventListener('scroll', eventScroll);
     };
   }, []);
 
@@ -131,7 +132,7 @@ const Index = ({ data, location }) => {
 
   // // 스크롤 이벤트
   const scrollLoop = async () => {
-    setScrollY(window.scrollY);
+    setScrollY(isBrowser() && window.scrollY);
     await sceneDeispatch({ type: SCROLL_LOOP });
     await sceneDeispatch({ type: PLAY_ANIMATION });
   };

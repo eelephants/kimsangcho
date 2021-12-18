@@ -30,4 +30,6 @@ const mq = (n) => {
   return result;
 };
 
-export { round, importAll, mq, makeColor };
+const isBrowser = () => typeof window !== 'undefined';
+
+export { round, importAll, mq, makeColor, isBrowser };
