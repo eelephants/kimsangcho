@@ -95,9 +95,6 @@ const initialInfo = {
   ],
 };
 
-const SceneStateContext = createContext();
-const SceneDispatchContext = createContext();
-
 // 스크롤 값에 따라 opacity 계산하는 함수
 const calcValues = (values, currentYoffset, draft) => {
   let rv = 0;
@@ -428,7 +425,10 @@ const sceneReducer = (state, action) => {
   }
 };
 
-export function SceneProvider({ children }) {
+const SceneStateContext = createContext();
+const SceneDispatchContext = createContext();
+
+export const SceneProvider = ({ children }) => {
   const [state, dispatch] = useReducer(sceneReducer, initialInfo);
 
   return (
@@ -438,21 +438,21 @@ export function SceneProvider({ children }) {
       </SceneStateContext.Provider>
     </SceneDispatchContext.Provider>
   );
-}
+};
 
-export function useSceneState() {
+export const useSceneDispatch = () => {
+  const context = useContext(SceneDispatchContext);
+  if (!context) {
+    throw new Error('Cannot find SceneProvider');
+  }
+  return context;
+};
+
+export const useSceneState = () => {
   const context = useContext(SceneStateContext);
 
   if (!context) {
-    return false;
+    throw new Error('Cannot find SceneProvider');
   }
   return context;
-}
-
-export function useSceneDispatch() {
-  const context = useContext(SceneDispatchContext);
-  if (!context) {
-    return false;
-  }
-  return context;
-}
+};
