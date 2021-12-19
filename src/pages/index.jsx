@@ -52,23 +52,14 @@ const Index = ({ data, location }) => {
   const mainRef = useRef();
 
   const { width } = useWindowSize();
-  let sceneDeispatch = null;
-  let portpolioDeispatch = null;
-  let portPolioData = null;
-  let subPortPolioData = null;
-  let sceneInfo = null;
+  const sceneDeispatch = useSceneDispatch();
+  const portpolioDeispatch = usePortpolioDispatch();
+  const { portPolioData, subPortPolioData } = usePortpolioState();
+  const { sceneInfo } = useSceneState();
 
   useEffect(() => {
     // load
-    sceneDeispatch = useSceneDispatch();
-    portpolioDeispatch = usePortpolioDispatch();
-    const { portPolioData: y, subPortPolioData: t } = usePortpolioState();
-    const { sceneInfo: n } = useSceneState();
     setLayout();
-    portPolioData = t;
-    subPortPolioData = y;
-    sceneInfo = n;
-
     // scroll
     isBrowser() && window.addEventListener('scroll', eventScroll);
     return () => {
