@@ -1,0 +1,2 @@
+(self.webpackChunkkimsangcho=self.webpackChunkkimsangcho||[]).push([[883],{8384:function(n,t,u){"use strict";u.d(t,{Z:function(){return e.Z}});var e=u(1639)},9616:function(n,t,u){"use strict";u.r(t);u(7294);var e=u(5444),c=u(8384),o=u(4382);t.default=function(){return(0,o.tZ)(c.Z,null,(0,o.tZ)("h1",null,"Page not found"),(0,o.tZ)("p",null,(0,o.tZ)(e.Link,{to:"/"},"Head home")))}}}]);
+//# sourceMappingURL=component---src-pages-404-js-1e66df7b2af4d20b6ed7.js.map
