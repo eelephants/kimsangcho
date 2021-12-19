@@ -636,11 +636,11 @@ export function PortpolioProvider({ children }) {
   const [state, dispatch] = useReducer(portpoioReducer, initialInfo);
 
   return (
-    <PortpolioStateContext.Provider value={state}>
-      <PortpolioDispatchContext.Provider value={dispatch}>
+    <PortpolioDispatchContext.Provider value={dispatch}>
+      <PortpolioStateContext.Provider value={state}>
         {children}
-      </PortpolioDispatchContext.Provider>
-    </PortpolioStateContext.Provider>
+      </PortpolioStateContext.Provider>
+    </PortpolioDispatchContext.Provider>
   );
 }
 

@@ -12,6 +12,9 @@ export const SCROLL_LOOP = 'SCROLL_LOOP';
 export const PLAY_ANIMATION = 'PLAY_ANIMATION';
 export const SET_CANVAS_IMAGE = 'SET_CANVAS_IMAGE';
 
+const SceneStateContext = createContext();
+const SceneDispatchContext = createContext();
+
 const initialInfo = {
   currentScene: 0,
   yOffset: isBrowser() && window.pageYOffset,
@@ -189,14 +192,18 @@ const sceneReducer = (state, action) => {
 
     case SET_EACH_SECTION_HEIGHT:
       return produce(state, (draft) => {
+        const defalutNum = 1280;
         _.forEach(draft.sceneInfo, (item) => {
           if (item.type === 'sticky') {
-            item.scrollHeight =
-              item.heightNum * isBrowser() && window.innerHeight;
+            item.scrollHeight = isBrowser()
+              ? item.heightNum * window.innerHeight
+              : item.heightNum * defalutNum;
           } else if (item.type === 'normal') {
-            item.scrollHeight = isBrowser() && window.innerHeight;
+            item.scrollHeight = isBrowser() ? window.innerHeight : defalutNum;
           } else if (item.type === 'video') {
-            item.scrollHeight = isBrowser() && window.innerHeight * 0.7;
+            item.scrollHeight = isBrowser()
+              ? window.innerHeight * 0.7
+              : defalutNum * 0.7;
           }
           item.objs.container.style.height = `${item.scrollHeight}px`;
         });
@@ -425,9 +432,6 @@ const sceneReducer = (state, action) => {
   }
 };
 
-const SceneStateContext = createContext();
-const SceneDispatchContext = createContext();
-
 export const SceneProvider = ({ children }) => {
   const [state, dispatch] = useReducer(sceneReducer, initialInfo);
 
@@ -450,7 +454,6 @@ export const useSceneDispatch = () => {
 
 export const useSceneState = () => {
   const context = useContext(SceneStateContext);
-
   if (!context) {
     throw new Error('Cannot find SceneProvider');
   }
