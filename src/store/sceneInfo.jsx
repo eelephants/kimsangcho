@@ -1,3 +1,4 @@
+import react from 'react';
 import { useReducer, createContext, useContext } from 'react';
 import produce from 'immer';
 import _ from 'lodash';
@@ -431,11 +432,11 @@ export function SceneProvider({ children }) {
   const [state, dispatch] = useReducer(sceneReducer, initialInfo);
 
   return (
-    <SceneStateContext.Provider value={state}>
-      <SceneDispatchContext.Provider value={dispatch}>
+    <SceneDispatchContext.Provider value={dispatch}>
+      <SceneStateContext.Provider value={state}>
         {children}
-      </SceneDispatchContext.Provider>
-    </SceneStateContext.Provider>
+      </SceneStateContext.Provider>
+    </SceneDispatchContext.Provider>
   );
 }
 
@@ -443,7 +444,7 @@ export function useSceneState() {
   const context = useContext(SceneStateContext);
 
   if (!context) {
-    throw new Error('Cannot find SceneProvider');
+    return false;
   }
   return context;
 }
@@ -451,7 +452,7 @@ export function useSceneState() {
 export function useSceneDispatch() {
   const context = useContext(SceneDispatchContext);
   if (!context) {
-    throw new Error('Cannot find SceneProvider');
+    return false;
   }
   return context;
 }

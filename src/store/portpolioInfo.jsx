@@ -1,3 +1,4 @@
+import react from 'react';
 import { useReducer, createContext, useContext } from 'react';
 import produce from 'immer';
 import _ from 'lodash';
@@ -645,9 +646,8 @@ export function PortpolioProvider({ children }) {
 
 export function usePortpolioState() {
   const context = useContext(PortpolioStateContext);
-
   if (!context) {
-    throw new Error('Cannot find PortpolioProvider');
+    return false;
   }
   return context;
 }
@@ -655,7 +655,7 @@ export function usePortpolioState() {
 export function usePortpolioDispatch() {
   const context = useContext(PortpolioDispatchContext);
   if (!context) {
-    throw new Error('Cannot find PortpolioProvider');
+    return false;
   }
   return context;
 }

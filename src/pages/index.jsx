@@ -40,15 +40,6 @@ import {
 import { motion } from 'framer-motion';
 import { isBrowser } from '../lib/utils/helper';
 
-// {data.allMarkdownRemark.edges.map((edge) => {
-//   return (
-//     <Link to={`/portfolio/${edge.node.fields.slug}`}>
-//       {/* <h2>{edge.node.frontmatter.title}</h2>
-//       <p>{edge.node.frontmatter.date}</p> */}
-//     </Link>
-//   );
-// })}
-
 const Index = ({ data, location }) => {
   const [scrollY, setScrollY] = useState(0);
 
@@ -61,10 +52,11 @@ const Index = ({ data, location }) => {
   const mainRef = useRef();
 
   const { width } = useWindowSize();
-  const sceneDeispatch = useSceneDispatch();
-  const portpolioDeispatch = usePortpolioDispatch();
-  const { portPolioData, subPortPolioData } = usePortpolioState();
-  const { sceneInfo } = useSceneState();
+  const sceneDeispatch = useSceneDispatch() && useSceneDispatch();
+  const portpolioDeispatch = usePortpolioDispatch() && usePortpolioDispatch();
+  const { portPolioData, subPortPolioData } =
+    usePortpolioState() && usePortpolioState();
+  const { sceneInfo } = useSceneState() && useSceneState();
 
   useEffect(() => {
     // load
@@ -225,57 +217,59 @@ const Index = ({ data, location }) => {
           <div css={[stickyCanvas]} className="sticky-elem-canvas">
             <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
           </div>
-          {portPolioData.map((item, index) => (
-            <Contents.ThirdContents
-              key={index}
-              id={item.id}
-              detailUrl={item.detailUrl}
-              className={item.className}
-              title={item.title}
-              duration={item.duration}
-              type={item.type}
-              android={item.android}
-              ios={item.ios}
-              gitUrl={item.gitUrl}
-              desc={item.desc}
-              url={item.url}
-              role={item.role}
-              reason={item.reason}
-              images={item.images}
-              language={item.language}
-              onMouseLeave={onMouseLeaveFromCanvas}
-              onMouseEnter={onMouseEnterFromCanvas}
-              handleGoBack={onClickGoBack}
-              handleInit={onClickInit}
-              isShow={item.isShow}
-              isSideShow={item.isSideShow}
-              handleDetailProject={handleDetailProject}
-            />
-          ))}
+          {portPolioData &&
+            portPolioData.map((item, index) => (
+              <Contents.ThirdContents
+                key={index}
+                id={item.id}
+                detailUrl={item.detailUrl}
+                className={item.className}
+                title={item.title}
+                duration={item.duration}
+                type={item.type}
+                android={item.android}
+                ios={item.ios}
+                gitUrl={item.gitUrl}
+                desc={item.desc}
+                url={item.url}
+                role={item.role}
+                reason={item.reason}
+                images={item.images}
+                language={item.language}
+                onMouseLeave={onMouseLeaveFromCanvas}
+                onMouseEnter={onMouseEnterFromCanvas}
+                handleGoBack={onClickGoBack}
+                handleInit={onClickInit}
+                isShow={item.isShow}
+                isSideShow={item.isSideShow}
+                handleDetailProject={handleDetailProject}
+              />
+            ))}
         </WrappedContents>
         <WrappedContents
           css={[secondSection]}
           ref={forthSectionRef}
           id="scroll-section-3"
         >
-          {subPortPolioData.map((item, index) => (
-            <Contents.ForthContents
-              key={index}
-              id={item.id}
-              title={item.title}
-              images={item.images}
-              android={item.android}
-              ios={item.ios}
-              type={item.type}
-              gitUrl={item.gitUrl}
-              sceneInfo={sceneInfo}
-              url={item.url}
-              className={item.className}
-              animate={item.animate}
-              desc={item.desc}
-              handleDetailProject={handleDetailProject}
-            />
-          ))}
+          {subPortPolioData &&
+            subPortPolioData.map((item, index) => (
+              <Contents.ForthContents
+                key={index}
+                id={item.id}
+                title={item.title}
+                images={item.images}
+                android={item.android}
+                ios={item.ios}
+                type={item.type}
+                gitUrl={item.gitUrl}
+                sceneInfo={sceneInfo}
+                url={item.url}
+                className={item.className}
+                animate={item.animate}
+                desc={item.desc}
+                handleDetailProject={handleDetailProject}
+              />
+            ))}
         </WrappedContents>
       </AppLayout.Main>
       <AppLayout.Footer />
