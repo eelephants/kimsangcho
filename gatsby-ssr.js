@@ -7,7 +7,7 @@ import react from 'react';
 import { SceneProvider } from './src/store/sceneInfo';
 import { PortpolioProvider } from './src/store/portpolioInfo';
 
-export const wrapPageElement = ({ element, props }) => {
+export const wrapRootElement = ({ element, props }) => {
   return (
     <PortpolioProvider>
       <SceneProvider>{element}</SceneProvider>
