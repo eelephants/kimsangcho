@@ -647,7 +647,7 @@ export function PortpolioProvider({ children }) {
 export function usePortpolioState() {
   const context = useContext(PortpolioStateContext);
   if (!context) {
-    return false;
+    throw new Error('Cannot find PortpolioProvider');
   }
   return context;
 }
@@ -655,7 +655,7 @@ export function usePortpolioState() {
 export function usePortpolioDispatch() {
   const context = useContext(PortpolioDispatchContext);
   if (!context) {
-    return false;
+    throw new Error('Cannot find PortpolioProvider');
   }
   return context;
 }

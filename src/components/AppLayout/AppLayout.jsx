@@ -238,7 +238,7 @@ const Main = forwardRef(({ children, styles }, ref) => {
 });
 
 const Footer = () => {
-  const { currentScene } = useSceneState();
+  let currentScene = null;
   const [isCover, setIsCover] = useState(false);
 
   const spring = useSpring(0, { damping: 300, stiffness: 1000 });
@@ -263,6 +263,8 @@ const Footer = () => {
   `;
 
   useLayoutEffect(() => {
+    const { currentScene: t } = useSceneState();
+    currentScene = t;
     spring.onChange((latest) => {
       if (!isBrowser()) {
         return;
