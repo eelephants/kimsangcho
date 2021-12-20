@@ -217,8 +217,8 @@ const sceneReducer = (state, action) => {
     case SET_TOTAL_SCROLL_HEIGHT:
       return produce(state, (draft) => {
         let totalScrollHeight = 0;
-        let pageYOffset = isBrowser() ? window.pageYOffset : 0;
-        let innerHeight = isBrowser() ? window.innerHeight : 1200;
+        const pageYOffset = isBrowser() ? window.pageYOffset : 0;
+        const innerHeight = isBrowser() ? window.innerHeight : 1200;
         for (let i = 0; i < draft.sceneInfo.length; i++) {
           totalScrollHeight += draft.sceneInfo[i].scrollHeight;
 
@@ -239,13 +239,13 @@ const sceneReducer = (state, action) => {
       return produce(state, (draft) => {
         draft.prevScrollHeight = 0;
         draft.enterNewScene = false;
-
+        const pageYOffset = isBrowser() ? window.pageYOffset : 0;
         for (let i = 0; i < draft.currentScene; i++) {
           draft.prevScrollHeight += draft.sceneInfo[i].scrollHeight;
         }
 
         if (
-          window.pageYOffset >
+          pageYOffset >
           draft.prevScrollHeight +
             draft.sceneInfo[draft.currentScene].scrollHeight
         ) {
@@ -254,7 +254,7 @@ const sceneReducer = (state, action) => {
           document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
         }
 
-        if (window.pageYOffset < draft.prevScrollHeight) {
+        if (pageYOffset < draft.prevScrollHeight) {
           draft.enterNewScene = true;
           // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
           if (draft.currentScene === 0) {
@@ -271,12 +271,10 @@ const sceneReducer = (state, action) => {
         if (draft.enterNewScene) {
           return;
         }
-
+        const pageYOffset = isBrowser() ? window.pageYOffset : 0;
         const objs = draft.sceneInfo[draft.currentScene].objs;
         const values = draft.sceneInfo[draft.currentScene].values;
-        const currentYoffset = round(
-          window.pageYOffset - draft.prevScrollHeight
-        );
+        const currentYoffset = round(pageYOffset - draft.prevScrollHeight);
         const scrollHeight = draft.sceneInfo[draft.currentScene].scrollHeight;
         const scrollRatio = currentYoffset / scrollHeight;
 
