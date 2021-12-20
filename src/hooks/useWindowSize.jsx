@@ -4,14 +4,14 @@ import { isBrowser } from '../lib/utils/helper';
 
 export default function useWindowSize() {
   const [windowSize, setWindowSize] = useState({
-    width: !isBrowser() ? 1200 : window.innerWidth,
-    height: !isBrowser() ? 800 : window.innerHeight,
+    width: !isBrowser() ? 1920 : window.innerWidth,
+    height: !isBrowser() ? 1200 : window.innerHeight,
   });
 
   const changeWindowSize = _.debounce(() => {
     setWindowSize({
-      width: isBrowser() && window.innerWidth,
-      height: isBrowser() && window.innerHeight,
+      width: !isBrowser() ? 1920 : window.innerWidth,
+      height: !isBrowser() ? 1200 : window.innerHeight,
     });
   }, 1000);
 
