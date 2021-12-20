@@ -17,7 +17,7 @@ const SceneDispatchContext = createContext();
 
 const initialInfo = {
   currentScene: 0,
-  yOffset: isBrowser() && window.pageYOffset,
+  yOffset: isBrowser() ? window.pageYOffset : 0,
   prevScrollHeight: 0,
   totalScrollHeight: 0,
   enterNewScene: false,
@@ -211,17 +211,18 @@ const sceneReducer = (state, action) => {
 
     case SET_PAGE_YOFFSET:
       return produce(state, (draft) => {
-        draft.yOffset = isBrowser() && window.pageYOffset;
+        draft.yOffset = isBrowser() ? window.pageYOffset : 0;
       });
 
     case SET_TOTAL_SCROLL_HEIGHT:
       return produce(state, (draft) => {
         let totalScrollHeight = 0;
-
+        let pageYOffset = isBrowser() ? window.pageYOffset : 0;
+        let innerHeight = isBrowser() ? window.innerHeight : 1200;
         for (let i = 0; i < draft.sceneInfo.length; i++) {
           totalScrollHeight += draft.sceneInfo[i].scrollHeight;
 
-          if (totalScrollHeight >= isBrowser() && window.pageYOffset) {
+          if (totalScrollHeight >= pageYOffset) {
             draft.currentScene = i;
             break;
           }
@@ -230,7 +231,7 @@ const sceneReducer = (state, action) => {
 
         document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
 
-        const heightRatio = isBrowser() && window.innerHeight / 1080;
+        const heightRatio = innerHeight / 1080;
         draft.sceneInfo[2].objs.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`;
       });
 
@@ -244,17 +245,16 @@ const sceneReducer = (state, action) => {
         }
 
         if (
-          isBrowser() &&
           window.pageYOffset >
-            draft.prevScrollHeight +
-              draft.sceneInfo[draft.currentScene].scrollHeight
+          draft.prevScrollHeight +
+            draft.sceneInfo[draft.currentScene].scrollHeight
         ) {
           draft.enterNewScene = true;
           draft.currentScene++;
           document.body.setAttribute('id', `show-scene-${draft.currentScene}`);
         }
 
-        if (isBrowser() && window.pageYOffset < draft.prevScrollHeight) {
+        if (window.pageYOffset < draft.prevScrollHeight) {
           draft.enterNewScene = true;
           // 브라우저 바운스 효과로 인해 마이너스가 되는 것을 방지(모바일)
           if (draft.currentScene === 0) {
@@ -275,7 +275,7 @@ const sceneReducer = (state, action) => {
         const objs = draft.sceneInfo[draft.currentScene].objs;
         const values = draft.sceneInfo[draft.currentScene].values;
         const currentYoffset = round(
-          isBrowser() && window.pageYOffset - draft.prevScrollHeight
+          window.pageYOffset - draft.prevScrollHeight
         );
         const scrollHeight = draft.sceneInfo[draft.currentScene].scrollHeight;
         const scrollRatio = currentYoffset / scrollHeight;

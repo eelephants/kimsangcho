@@ -219,8 +219,8 @@ const ThirdContents = ({
         <div
           className="original-box"
           css={css`
-            width: ${isBrowser() && window.innerWidth / 2.5 + 'px'};
-            height: ${isBrowser() && window.innerWidth / 2.5 + 'px'};
+            width: ${window.innerWidth / 2.5 + 'px'};
+            height: ${window.innerWidth / 2.5 + 'px'};
             max-width: 500px;
             max-height: 500px;
             position: relative;
@@ -248,8 +248,8 @@ const ThirdContents = ({
             onMouseLeave={() => {
               images.length && !isSideShow ? onMouseLeaveFromCanvas() : null;
             }}
-            width={isBrowser() && window.innerWidth / 2.5}
-            height={isBrowser() && window.innerWidth / 2.5}
+            width={window.innerWidth / 2.5}
+            height={window.innerWidth / 2.5}
           ></canvas>
           {!images.length && (
             <span
@@ -276,7 +276,7 @@ const ThirdContents = ({
             opacity="0.8"
             absolute
             top="50%"
-            left={isBrowser() && window.innerWidth > 1700 ? '60%' : '50%'}
+            left={window.innerWidth > 1700 ? '60%' : '50%'}
             transform="translate(-50%, -50%)"
             isShow={isShow}
             onMouseEnter={() => {
@@ -290,8 +290,8 @@ const ThirdContents = ({
         <div
           className="original-hide-box"
           css={css`
-            width: ${isBrowser() && window.innerWidth / 2.5 + 'px'};
-            height: ${isBrowser() && window.innerWidth / 2.5 + 'px'};
+            width: ${window.innerWidth / 2.5 + 'px'};
+            height: ${window.innerWidth / 2.5 + 'px'};
             max-width: 500px;
             max-height: 500px;
             position: relative;
@@ -548,7 +548,7 @@ const ForthContents = ({
   const jumpVariants = {
     stop: { y: [0, -20, 0], transition: { repeat: Infinity, repeatDelay: 3 } },
   };
-  const width = isBrowser() && window.innerWidth / 2.5 + 'px';
+  const width = window.innerWidth / 2.5 + 'px';
 
   const onClickDetail = useCallback(() => {
     handleDetailProject(id);
@@ -589,10 +589,10 @@ const ForthContents = ({
             >
               <div
                 css={css`
-                  min-width: ${isBrowser() && window.innerWidth / 3}px;
-                  min-height: ${isBrowser() && window.innerWidth / 4}px;
-                  max-width: ${isBrowser() && window.innerWidth / 3}px;
-                  max-height: ${isBrowser() && window.innerWidth / 4}px;
+                  min-width: ${window.innerWidth / 3}px;
+                  min-height: ${window.innerWidth / 4}px;
+                  max-width: ${window.innerWidth / 3}px;
+                  max-height: ${window.innerWidth / 4}px;
                   background: #303030;
                   margin: auto;
                   display: flex;
