@@ -5,3 +5,7 @@
 	display: flex;
 	will-change: transform, opacity;
 }
+
+body {
+  font-family: 'bebas-neue', 'noto-sans-kr';
+}
