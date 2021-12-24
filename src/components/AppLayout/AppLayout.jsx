@@ -301,7 +301,7 @@ AppLayout.Header = Header;
 AppLayout.Footer = Footer;
 
 const globalStyle = css`
-  font-family: 'barlow';
+  font-family: 'bebas-neue', 'noto-sans-kr';
   height: 100vh;
   background: linear-gradient(
     90deg,
@@ -363,7 +363,7 @@ const sidebarStyle = css`
 const linkbarStyle = css`
   display: flex;
   list-style: none;
-  font-family: 'lobster';
+  font-family: 'bebas-neue', 'noto-sans-kr';
   padding: 0;
   margin: 0;
   li {
