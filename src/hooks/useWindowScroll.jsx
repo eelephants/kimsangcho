@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { isBrowser } from '../lib/utils/helper';
+import { isBrowser } from '@/lib/utils/helper';
 
 export default function useWindowScroll() {
   const dom = useRef({

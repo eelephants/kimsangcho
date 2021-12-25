@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { graphql } from 'gatsby';
-import AppLayout from '../components/AppLayout/AppLayout';
-import { isBrowser, mq } from '../lib/utils/helper';
-import MainVideo from '../assets/video/main.mp4';
-import BoxGeometry from '../components/BoxGeometry';
-import Dimmed from '../components/Dimmed';
-import Video from '../components/Video';
+import AppLayout from '@/components/AppLayout/AppLayout';
+import { isBrowser, mq } from '@/lib/utils/helper';
+import MainVideo from '@/assets/video/main.mp4';
+import BoxGeometry from '@/components/BoxGeometry';
+import Dimmed from '@/components/Dimmed';
+import Video from '@/components/Video';
 import { css } from '@emotion/react';
+
 const About = ({ data, location }) => {
   useEffect(() => {
     // scroll

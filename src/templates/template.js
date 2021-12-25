@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { graphql } from 'gatsby';
-import AppLayout from '../components/AppLayout/AppLayout';
+import AppLayout from '@/components/AppLayout/AppLayout';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
-import Button from '../components/Button';
+import Button from '@/components/Button';
 import { ArrowLeftS } from '@emotion-icons/remix-fill/ArrowLeftS';
 import { ArrowRightS } from '@emotion-icons/remix-fill/ArrowRightS';
 import { AccessAlarm } from '@emotion-icons/material/AccessAlarm';
@@ -43,8 +43,8 @@ import {
   HdcView3,
   HdcView4,
   HdcView5,
-} from '../assets/index.js';
-import { isBrowser } from '../lib/utils/helper';
+} from '@/assets/index.js';
+import { isBrowser } from '@/lib/utils/helper';
 const mainImages = {
   bodyClass: BodyClassGif,
   merrac: MerracGif,
@@ -134,7 +134,7 @@ export default function TemplatePost({ data, location }) {
 
   const eventScroll = () => setScrollY(isBrowser() && window.scrollY);
 
-  const getImage = (name) => subImages[name];
+  const getImage = name => subImages[name];
 
   return (
     <AppLayout>
@@ -248,7 +248,7 @@ export default function TemplatePost({ data, location }) {
               </p>
               <hr />
               <p css={[roleTitle]}>Skill:</p>
-              {post.frontmatter.skills.map((item) => (
+              {post.frontmatter.skills.map(item => (
                 <p css={[roleTitle]}>{item}</p>
               ))}
             </div>
@@ -353,7 +353,7 @@ export default function TemplatePost({ data, location }) {
                 prevEl: navigationRolePrevRef.current,
                 nextEl: navigationRoleNextRef.current,
               }}
-              onSwiper={(swiper) => {
+              onSwiper={swiper => {
                 // Delay execution for the refs to be defined
                 setTimeout(() => {
                   // Override prevEl & nextEl now that refs are defined
@@ -505,7 +505,7 @@ export default function TemplatePost({ data, location }) {
                     prevEl: navigationPrevRef.current,
                     nextEl: navigationNextRef.current,
                   }}
-                  onSwiper={(swiper) => {
+                  onSwiper={swiper => {
                     // Delay execution for the refs to be defined
                     setTimeout(() => {
                       // Override prevEl & nextEl now that refs are defined

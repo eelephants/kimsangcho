@@ -1,5 +1,4 @@
 const path = require(`path`);
-const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -28,7 +27,7 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     `
-  ).then((result) => {
+  ).then(result => {
     if (result.errors) {
       throw result.errors;
     }
@@ -56,7 +55,7 @@ exports.createPages = ({ graphql, actions }) => {
   });
 };
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === `MarkdownRemark`) {
@@ -67,4 +66,22 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     });
   }
+};
+
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+        // '@assets': path.resolve(__dirname, 'src/assets'),
+        // '@hooks': path.resolve(__dirname, 'src/hooks'),
+        // '@lib': path.resolve(__dirname, 'src/lib'),
+        // '@pages': path.resolve(__dirname, 'src/pages'),
+        // '@store': path.resolve(__dirname, 'src/store'),
+        // '@templates': path.resolve(__dirname, 'src/templates'),
+        '@static': path.resolve(__dirname, 'static'),
+        '@content': path.resolve(__dirname, 'content'),
+      },
+    },
+  });
 };

@@ -2,40 +2,14 @@ import { useCallback, useRef, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
 import * as THREE from 'three';
 import {
-  Portpolio1,
-  Portpolio2,
-  Portpolio3,
-  Portpolio4,
-  BodyClassLogo,
   BodyClassTitleMain,
-  BodyClassLogin,
-  BodyClassMain2,
-  BodyClassMain1,
   BodyClassClass,
-  BodyClassTrainer,
-  BodyClassCart,
-  BodyClassMy,
   MerracTitleMain1,
   MerracTitleMain2,
-  MerracMenu1,
-  MerracMenu2,
-  MerracAdmin,
-  Polrep1,
-  Polrep2,
-  Polrep3,
-  WebGis1,
-  WebGis2,
-  WebGis3,
-  WebGis4,
   AirforceTitleMain,
   HdcSplash,
-  HdcView1,
-  HdcView2,
-  HdcView3,
-  HdcView4,
-  HdcView5,
-} from '../../assets/index.js';
-import { isBrowser } from '../../lib/utils/helper.js';
+} from '@/assets/index.js';
+import { isBrowser } from '@/lib/utils/helper.js';
 
 const BoxGeometry = ({ width, height, position, resize }) => {
   const canvasRef = useRef();
@@ -66,9 +40,9 @@ const BoxGeometry = ({ width, height, position, resize }) => {
     setIsDragging(false);
   };
 
-  const onMouseClick = (event) => {};
+  const onMouseClick = event => {};
 
-  const onMouseMoveEvent = (event) => {
+  const onMouseMoveEvent = event => {
     const deltaMove = {
       x: event.nativeEvent.offsetX - previousMousePosition.x || 0,
       y: event.nativeEvent.offsetY - previousMousePosition.y || 0,
@@ -225,7 +199,7 @@ const BoxGeometry = ({ width, height, position, resize }) => {
     );
   })();
 
-  const toRadians = (angle) => {
+  const toRadians = angle => {
     return angle * (Math.PI / 180);
   };
 

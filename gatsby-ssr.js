@@ -1,6 +1,6 @@
 import '@fontsource/open-sans';
-import '@fontsource/barlow';
-import '@fontsource/lobster';
+import '@fontsource/bebas-neue';
+import '@fontsource/noto-sans-kr';
 import 'normalize.css';
 import './src/lib/styles/global.css';
 import react from 'react';

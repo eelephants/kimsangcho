@@ -1,13 +1,12 @@
-import * as Color from '../styles/color.json';
+import * as Color from '@/lib/styles/color.json';
 
-const makeColor = (name) =>
-  Color[name] ? Color[name].join(',') : '0, 0, 0, 1';
+const makeColor = name => (Color[name] ? Color[name].join(',') : '0, 0, 0, 1');
 
-const round = (number) => Math.round(number);
+const round = number => Math.round(number);
 
-const importAll = (r) => {
+const importAll = r => {
   let images = {};
-  r.keys().map((item) => {
+  r.keys().map(item => {
     images[item.replace('./', '')] = r(item);
   });
   return images;
@@ -19,8 +18,8 @@ const bp = {
   xLarge: 1700,
 };
 
-const mq = (n) => {
-  const bpArray = Object.keys(bp).map((key) => [key, bp[key]]);
+const mq = n => {
+  const bpArray = Object.keys(bp).map(key => [key, bp[key]]);
 
   const [result] = bpArray.reduce((acc, [name, size]) => {
     if (n === name) return [...acc, `@media (min-width: ${size}px)`];

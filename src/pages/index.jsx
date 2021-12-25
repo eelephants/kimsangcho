@@ -1,15 +1,14 @@
 import { useEffect, useRef, useCallback, useState } from 'react';
 import { graphql, navigate } from 'gatsby';
 import { css } from '@emotion/react';
-import AppLayout from '../components/AppLayout';
-import Video from '../components/Video';
-import MainVideo from '../assets/video/main.mp4';
-import Dimmed from '../components/Dimmed';
-import BoxGeometry from '../components/BoxGeometry';
-import { StaticImage } from 'gatsby-plugin-image';
-import Contents from '../components/Contents/Contents';
-import WrappedContents from '../components/Contents/wrapper/wrappedContents';
-import useWindowSize from '../hooks/useWindowSize';
+import AppLayout from '@/components/AppLayout';
+import Video from '@/components/Video';
+import MainVideo from '@/assets/video/main.mp4';
+import Dimmed from '@/components/Dimmed';
+import BoxGeometry from '@/components/BoxGeometry';
+import Contents from '@/components/Contents/Contents';
+import WrappedContents from '@/components/Contents/wrapper/wrappedContents';
+import useWindowSize from '@/hooks/useWindowSize';
 
 import {
   SCROLL_LOOP,
@@ -22,7 +21,7 @@ import {
   SET_CANVAS_IMAGE,
   useSceneState,
   SET_INIT,
-} from '../store/sceneInfo';
+} from '@/store/sceneInfo';
 
 import {
   ON_CLICK_GOBACK_ICON,
@@ -36,9 +35,9 @@ import {
   SET_ORIGINAL_PORTPOLIO,
   usePortpolioDispatch,
   usePortpolioState,
-} from '../store/portpolioInfo';
+} from '@/store/portpolioInfo';
 import { motion } from 'framer-motion';
-import { isBrowser } from '../lib/utils/helper';
+import { isBrowser } from '@/lib/utils/helper';
 
 const Index = ({ data, location }) => {
   const [scrollY, setScrollY] = useState(0);
@@ -107,7 +106,7 @@ const Index = ({ data, location }) => {
     // setFlipPortpolio();
   };
 
-  const covertRadian = (angle) => {
+  const covertRadian = angle => {
     return (angle * Math.PI) / 180;
   };
 
@@ -134,21 +133,21 @@ const Index = ({ data, location }) => {
   };
 
   const onMouseLeaveFromCanvas = useCallback(
-    (id) => {
+    id => {
       portpolioDeispatch({ type: ON_MOUSE_LEAVE_FROM_PORTPOLIO, data: id });
     },
     [portPolioData]
   );
 
   const onMouseEnterFromCanvas = useCallback(
-    (id) => {
+    id => {
       portpolioDeispatch({ type: ON_MOUSE_ENTER_TO_PORTPOLIO, data: id });
     },
     [portPolioData]
   );
 
   const onClickGoBack = useCallback(
-    (id) => {
+    id => {
       portpolioDeispatch({ type: ON_CLICK_GOBACK_ICON, data: id });
       portpolioDeispatch({
         type: SET_CONTENTS_STYLE,
@@ -166,7 +165,7 @@ const Index = ({ data, location }) => {
   );
 
   const onClickInit = useCallback(
-    (id) => {
+    id => {
       portpolioDeispatch({ type: ON_CLICK_INIT_ICON, data: id });
       portpolioDeispatch({
         type: SET_CONTENTS_STYLE,
@@ -183,17 +182,9 @@ const Index = ({ data, location }) => {
     [portPolioData]
   );
 
-  const handleDetailProject = useCallback((path) => {
+  const handleDetailProject = useCallback(path => {
     navigate(path);
   }, []);
-
-  // TODO: 미디어 쿼리 (반응형)
-  // TODO: 상단 화면 이미지 채우기
-  // TODO: 헤더 아이콘 바꾸기 --- done
-  // TODO: 컨텐츠 이미지 채우기
-  // TODO: 컨텐츠 디테일 화면 만들기
-  // TODO: 어비웃 화면 만들기 --- done
-  // TODO: 컨택트 화면 만들기 --- done
 
   return (
     <AppLayout>
