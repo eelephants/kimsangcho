@@ -8,21 +8,21 @@ import React, {
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
 import { motion, useSpring } from 'framer-motion';
-import HomeIcon from '../../assets/logo.png';
-import AboutIcon from '../../assets/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.webp';
-import ContactIcon from '../../assets/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
-import PortfolioIcon from '../../assets/gotoMain.svg';
-import GithubIcon from '../../assets/githubIcon.svg';
-import GithubWhiteIcon from '../../assets/github_white.png';
-import { useSiteMetadata } from '../../hooks/useQuery';
+import HomeIcon from '@/assets/logo.png';
+import AboutIcon from '@/assets/c6730f_0ae73585c16049f789c3d462512a84bf_mv2.webp';
+import ContactIcon from '@/assets/c6730f_81f62b0326834095a11e062e1638d790_mv2.webp';
+import PortfolioIcon from '@/assets/gotoMain.svg';
+import GithubIcon from '@/assets/githubIcon.svg';
+import GithubWhiteIcon from '@/assets/github_white.png';
+import { useSiteMetadata } from '@/hooks/useQuery';
 import { ArrowUpCircle } from '@emotion-icons/bootstrap/ArrowUpCircle';
 import { ArrowUpCircleFill } from '@emotion-icons/bootstrap/ArrowUpCircleFill';
 import { Instagram } from '@emotion-icons/boxicons-logos/Instagram';
 import { FacebookCircle } from '@emotion-icons/boxicons-logos/FacebookCircle';
 import { EmailOutline } from '@emotion-icons/evaicons-outline/EmailOutline';
 import { LinkedinSquare } from '@emotion-icons/boxicons-logos/LinkedinSquare';
-import { isBrowser } from '../../lib/utils/helper.js';
-import { useSceneState } from '../../store/sceneInfo';
+import { isBrowser } from '@/lib/utils/helper.js';
+import { useSceneState } from '@/store/sceneInfo';
 import styled from '@emotion/styled';
 
 const AppLayout = ({ children }) => {
@@ -91,7 +91,7 @@ const Header = memo(
             style={{ fontSize: '2vw', fontFamily: 'lobster' }}
           />
         </div>
-        <div css={linkWrapperSttyle} onMouseLeave={(e) => onHover(e, false)}>
+        <div css={linkWrapperSttyle} onMouseLeave={e => onHover(e, false)}>
           <ul css={linkbarStyle}>
             <li>
               <NaviTitle herf="/" name="home" />
@@ -263,7 +263,7 @@ const Footer = () => {
   `;
 
   useLayoutEffect(() => {
-    spring.onChange((latest) => {
+    spring.onChange(latest => {
       if (!isBrowser()) {
         return;
       }
@@ -397,14 +397,14 @@ const NaviConxtact = memo(({ href, target, onHover, name }) => {
       href={href}
       css={naviContact}
       target={target}
-      onMouseEnter={(e) => onHover && onHover(e, true)}
+      onMouseEnter={e => onHover && onHover(e, true)}
     >
       {name}
     </a>
   );
 });
 
-const NaviTitle = (props) => (
+const NaviTitle = props => (
   <Link
     to={props.herf}
     css={css`
@@ -422,7 +422,7 @@ const NaviTitle = (props) => (
   </Link>
 );
 
-const Icon = (props) => (
+const Icon = props => (
   <Link to={props.herf} target={props.target}>
     <img
       {...props}

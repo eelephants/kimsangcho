@@ -2,7 +2,7 @@ import react from 'react';
 import { useReducer, createContext, useContext } from 'react';
 import produce from 'immer';
 import _ from 'lodash';
-import { round, importAll, isBrowser } from '../lib/utils/helper';
+import { round, importAll, isBrowser } from '@/lib/utils/helper';
 
 export const SET_EACH_SECTION_HEIGHT = 'SET_EACH_SECTION_HEIGHT';
 export const SET_USE_REF = 'SET_USE_REF';
@@ -163,7 +163,7 @@ const convert = {
 const sceneReducer = (state, action) => {
   switch (action.type) {
     case SET_USE_REF:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         _.forEach(action.data, (item, index) => {
           draft.sceneInfo[index].objs.container = item.current;
         });
@@ -191,9 +191,9 @@ const sceneReducer = (state, action) => {
       });
 
     case SET_EACH_SECTION_HEIGHT:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const defalutNum = 1280;
-        _.forEach(draft.sceneInfo, (item) => {
+        _.forEach(draft.sceneInfo, item => {
           if (item.type === 'sticky') {
             item.scrollHeight = isBrowser()
               ? item.heightNum * window.innerHeight
@@ -210,12 +210,12 @@ const sceneReducer = (state, action) => {
       });
 
     case SET_PAGE_YOFFSET:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         draft.yOffset = isBrowser() ? window.pageYOffset : 0;
       });
 
     case SET_TOTAL_SCROLL_HEIGHT:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         let totalScrollHeight = 0;
         const pageYOffset = isBrowser() ? window.pageYOffset : 0;
         const innerHeight = isBrowser() ? window.innerHeight : 1200;
@@ -236,7 +236,7 @@ const sceneReducer = (state, action) => {
       });
 
     case SCROLL_LOOP:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         draft.prevScrollHeight = 0;
         draft.enterNewScene = false;
         const pageYOffset = isBrowser() ? window.pageYOffset : 0;
@@ -267,7 +267,7 @@ const sceneReducer = (state, action) => {
       });
 
     case PLAY_ANIMATION:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         if (draft.enterNewScene) {
           return;
         }
@@ -409,12 +409,12 @@ const sceneReducer = (state, action) => {
       });
 
     case SET_CANVAS_IMAGE:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         draft.sceneInfo[2].objs.videoImages = [];
         let imageElement;
 
         const images = importAll(
-          require.context('../assets/background', false, /\.(png|jpe?g|svg)$/)
+          require.context('@/assets/background', false, /\.(png|jpe?g|svg)$/)
         );
 
         for (let i = 0; i < draft.sceneInfo[2].values.videoImagesCount; i++) {

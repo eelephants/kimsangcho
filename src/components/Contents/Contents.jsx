@@ -17,16 +17,13 @@ import 'swiper/components/effect-fade/effect-fade.min.css';
 import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
-import Button from '../Button';
-import TestIcon from '../../assets/svg/test.svg';
-import { StaticImage } from 'gatsby-plugin-image';
+import Button from '@/components/Button';
 import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
 import { ArrowLeftCircle } from '@emotion-icons/remix-fill/ArrowLeftCircle';
 import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
 import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
-import { isBrowser, makeColor, mq } from '../../lib/utils/helper';
-import { useSceneState } from '../../store/sceneInfo';
-import GithubWhiteIcon from '../../assets/github_white.png';
+import { isBrowser, makeColor, mq } from '@/lib/utils/helper';
+import { useSceneState } from '@/store/sceneInfo';
 import { Link } from '@emotion-icons/boxicons-regular/Link';
 import { Android } from '@emotion-icons/boxicons-logos/Android';
 import { Apple } from '@emotion-icons/boxicons-logos/Apple';
@@ -179,7 +176,7 @@ const ThirdContents = ({
   }, [isSideShow, isShow]);
 
   const onClickDetail = useCallback(
-    (event) => {
+    event => {
       event.preventDefault();
       handleDetailProject(detailUrl);
     },
@@ -358,7 +355,7 @@ const ThirdContents = ({
               nextEl: navigationNextRef.current,
             }}
             slidesPerView={true}
-            onSwiper={(swiper) => {
+            onSwiper={swiper => {
               // Delay execution for the refs to be defined
               setTimeout(() => {
                 // Override prevEl & nextEl now that refs are defined

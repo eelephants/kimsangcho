@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 
-import AppLayout from '../components/AppLayout';
+import AppLayout from '@/components/AppLayout';
 
 const NotFound = () => {
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import _ from 'lodash';
-import { isBrowser } from '../lib/utils/helper';
+import { isBrowser } from '@/lib/utils/helper';
 
 export default function useWindowSize() {
   const [windowSize, setWindowSize] = useState({

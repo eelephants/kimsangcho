@@ -2,7 +2,7 @@ import react from 'react';
 import { useReducer, createContext, useContext } from 'react';
 import produce from 'immer';
 import _ from 'lodash';
-import { round, importAll } from '../lib/utils/helper';
+import { round, importAll } from '@/lib/utils/helper';
 
 import {
   Portpolio1,
@@ -403,7 +403,7 @@ const PortpolioDispatchContext = createContext();
 const portpoioReducer = (state, action) => {
   switch (action.type) {
     case SET_ORIGINAL_PORTPOLIO:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const original = document.querySelectorAll('.original');
         const description = document.querySelectorAll('.description');
         Array.from(original).forEach((item, index) => {
@@ -435,7 +435,7 @@ const portpoioReducer = (state, action) => {
           ctx.clip();
 
           const imgElem = new Image();
-          imgElem.src = draft.portPolioData.map((item) => item.imageThumnail)[
+          imgElem.src = draft.portPolioData.map(item => item.imageThumnail)[
             index
           ];
           imgElem.addEventListener('load', () => {
@@ -448,7 +448,7 @@ const portpoioReducer = (state, action) => {
       });
 
     case SET_ORIGINAL_HIDE_PORTPOLIO:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const originalHide = document.querySelectorAll('.original-hide');
         Array.from(originalHide).forEach((item, index) => {
           const ctx = item.getContext('2d');
@@ -465,7 +465,7 @@ const portpoioReducer = (state, action) => {
           ctx.clip();
 
           const imgElem = new Image();
-          imgElem.src = draft.portPolioData.map((item) => item.imageThumnail)[
+          imgElem.src = draft.portPolioData.map(item => item.imageThumnail)[
             index
           ];
           imgElem.addEventListener('load', () => {
@@ -478,7 +478,7 @@ const portpoioReducer = (state, action) => {
       });
 
     case SET_FLIP_PORTPOLIO:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const flip = document.querySelectorAll('.flip');
         const original = document.querySelector('.original');
         Array.from(flip).forEach((item, index) => {
@@ -497,7 +497,7 @@ const portpoioReducer = (state, action) => {
           // ctx.clip();
 
           const imgElem = new Image();
-          imgElem.src = draft.portPolioData.map((item) => item.imageThumnail)[
+          imgElem.src = draft.portPolioData.map(item => item.imageThumnail)[
             index
           ];
           imgElem.addEventListener('load', () => {
@@ -520,7 +520,7 @@ const portpoioReducer = (state, action) => {
         });
       });
     case SET_FLIP_HIDE_PORTPOLIO:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const flipHide = document.querySelectorAll('.flip-hide');
         const original = document.querySelector('.original');
         Array.from(flipHide).forEach((item, index) => {
@@ -539,7 +539,7 @@ const portpoioReducer = (state, action) => {
           ctx.clip();
 
           const imgElem = new Image();
-          imgElem.src = draft.portPolioData.map((item) => item.image)[index];
+          imgElem.src = draft.portPolioData.map(item => item.image)[index];
           imgElem.addEventListener('load', () => {
             ctx.setTransform(1, 0, 0, -1, 0, ch);
             ctx.globalAlpha = 0.2;
@@ -561,41 +561,41 @@ const portpoioReducer = (state, action) => {
       });
 
     case ON_MOUSE_ENTER_TO_PORTPOLIO:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const index = draft.portPolioData.findIndex(
-          (item) => item.id === action.data
+          item => item.id === action.data
         );
         draft.portPolioData[index].isShow = true;
       });
 
     case ON_MOUSE_LEAVE_FROM_PORTPOLIO:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const index = draft.portPolioData.findIndex(
-          (item) => item.id === action.data
+          item => item.id === action.data
         );
         draft.portPolioData[index].isShow = false;
       });
 
     case ON_CLICK_GOBACK_ICON:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const index = draft.portPolioData.findIndex(
-          (item) => item.id === action.data
+          item => item.id === action.data
         );
         draft.portPolioData[index].isShow = false;
         draft.portPolioData[index].isSideShow = true;
       });
 
     case ON_CLICK_INIT_ICON:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const index = draft.portPolioData.findIndex(
-          (item) => item.id === action.data
+          item => item.id === action.data
         );
         draft.portPolioData[index].isShow = true;
         draft.portPolioData[index].isSideShow = false;
       });
 
     case SET_CONTENTS_STYLE:
-      return produce(state, (draft) => {
+      return produce(state, draft => {
         const {
           id,
           itemOriginalStyle,
@@ -620,10 +620,10 @@ const portpoioReducer = (state, action) => {
         // itemWrapper.style.padding = itemWrapperStyle;
 
         Array.from(itemFronts).forEach(
-          (item) => (item.style.display = itemFrontStyle)
+          item => (item.style.display = itemFrontStyle)
         );
         Array.from(itemFlipHides).forEach(
-          (item) => (item.style.display = itemFlipHideStyle)
+          item => (item.style.display = itemFlipHideStyle)
         );
       });
 
