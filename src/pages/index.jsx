@@ -39,6 +39,8 @@ import {
 import { motion } from 'framer-motion';
 import { isBrowser } from '@/lib/utils/helper';
 
+const tags = '[index]';
+
 const Index = ({ data, location }) => {
   const [scrollY, setScrollY] = useState(0);
 
@@ -75,6 +77,7 @@ const Index = ({ data, location }) => {
 
   // 각 스크롤 섹션의 높이
   const setEachSectionHeight = () => {
+    console.log(tags, 'setEachSectionHeight');
     sceneDeispatch({
       type: SET_USE_REF,
       data: [
@@ -89,39 +92,46 @@ const Index = ({ data, location }) => {
 
   // 전체 스크롤 높이
   const setTotalScrollHeight = () => {
+    console.log(tags, 'setTotalScrollHeight');
     sceneDeispatch({ type: SET_PAGE_YOFFSET });
     sceneDeispatch({ type: SET_TOTAL_SCROLL_HEIGHT });
   };
 
   const setCanvasImage = () => {
+    console.log(tags, 'setCanvasImage');
     sceneDeispatch({ type: SET_CANVAS_IMAGE });
   };
 
   // 레이아웃 셋팅
   const setLayout = () => {
-    setCanvasImage();
+    console.log(tags, 'setLayout');
     setEachSectionHeight();
     setTotalScrollHeight();
     setOriginalPortpolio();
+    setCanvasImage();
     // setFlipPortpolio();
   };
 
   const covertRadian = angle => {
+    console.log(tags, 'covertRadian');
     return (angle * Math.PI) / 180;
   };
 
   const setOriginalPortpolio = () => {
+    console.log(tags, 'setOriginalPortpolio');
     portpolioDeispatch({ type: SET_ORIGINAL_PORTPOLIO });
     // portpolioDeispatch({ type: SET_ORIGINAL_HIDE_PORTPOLIO });
   };
 
   const setFlipPortpolio = () => {
+    console.log(tags, 'setFlipPortpolio');
     portpolioDeispatch({ type: SET_FLIP_PORTPOLIO });
     // portpolioDeispatch({ type: SET_FLIP_HIDE_PORTPOLIO });
   };
 
   // // 스크롤 이벤트
   const scrollLoop = async () => {
+    console.log(tags, 'scrollLoop');
     setScrollY(isBrowser() && window.scrollY);
     await sceneDeispatch({ type: SCROLL_LOOP });
     await sceneDeispatch({ type: PLAY_ANIMATION });
@@ -129,11 +139,13 @@ const Index = ({ data, location }) => {
 
   // // 스크롤 이벤트
   const eventScroll = async () => {
+    console.log(tags, 'eventScroll');
     await scrollLoop();
   };
 
   const onMouseLeaveFromCanvas = useCallback(
     id => {
+      console.log(tags, 'onMouseLeaveFromCanvas');
       portpolioDeispatch({ type: ON_MOUSE_LEAVE_FROM_PORTPOLIO, data: id });
     },
     [portPolioData]
@@ -141,6 +153,7 @@ const Index = ({ data, location }) => {
 
   const onMouseEnterFromCanvas = useCallback(
     id => {
+      console.log(tags, 'onMouseEnterFromCanvas');
       portpolioDeispatch({ type: ON_MOUSE_ENTER_TO_PORTPOLIO, data: id });
     },
     [portPolioData]
@@ -148,6 +161,7 @@ const Index = ({ data, location }) => {
 
   const onClickGoBack = useCallback(
     id => {
+      console.log(tags, 'onClickGoBack');
       portpolioDeispatch({ type: ON_CLICK_GOBACK_ICON, data: id });
       portpolioDeispatch({
         type: SET_CONTENTS_STYLE,
@@ -166,6 +180,7 @@ const Index = ({ data, location }) => {
 
   const onClickInit = useCallback(
     id => {
+      console.log(tags, 'onClickInit');
       portpolioDeispatch({ type: ON_CLICK_INIT_ICON, data: id });
       portpolioDeispatch({
         type: SET_CONTENTS_STYLE,
@@ -183,6 +198,7 @@ const Index = ({ data, location }) => {
   );
 
   const handleDetailProject = useCallback(path => {
+    console.log(tags, 'handleDetailProject');
     navigate(path);
   }, []);
 

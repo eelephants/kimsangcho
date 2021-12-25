@@ -11,6 +11,7 @@ import SwiperCore, {
   EffectCoverflow,
   A11y,
   Autoplay,
+  Virtual,
 } from 'swiper/core';
 import 'swiper/swiper.min.css';
 import 'swiper/components/effect-fade/effect-fade.min.css';
@@ -28,6 +29,7 @@ import { Link } from '@emotion-icons/boxicons-regular/Link';
 import { Android } from '@emotion-icons/boxicons-logos/Android';
 import { Apple } from '@emotion-icons/boxicons-logos/Apple';
 import { Github } from '@emotion-icons/boxicons-logos/Github';
+import CusomSwiper from '@/components/CusomSwiper';
 SwiperCore.use([
   EffectFade,
   Navigation,
@@ -156,32 +158,53 @@ const ThirdContents = ({
   isSideShow,
   handleDetailProject,
 }) => {
+  const tags = '[ThirdContents]';
+
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
+
   const { sceneInfo } = useSceneState();
+
   const onMouseLeaveFromCanvas = useCallback(() => {
+    console.log(tags, 'onMouseLeaveFromCanvas');
     onMouseLeave(id);
   }, [isShow]);
 
   const onMouseEnterFromCanvas = useCallback(() => {
+    console.log(tags, 'onMouseEnterFromCanvas');
     onMouseEnter(id);
   }, [isShow]);
 
   const onClickGoBack = useCallback(() => {
+    console.log(tags, 'onClickGoBack');
     handleGoBack(id);
   }, [isSideShow, isShow]);
 
   const onClickInit = useCallback(() => {
+    console.log(tags, 'onClickInit');
     handleInit(id);
   }, [isSideShow, isShow]);
 
   const onClickDetail = useCallback(
     event => {
+      console.log(tags, 'onClickDetail');
       event.preventDefault();
       handleDetailProject(detailUrl);
     },
     [detailUrl]
   );
+
+  const onSwiper = swiper => {
+    console.log(tags, 'onSwiper');
+    setTimeout(() => {
+      swiper.params.navigation.prevEl = navigationPrevRef.current;
+      swiper.params.navigation.nextEl = navigationNextRef.current;
+
+      swiper.navigation.destroy();
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }, 500);
+  };
 
   const variants = {
     rotate: {
@@ -343,70 +366,110 @@ const ThirdContents = ({
           >
             <CloseOutlineIcon />
           </Button>
-          <Swiper
-            style={{
-              boxShadow: '5px 5px 15px 5px #000000',
-              backGroundcolor: '#000',
-            }}
-            spaceBetween={50}
-            effect={'fade'}
-            navigation={{
-              prevEl: navigationPrevRef.current,
-              nextEl: navigationNextRef.current,
-            }}
-            slidesPerView={true}
-            onSwiper={swiper => {
-              // Delay execution for the refs to be defined
-              setTimeout(() => {
-                // Override prevEl & nextEl now that refs are defined
-                swiper.params.navigation.prevEl = navigationPrevRef.current;
-                swiper.params.navigation.nextEl = navigationNextRef.current;
+          {images.length ? (
+            <CusomSwiper
+              onSwiper={onSwiper}
+              images={images}
+              isBoxShadow
+              options={{
+                spaceBetween: 50,
+                slidesPerView: 1,
+              }}
+              ref={{
+                navigationPrevRef,
+                navigationNextRef,
+              }}
+              render={images =>
+                images.map((item, index) => (
+                  <SwiperSlide key={index + new Date().getMilliseconds}>
+                    <div
+                      className="original-hide"
+                      onMouseEnter={() => {
+                        !isSideShow ? onMouseEnterFromCanvas() : null;
+                      }}
+                      onMouseLeave={() => {
+                        !isSideShow ? onMouseLeaveFromCanvas() : null;
+                      }}
+                      css={{
+                        maxWidth: '500px',
+                        maxHeight: '500px',
+                        minWidth: '500px',
+                        minHeight: '500px',
+                        background: '#303030',
+                        justifyContent: 'center',
+                        alignItems: 'center',
 
-                // Re-init navigation
-                swiper.navigation.destroy();
-                swiper.navigation.init();
-                swiper.navigation.update();
-              });
-            }}
-          >
-            {images.map((item, index) => (
-              <SwiperSlide key={index + new Date().getMilliseconds}>
-                <div
-                  className="original-hide"
-                  onMouseEnter={() => {
-                    !isSideShow ? onMouseEnterFromCanvas() : null;
-                  }}
-                  onMouseLeave={() => {
-                    !isSideShow ? onMouseLeaveFromCanvas() : null;
-                  }}
-                  css={{
-                    // width: window.innerWidth / 2.5,
-                    // height: window.innerWidth / 2.5,
-                    maxWidth: '500px',
-                    maxHeight: '500px',
-                    minWidth: '500px',
-                    minHeight: '500px',
-                    background: '#303030',
-                    justifyContent: 'center',
-                    alignItems: 'center',
+                        [mq('small')]: {},
+                        [mq('large')]: {},
+                        [mq('xLarge')]: {
+                          left: '10%',
+                        },
+                      }}
+                    >
+                      <img
+                        src={item.src}
+                        css={{
+                          width: !item?.mobile ? '100%' : null,
+                        }}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))
+              }
+            />
+          ) : // <Swiper
+          //   style={{
+          //     boxShadow: '5px 5px 15px 5px #000000',
+          //     backGroundcolor: '#000',
+          //   }}
+          //   spaceBetween={50}
+          //   navigation={{
+          //     prevEl: navigationPrevRef.current,
+          //     nextEl: navigationNextRef.current,
+          //   }}
+          //   modules={[Virtual]}
+          //   slidesPerView={true}
+          //   onSwiper={onSwiper}
+          // >
+          //   {images.map((item, index) => (
+          //     <SwiperSlide key={index + new Date().getMilliseconds}>
+          //       <div
+          //         className="original-hide"
+          //         onMouseEnter={() => {
+          //           !isSideShow ? onMouseEnterFromCanvas() : null;
+          //         }}
+          //         onMouseLeave={() => {
+          //           !isSideShow ? onMouseLeaveFromCanvas() : null;
+          //         }}
+          //         css={{
+          //           // width: window.innerWidth / 2.5,
+          //           // height: window.innerWidth / 2.5,
+          //           maxWidth: '500px',
+          //           maxHeight: '500px',
+          //           minWidth: '500px',
+          //           minHeight: '500px',
+          //           background: '#303030',
+          //           justifyContent: 'center',
+          //           alignItems: 'center',
 
-                    [mq('small')]: {},
-                    [mq('large')]: {},
-                    [mq('xLarge')]: {
-                      left: '10%',
-                    },
-                  }}
-                >
-                  <img
-                    src={item.src}
-                    css={{
-                      width: !item?.mobile ? '100%' : null,
-                    }}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          //           [mq('small')]: {},
+          //           [mq('large')]: {},
+          //           [mq('xLarge')]: {
+          //             left: '10%',
+          //           },
+          //         }}
+          //       >
+          //         <img
+          //           src={item.src}
+          //           css={{
+          //             width: !item?.mobile ? '100%' : null,
+          //           }}
+          //         />
+          //       </div>
+          //     </SwiperSlide>
+          //   ))}
+          // </Swiper>
+          null}
         </div>
         <div
           className="description"
@@ -571,11 +634,12 @@ const ForthContents = ({
     >
       <div css={css``}>
         <Swiper
-          // autoplay
           effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
-          slidesPerView={'auto'}
+          autoplay={true}
+          slidesPerView={2}
+          modules={[Virtual]}
           coverflowEffect={{
             rotate: 50,
             stretch: 0,
@@ -583,7 +647,6 @@ const ForthContents = ({
             modifier: 1,
             slideShadows: true,
           }}
-          pagination={true}
         >
           {images.map((item, index) => (
             <SwiperSlide
