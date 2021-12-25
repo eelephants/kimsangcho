@@ -296,7 +296,6 @@ export default function TemplatePost({ data, location }) {
           css={[
             boxWrapper,
             css`
-              background: black;
               width: 100%;
               position: sticky;
             `,
@@ -563,6 +562,11 @@ export default function TemplatePost({ data, location }) {
 
 const boxWrapper = css`
   height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(51, 51, 51, 1) 47%
+  );
   .slideBtn {
     svg:hover {
       color: rgba(204, 192, 192, 1);
