@@ -29,9 +29,9 @@ import styled from '@emotion/styled';
 const AppLayout = ({ children }) => {
   const { title, description } = useSiteMetadata();
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div css={globalStyle}>{children}</div>
-    </Suspense>
+    // <Suspense fallback={<div>Loading...</div>}>
+    <div css={globalStyle}>{children}</div>
+    // </Suspense>
   );
 };
 

@@ -1,13 +1,13 @@
-import React, { lazy, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { css } from '@emotion/react';
 import { ArrowLeftS } from '@emotion-icons/remix-fill/ArrowLeftS';
 import { ArrowRightS } from '@emotion-icons/remix-fill/ArrowRightS';
 import styled from '@emotion/styled';
 import { SwiperSlide } from 'swiper/react';
-import CustomSwiper from '@/components/CusomSwiper';
 import { Virtual } from 'swiper';
 
-const Button = lazy(() => import('@/components/Button'));
+import CustomSwiper from '@/components/CusomSwiper';
+import Button from '@/components/Button';
 
 const ArrowBackWhiteCircleIcon = styled(ArrowLeftS)`
   color: #fff;

@@ -309,48 +309,52 @@ const ThirdContents = ({
               options={{
                 spaceBetween: 50,
                 slidesPerView: 1,
+                grabCursor: true,
+                centeredSlides: true,
                 virtual: Virtual,
               }}
               onSwiper={onSwiper}
               render={images =>
-                images.map((item, index) => (
-                  <SwiperSlide
-                    virtualIndex={index}
-                    key={index + new Date().getMilliseconds}
-                  >
-                    <div
-                      className="original-hide"
-                      onMouseEnter={() => {
-                        !isSideShow ? onMouseEnterFromCanvas() : null;
-                      }}
-                      onMouseLeave={() => {
-                        !isSideShow ? onMouseLeaveFromCanvas() : null;
-                      }}
-                      css={{
-                        maxWidth: '500px',
-                        maxHeight: '500px',
-                        minWidth: '500px',
-                        minHeight: '500px',
-                        background: '#303030',
-                        justifyContent: 'center',
-                        alignItems: 'center',
+                images.length
+                  ? images.map((item, index) => (
+                      <SwiperSlide
+                        virtualIndex={index}
+                        key={index + new Date().getMilliseconds}
+                      >
+                        <div
+                          className="original-hide"
+                          onMouseEnter={() => {
+                            !isSideShow ? onMouseEnterFromCanvas() : null;
+                          }}
+                          onMouseLeave={() => {
+                            !isSideShow ? onMouseLeaveFromCanvas() : null;
+                          }}
+                          css={{
+                            maxWidth: '500px',
+                            maxHeight: '500px',
+                            minWidth: '500px',
+                            minHeight: '500px',
+                            background: '#303030',
+                            justifyContent: 'center',
+                            alignItems: 'center',
 
-                        [mq('small')]: {},
-                        [mq('large')]: {},
-                        [mq('xLarge')]: {
-                          left: '10%',
-                        },
-                      }}
-                    >
-                      <img
-                        src={item.src}
-                        css={{
-                          width: !item?.mobile ? '100%' : null,
-                        }}
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))
+                            [mq('small')]: {},
+                            [mq('large')]: {},
+                            [mq('xLarge')]: {
+                              left: '10%',
+                            },
+                          }}
+                        >
+                          <img
+                            src={item.src}
+                            css={{
+                              width: !item?.mobile ? '100%' : null,
+                            }}
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))
+                  : null
               }
             />
           ) : null}

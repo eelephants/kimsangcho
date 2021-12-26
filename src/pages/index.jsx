@@ -3,14 +3,15 @@ import { graphql, navigate } from 'gatsby';
 import { css } from '@emotion/react';
 import MainVideo from '@/assets/video/main.mp4';
 import useWindowSize from '@/hooks/useWindowSize';
+import { motion } from 'framer-motion';
+import { isBrowser } from '@/lib/utils/helper';
 
 import AppLayout from '@/components/AppLayout';
-import Contents from '@/components/Contents/Contents';
-import WrappedContents from '@/components/Contents/wrapper/wrappedContents';
-
 import Video from '@/components/Video';
 import Dimmed from '@/components/Dimmed';
 import BoxGeometry from '@/components/BoxGeometry';
+import WrappedContents from '@/components/Contents/wrapper/wrappedContents';
+import Contents from '@/components/Contents/Contents';
 
 // const Video = lazy(() => import('@/components/Video'));
 // const Dimmed = lazy(() => import('@/components/Dimmed'));
@@ -42,12 +43,10 @@ import {
   usePortpolioDispatch,
   usePortpolioState,
 } from '@/store/portpolioInfo';
-import { motion } from 'framer-motion';
-import { isBrowser } from '@/lib/utils/helper';
-
-const tags = '[index]';
 
 const Index = ({ data, location }) => {
+  const tags = '[index]';
+
   const [scrollY, setScrollY] = useState(0);
 
   const firstSectionRef = useRef();

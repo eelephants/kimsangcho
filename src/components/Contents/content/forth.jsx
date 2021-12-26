@@ -5,12 +5,13 @@ import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import { SwiperSlide } from 'swiper/react';
 import { Virtual } from 'swiper/core';
-import Button from '@/components/Button';
-import { isBrowser, mq } from '@/lib/utils/helper';
+import { isBrowser } from '@/lib/utils/helper';
 import { Link } from '@emotion-icons/boxicons-regular/Link';
 import { Android } from '@emotion-icons/boxicons-logos/Android';
 import { Apple } from '@emotion-icons/boxicons-logos/Apple';
 import { Github } from '@emotion-icons/boxicons-logos/Github';
+
+import Button from '@/components/Button';
 import CusomSwiper from '@/components/CusomSwiper';
 
 const LinkIcon = styled(Link)`

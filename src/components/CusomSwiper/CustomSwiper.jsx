@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  forwardRef,
-  useRef,
-  useImperativeHandle,
-} from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {
   EffectFade,
@@ -12,7 +7,6 @@ import SwiperCore, {
   EffectCoverflow,
   A11y,
   Autoplay,
-  Virtual,
 } from 'swiper/core';
 
 import 'swiper/swiper.min.css';
@@ -21,17 +15,9 @@ import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 
-import { mq, isBrowser } from '@/lib/utils/helper';
 import { css } from '@emotion/react';
 
-SwiperCore.use([
-  EffectFade,
-  Navigation,
-  Pagination,
-  EffectCoverflow,
-  A11y,
-  Autoplay,
-]);
+SwiperCore.use([EffectFade, Navigation, EffectCoverflow, A11y, Autoplay]);
 
 const CustomSwiper = (
   { onSwiper, images, isBoxShadow, options, render },
@@ -46,8 +32,8 @@ const CustomSwiper = (
       }}
       onSwiper={onSwiper}
       modules={[options.virtual]}
-      spaceBetween={options.spaceBetween}
-      slidesPerView={options.slidesPerView}
+      spaceBetween={options.spaceBetween ? options.spaceBetween : 50}
+      slidesPerView={options.slidesPerView ? options.slidesPerView : 1}
       effect={options.effect}
       grabCursor={options.grabCursor}
       centeredSlides={options.centeredSlides}
