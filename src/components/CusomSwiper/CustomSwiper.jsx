@@ -12,8 +12,8 @@ import SwiperCore, {
   EffectCoverflow,
   A11y,
   Autoplay,
-  Virtual,
 } from 'swiper/core';
+
 import 'swiper/swiper.min.css';
 import 'swiper/components/effect-fade/effect-fade.min.css';
 import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
@@ -34,13 +34,13 @@ SwiperCore.use([
 
 const CustomSwiper = (
   { onSwiper, images, isBoxShadow, options, render },
-  { prevRef, nextRef }
+  ref
 ) => {
   const navigationPrevRef = useRef();
   const navigationNextRef = useRef();
 
-  useImperativeHandle(prevRef, () => navigationPrevRef.current);
-  useImperativeHandle(nextRef, () => navigationNextRef.current);
+  useImperativeHandle(ref?.prevRef, () => navigationPrevRef.current);
+  useImperativeHandle(ref?.nextRef, () => navigationNextRef.current);
 
   return (
     <Swiper
@@ -49,12 +49,17 @@ const CustomSwiper = (
         prevEl: navigationPrevRef,
         nextEl: navigationNextRef,
       }}
-      modules={[Virtual]}
       onSwiper={onSwiper}
+      modules={[options.virtual]}
       spaceBetween={options.spaceBetween}
       slidesPerView={options.slidesPerView}
+      effect={options.effect}
+      grabCursor={options.grabCursor}
+      centeredSlides={options.centeredSlides}
+      autoplay={options.autoplay}
+      coverflowEffect={options.coverflowEffect}
     >
-      {render(images)}
+      {render && render(images && images)}
     </Swiper>
   );
 };

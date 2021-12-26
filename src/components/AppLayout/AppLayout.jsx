@@ -4,6 +4,7 @@ import React, {
   useLayoutEffect,
   useState,
   memo,
+  Suspense,
 } from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'gatsby';
@@ -27,7 +28,11 @@ import styled from '@emotion/styled';
 
 const AppLayout = ({ children }) => {
   const { title, description } = useSiteMetadata();
-  return <div css={globalStyle}>{children}</div>;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <div css={globalStyle}>{children}</div>
+    </Suspense>
+  );
 };
 
 const InstagramIcon = styled(Instagram)`

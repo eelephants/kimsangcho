@@ -3,7 +3,7 @@ import '@fontsource/bebas-neue';
 import '@fontsource/noto-sans-kr';
 import 'normalize.css';
 import './src/lib/styles/global.css';
-import react from 'react';
+import React from 'react';
 import { SceneProvider } from './src/store/sceneInfo';
 import { PortpolioProvider } from './src/store/portpolioInfo';
 

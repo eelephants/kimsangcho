@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, lazy } from 'react';
 import { graphql } from 'gatsby';
-import AppLayout from '@/components/AppLayout/AppLayout';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper/core';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
-import Button from '@/components/Button';
 import { ArrowLeftS } from '@emotion-icons/remix-fill/ArrowLeftS';
 import { ArrowRightS } from '@emotion-icons/remix-fill/ArrowRightS';
 import { AccessAlarm } from '@emotion-icons/material/AccessAlarm';
-import { FileX } from '@emotion-icons/bootstrap';
-import { flushSync } from 'react-dom';
+
+const Button = lazy(() => import('@/components/Button'));
+import AppLayout from '@/components/AppLayout/AppLayout';
 
 import {
   BodyClassGif,

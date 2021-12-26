@@ -1,14 +1,20 @@
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { useEffect, useRef, useCallback, useState, lazy } from 'react';
 import { graphql, navigate } from 'gatsby';
 import { css } from '@emotion/react';
-import AppLayout from '@/components/AppLayout';
-import Video from '@/components/Video';
 import MainVideo from '@/assets/video/main.mp4';
-import Dimmed from '@/components/Dimmed';
-import BoxGeometry from '@/components/BoxGeometry';
+import useWindowSize from '@/hooks/useWindowSize';
+
+const Video = lazy(() => import('@/components/Video'));
+const Dimmed = lazy(() => import('@/components/Dimmed'));
+const BoxGeometry = lazy(() => import('@/components/BoxGeometry'));
+// const Contents = lazy(() => import('@/components/Contents/Contents'));
+// const WrappedContents = lazy(() =>
+//   import('@/components/Contents/wrapper/wrappedContents')
+// );
+
+import AppLayout from '@/components/AppLayout';
 import Contents from '@/components/Contents/Contents';
 import WrappedContents from '@/components/Contents/wrapper/wrappedContents';
-import useWindowSize from '@/hooks/useWindowSize';
 
 import {
   SCROLL_LOOP,
