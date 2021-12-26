@@ -1,0 +1,583 @@
+import React from 'react';
+import { useCallback, useRef } from 'react';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
+import { SwiperSlide } from 'swiper/react';
+import { Virtual } from 'swiper/core';
+
+import Button from '@/components/Button';
+import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
+import { ArrowLeftCircle } from '@emotion-icons/remix-fill/ArrowLeftCircle';
+import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
+import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
+import { isBrowser, makeColor, mq } from '@/lib/utils/helper';
+import { useSceneState } from '@/store/sceneInfo';
+import { Link } from '@emotion-icons/boxicons-regular/Link';
+import { Android } from '@emotion-icons/boxicons-logos/Android';
+import { Apple } from '@emotion-icons/boxicons-logos/Apple';
+import { Github } from '@emotion-icons/boxicons-logos/Github';
+import CusomSwiper from '@/components/CusomSwiper';
+
+const CloseOutlineIcon = styled(CloseOutline)`
+  color: rgba(204, 192, 192, 1);
+  width: 50%;
+  height: auto;
+`;
+
+const ArrowBackCircleIcon = styled(ArrowLeftCircle)`
+  color: rgba(204, 192, 192, 1);
+  width: 80%;
+  height: auto;
+`;
+
+const RightArrowCircleIcon = styled(ArrowRightCircle)`
+  color: rgba(204, 192, 192, 1);
+  width: 80%;
+  height: auto;
+`;
+
+const ArrowGoBackIcon = styled(ArrowGoBack)`
+  color: rgba(204, 192, 192, 1);
+  width: 80%;
+  height: auto;
+`;
+
+const LinkIcon = styled(Link)`
+  color: #fff;
+  width: 1.5vw;
+  height: auto;
+`;
+const AndroidIcon = styled(Android)`
+  color: #fff;
+  width: 1.5vw;
+  height: auto;
+`;
+
+const AppleIcon = styled(Apple)`
+  color: #fff;
+  width: 1.5vw;
+  height: auto;
+`;
+
+const GithubIcon = styled(Github)`
+  color: #fff;
+  width: 1.5vw;
+  height: auto;
+`;
+
+const ThirdContents = ({
+  id,
+  detailUrl,
+  url,
+  gitUrl,
+  className,
+  title,
+  duration,
+  type,
+  android,
+  ios,
+  desc,
+  role,
+  reason,
+  images,
+  language,
+  onMouseLeave,
+  onMouseEnter,
+  handleGoBack,
+  handleInit,
+  isShow,
+  isSideShow,
+  handleDetailProject,
+}) => {
+  const tags = '[ThirdContents]';
+
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+
+  const { sceneInfo } = useSceneState();
+
+  const onMouseLeaveFromCanvas = useCallback(() => {
+    console.log(tags, 'onMouseLeaveFromCanvas');
+    onMouseLeave(id);
+  }, [isShow]);
+
+  const onMouseEnterFromCanvas = useCallback(() => {
+    console.log(tags, 'onMouseEnterFromCanvas');
+    onMouseEnter(id);
+  }, [isShow]);
+
+  const onClickGoBack = useCallback(() => {
+    console.log(tags, 'onClickGoBack');
+    handleGoBack(id);
+  }, [isSideShow, isShow]);
+
+  const onClickInit = useCallback(() => {
+    console.log(tags, 'onClickInit');
+    handleInit(id);
+  }, [isSideShow, isShow]);
+
+  const onClickDetail = useCallback(
+    event => {
+      console.log(tags, 'onClickDetail');
+      event.preventDefault();
+      handleDetailProject(detailUrl);
+    },
+    [detailUrl]
+  );
+
+  const onSwiper = swiper => {
+    console.log(tags, 'onSwiper');
+    setTimeout(() => {
+      swiper.params.navigation.prevEl = navigationPrevRef.current;
+      swiper.params.navigation.nextEl = navigationNextRef.current;
+
+      swiper.navigation.destroy();
+      swiper.navigation.init();
+      swiper.navigation.update();
+    }, 500);
+  };
+
+  const variants = {
+    rotate: {
+      skew: [0, 50, 0],
+      transition: { duration: 0.5 },
+    },
+    stop: { y: [0, -20, 0], transition: { repeat: Infinity, repeatDelay: 3 } },
+  };
+
+  const innerWidth = isBrowser() ? window.innerWidth : 1920;
+
+  return (
+    <motion.div
+      css={[
+        stickyElement,
+        {
+          [mq('small')]: { flexDirection: 'column' },
+          [mq('large')]: {
+            flexDirection: 'row',
+          },
+        },
+        { height: sceneInfo[2].scrollHeight / (sceneInfo.length * 1.2) + 'px' },
+      ]}
+      className={className}
+      id={id}
+      variants={variants}
+      animate={isSideShow ? 'rotate' : 'stop'}
+    >
+      <div
+        css={{
+          width: '100%',
+        }}
+      >
+        <div
+          className="original-box"
+          css={css`
+            width: ${innerWidth / 2.5 + 'px'};
+            height: ${innerWidth / 2.5 + 'px'};
+            max-width: 500px;
+            max-height: 500px;
+            position: relative;
+            ${mq('xLarge')} {
+              left: 10%;
+            }
+          `}
+        >
+          <canvas
+            className="original"
+            css={{
+              position: 'relative',
+              boxShadow: '5px 5px 15px 5px #000000',
+              maxWidth: '500px',
+              maxHeight: '500px',
+              [mq('small')]: {},
+              [mq('large')]: {},
+              [mq('xLarge')]: {
+                left: '10%',
+              },
+            }}
+            onMouseEnter={() => {
+              images.length && !isSideShow ? onMouseEnterFromCanvas() : null;
+            }}
+            onMouseLeave={() => {
+              images.length && !isSideShow ? onMouseLeaveFromCanvas() : null;
+            }}
+            width={innerWidth / 2.5}
+            height={innerWidth / 2.5}
+          ></canvas>
+          {!images.length && (
+            <span
+              css={{
+                fontSize: '1rem;',
+                fontWeight: 'bold',
+                position: 'absolute',
+                zIndex: 999,
+                top: '101%',
+                [mq('small')]: {},
+                [mq('large')]: {},
+                [mq('xLarge')]: {
+                  right: '-10%',
+                },
+              }}
+            >
+              {reason && '* ' + reason}
+            </span>
+          )}
+          <Button
+            rotate
+            circle
+            backGroundcolor="black"
+            opacity="0.8"
+            absolute
+            top="50%"
+            left={innerWidth > 1700 ? '60%' : '50%'}
+            transform="translate(-50%, -50%)"
+            isShow={isShow}
+            onMouseEnter={() => {
+              !isSideShow ? onMouseEnterFromCanvas() : null;
+            }}
+            onClick={onClickGoBack}
+          >
+            <ArrowGoBackIcon />
+          </Button>
+        </div>
+        <div
+          className="original-hide-box"
+          css={css`
+            width: ${innerWidth / 2.5 + 'px'};
+            height: ${innerWidth / 2.5 + 'px'};
+            max-width: 500px;
+            max-height: 500px;
+            position: relative;
+            ${mq('xLarge')} {
+              left: 10%;
+            }
+          `}
+        >
+          <Button
+            small
+            backGroundcolor="transparent"
+            absolute
+            top="50%"
+            transform="translate(-10%)"
+            isShow={isSideShow}
+            onMouseEnter={() => {
+              !isSideShow ? onMouseEnterFromCanvas() : null;
+            }}
+            ref={navigationPrevRef}
+          >
+            <ArrowBackCircleIcon />
+          </Button>
+          <Button
+            small
+            backGroundcolor="transparent"
+            absolute
+            top="50%"
+            left="100%"
+            transform="translate(-90%)"
+            isShow={isSideShow}
+            onMouseEnter={() => {
+              !isSideShow ? onMouseEnterFromCanvas() : null;
+            }}
+            ref={navigationNextRef}
+          >
+            <RightArrowCircleIcon />
+          </Button>
+          <Button
+            small
+            backGroundcolor="transparent"
+            absolute
+            top="0%"
+            left="100%"
+            transform="translate(-90%, 20%)"
+            isShow={isSideShow}
+            onMouseEnter={() => {
+              !isSideShow ? onMouseEnterFromCanvas() : null;
+            }}
+            onClick={onClickInit}
+          >
+            <CloseOutlineIcon />
+          </Button>
+          {images.length ? (
+            <CusomSwiper
+              onSwiper={onSwiper}
+              images={images}
+              isBoxShadow
+              options={{
+                spaceBetween: 50,
+                slidesPerView: 1,
+                virtual: Virtual,
+              }}
+              ref={{
+                navigationPrevRef,
+                navigationNextRef,
+              }}
+              render={images =>
+                images.map((item, index) => (
+                  <SwiperSlide
+                    virtualIndex={index}
+                    key={index + new Date().getMilliseconds}
+                  >
+                    <div
+                      className="original-hide"
+                      onMouseEnter={() => {
+                        !isSideShow ? onMouseEnterFromCanvas() : null;
+                      }}
+                      onMouseLeave={() => {
+                        !isSideShow ? onMouseLeaveFromCanvas() : null;
+                      }}
+                      css={{
+                        maxWidth: '500px',
+                        maxHeight: '500px',
+                        minWidth: '500px',
+                        minHeight: '500px',
+                        background: '#303030',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+
+                        [mq('small')]: {},
+                        [mq('large')]: {},
+                        [mq('xLarge')]: {
+                          left: '10%',
+                        },
+                      }}
+                    >
+                      <img
+                        src={item.src}
+                        css={{
+                          width: !item?.mobile ? '100%' : null,
+                        }}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))
+              }
+            />
+          ) : null}
+        </div>
+        <div
+          className="description"
+          css={{
+            [mq('small')]: {
+              position: 'static',
+              width: '100%',
+              right: 0,
+              top: 0,
+            },
+            [mq('large')]: {
+              position: 'absolute',
+            },
+          }}
+        >
+          <div className="first-desc">
+            <div
+              className="title-wrapper"
+              css={css`
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              `}
+            >
+              <h1>{title}</h1>
+              <div>
+                {url && (
+                  <a target="_blank" href={url}>
+                    <LinkIcon />
+                  </a>
+                )}
+                {type === 'Mobile' && (
+                  <>
+                    {android && (
+                      <a target="_blank" href={android}>
+                        <AndroidIcon />
+                      </a>
+                    )}
+                    {ios && (
+                      <a target="_blank" href={ios}>
+                        <AppleIcon />
+                      </a>
+                    )}
+                  </>
+                )}
+                {gitUrl && (
+                  <a
+                    target="_blank"
+                    href={`https://github.com/SangchoKim/${gitUrl}`}
+                  >
+                    <GithubIcon />
+                  </a>
+                )}
+              </div>
+            </div>
+            <h3>
+              {duration} /&nbsp;{type}
+            </h3>
+            <div className="explain-wrapper">
+              <label>#Desc</label>
+              <span>- {desc}</span>
+            </div>
+            <div className="explain-wrapper">
+              <label>#Role</label>
+              <span>- {role}</span>
+            </div>
+          </div>
+          <hr css={divideLine} />
+          <div className="second-desc">
+            {language.map((item, index) => (
+              <div
+                key={index + new Date().getMilliseconds}
+                css={css`
+                  width: 45px;
+                  height: 45px;
+                  border-radius: 50%;
+                  // background-color: rgba(${makeColor(item)});
+                  background-color: #303030;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  font-size: 0.8rem;
+                  padding: 5px;
+                  margin: 0.2rem;
+                  text-transform: uppercase;
+                  box-shadow: 1px 1px 3px 1px #000;
+                `}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+          <Button
+            isShow
+            backGroundcolor="#000"
+            boxWidth="100%"
+            boxHeight="35px"
+            boxCenter
+            boxShadow
+            onClick={onClickDetail}
+            css={css`
+              color: white;
+              letter-spacing: 0.3rem;
+              text-style: border;
+            `}
+          >
+            DETAILS
+          </Button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const stickyElement = css`
+  margin: 0;
+  position: relative;
+  left: 0;
+  opactiy: 0;
+  display: none;
+  font-size: 2rem;
+  padding: 0 200px 0 200px;
+  line-height: 1.3;
+
+  .intro {
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(51, 51, 51, 1) 47%
+    );
+    height: 500px;
+    max-height: 500px;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+  }
+  color: #fff;
+  .original {
+    z-index: 100;
+  }
+  .flip {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    padding: 0 200px 200px 200px;
+  }
+  .original-hide {
+    display: none;
+  }
+  .flip-hide {
+    display: none;
+  }
+  button {
+    svg:hover {
+      color: #4b4453;
+    }
+  }
+  .description {
+    color: #fff;
+    width: 100%;
+    .first-desc {
+      height: 50%;
+      letter-spacing: 3px;
+      & .title-wrapper {
+        margin: 0;
+      }
+      & h1 {
+        font-size: 1.7rem;
+        font-weight: bold;
+        text-transform: upperCase;
+        margin: 0;
+      }
+      & .url {
+        color: #fff;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s linear;
+        &:hover {
+          color: #4b4453;
+        }
+      }
+      & h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #fff;
+        padding: 10px 0 10px 0;
+      }
+      & .explain-wrapper {
+        line-height: 1.7;
+      }
+      & div {
+        margin: 20px 0;
+        padding: 0;
+        font-size: 1rem;
+        font-weight: 500;
+
+        span {
+          display: block;
+          text-transform: lowercase;
+        }
+      }
+    }
+
+    .second-desc {
+      height: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 10px;
+      max-height: 200px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+  }
+`;
+
+const divideLine = css`
+  background: #b0a8b9;
+  height: 2px;
+  border: none;
+  border-radius: 50px;
+  opacity: 0.7;
+`;
+
+export default ThirdContents;
