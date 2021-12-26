@@ -256,6 +256,7 @@ const ThirdContents = ({
         >
           <Button
             small
+            ref={navigationPrevRef}
             backGroundcolor="transparent"
             absolute
             top="50%"
@@ -264,11 +265,11 @@ const ThirdContents = ({
             onMouseEnter={() => {
               !isSideShow ? onMouseEnterFromCanvas() : null;
             }}
-            ref={navigationPrevRef}
           >
             <ArrowBackCircleIcon />
           </Button>
           <Button
+            ref={navigationNextRef}
             small
             backGroundcolor="transparent"
             absolute
@@ -279,7 +280,6 @@ const ThirdContents = ({
             onMouseEnter={() => {
               !isSideShow ? onMouseEnterFromCanvas() : null;
             }}
-            ref={navigationNextRef}
           >
             <RightArrowCircleIcon />
           </Button>
@@ -300,10 +300,6 @@ const ThirdContents = ({
           </Button>
           {images.length ? (
             <CusomSwiper
-              ref={{
-                prevRef: navigationPrevRef,
-                nextRef: navigationNextRef,
-              }}
               images={images}
               isBoxShadow
               options={{
@@ -314,6 +310,10 @@ const ThirdContents = ({
                 virtual: Virtual,
               }}
               onSwiper={onSwiper}
+              ref={{
+                prevRef: navigationPrevRef,
+                nextRef: navigationNextRef,
+              }}
               render={images =>
                 images.length
                   ? images.map((item, index) => (

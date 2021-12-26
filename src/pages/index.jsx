@@ -67,6 +67,8 @@ const Index = ({ data, location }) => {
     // load
     setLayout();
     // scroll
+    portPolioData.map(item => item.id !== 'portpolioC' && onClickInit(item.id));
+
     isBrowser() && window.addEventListener('scroll', eventScroll);
     return () => {
       isBrowser() && window.removeEventListener('scroll', eventScroll);
