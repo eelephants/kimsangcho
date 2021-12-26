@@ -44,6 +44,9 @@ import {
   HdcView5,
 } from '@/assets/index.js';
 import { isBrowser } from '@/lib/utils/helper';
+import FirstSection from '@/components/Contents/details/firstSection';
+import SecondSection from '@/components/Contents/details/secondSection';
+import ThirdSection from '@/components/Contents/details/thirdSection';
 const mainImages = {
   bodyClass: BodyClassGif,
   merrac: MerracGif,
@@ -97,18 +100,6 @@ export default function TemplatePost({ data, location }) {
     height: auto;
   `;
 
-  const ArrowBackWhiteCircleIcon = styled(ArrowLeftS)`
-    color: #fff;
-    width: 50%;
-    height: auto;
-  `;
-
-  const RightArrowWhiteCircleIcon = styled(ArrowRightS)`
-    color: #fff;
-    width: 50%;
-    height: auto;
-  `;
-
   const Task = styled(AccessAlarm)`
     color: #000;
     width: 100%;
@@ -117,7 +108,6 @@ export default function TemplatePost({ data, location }) {
 
   const post = data.markdownRemark;
   const [scrollY, setScrollY] = useState(0);
-  const [isShow, setIsShow] = useState(0);
   useEffect(() => {
     // scroll
     isBrowser() && window.addEventListener('scroll', eventScroll);
@@ -128,8 +118,6 @@ export default function TemplatePost({ data, location }) {
 
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
-  const navigationRoleNextRef = useRef(null);
-  const navigationRolePrevRef = useRef(null);
 
   const eventScroll = () => setScrollY(isBrowser() && window.scrollY);
 
@@ -148,308 +136,9 @@ export default function TemplatePost({ data, location }) {
           'grid-template-columns': '100%',
         }}
       >
-        <section
-          css={[
-            boxWrapper,
-            css`
-              display: grid;
-              grid-template-rows: 1fr 1fr 2fr;
-            `,
-          ]}
-        >
-          <div
-            css={css`
-              display: grid;
-              grid-template-columns: 4fr 1fr;
-              align-items: center;
-              justify-items: center;
-              font-size: 4rem;
-              ext-transform: uppercase;
-              letter-spacing: 1rem;
-              font-weight: bold;
-            `}
-          >
-            <div>{post.frontmatter.title}</div>
-            <div
-              css={css`
-                justify-self: start;
-                font-size: 1rem;
-                border-bottom: 1px solid;
-                width: 1.7rem;
-                transform: rotate(90deg);
-              `}
-            ></div>
-          </div>
-          <div
-            css={css`
-              display: grid;
-              grid-template-columns: 4fr 1fr;
-            `}
-          >
-            <div></div>
-            <div>
-              <span
-                css={css`
-                  transform: rotate(90deg) translate(-4rem, 0px);
-                  display: inline-block;
-                  font-size: 1.2rem;
-                `}
-              >
-                {post.frontmatter.category}
-              </span>
-            </div>
-          </div>
-          <div
-            css={css`
-              position: relative;
-            `}
-          >
-            <div
-              css={css`
-                position: absolute;
-                transform: rotate(25deg);
-                top: -20%;
-                left: 10%;
-                width: 40%;
-              `}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -139 106 139">
-                <path
-                  d="M 0 -1 L 0 -139 L 106 -139 L 106 0 L 0 -1 Z"
-                  stroke="#FFF"
-                  stroke-width="0.3"
-                  fill="none"
-                />
-              </svg>
-            </div>
-            <p
-              css={css`max-width: 30%;
-                        position: absolute;
-                        line-height: 2;
-                        left: 19%;
-                        top: 25%;
-                        font-size: 1.1rem;
-                    }`}
-            >
-              {post.frontmatter.intro}
-            </p>
-            <div
-              css={css`max-width: 30%;
-                        position: absolute;
-                        line-height: 1.5;
-                        right: 15%;
-                        top: 10%;
-                        font-size: 1.1rem;
-                    }`}
-            >
-              <p>
-                {post.frontmatter.startDate} - {post.frontmatter.endDate}
-              </p>
-              <hr />
-              <p css={[roleTitle]}>Skill:</p>
-              {post.frontmatter.skills.map(item => (
-                <p css={[roleTitle]}>{item}</p>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section
-          css={[
-            boxWrapper,
-            css`
-              position: sticky;
-              top: 0px;
-            `,
-          ]}
-        >
-          {mainImages[post.frontmatter.images] ? (
-            <img
-              src={mainImages[post.frontmatter.images]}
-              alt={post.frontmatter.images}
-              css={{ width: '100%' }}
-            />
-          ) : (
-            <div
-              css={{
-                width: '100%',
-                backgroundColor: '#303030',
-                height: '100%',
-                color: '#EC87E4',
-                fontSize: '2rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <span
-                css={{
-                  padding: '0 100px 0 100px',
-                }}
-              >
-                {noImageComment}
-              </span>
-            </div>
-          )}
-        </section>
-        <section
-          css={[
-            boxWrapper,
-            css`
-              width: 100%;
-              position: sticky;
-            `,
-          ]}
-        >
-          <div
-            css={css`
-              font-size: 1.2rem;
-              color: white;
-              position: relative;
-              top: 10%;
-              left: 10%;
-              width: 380px;
-              max-width: 380px;
-            `}
-          >
-            {post.frontmatter.roles.length > 5 && (
-              <>
-                <Button
-                  className="slideBtn"
-                  small
-                  isShow
-                  backGroundcolor="transparent"
-                  absolute
-                  left="0"
-                  style={{
-                    left: '-14%',
-                  }}
-                  ref={navigationRolePrevRef}
-                >
-                  <ArrowBackWhiteCircleIcon />
-                </Button>
-                <Button
-                  className="slideBtn"
-                  small
-                  isShow
-                  backGroundcolor="transparent"
-                  absolute
-                  right="0"
-                  style={{
-                    right: '-12%',
-                  }}
-                  ref={navigationRoleNextRef}
-                >
-                  <RightArrowWhiteCircleIcon />
-                </Button>
-              </>
-            )}
-
-            <Swiper
-              navigation={true}
-              slidesPerView={5}
-              navigation={{
-                prevEl: navigationRolePrevRef.current,
-                nextEl: navigationRoleNextRef.current,
-              }}
-              onSwiper={swiper => {
-                // Delay execution for the refs to be defined
-                setTimeout(() => {
-                  // Override prevEl & nextEl now that refs are defined
-                  swiper.params.navigation.prevEl =
-                    navigationRolePrevRef.current;
-                  swiper.params.navigation.nextEl =
-                    navigationRoleNextRef.current;
-
-                  // Re-init navigation
-                  swiper.navigation.destroy();
-                  swiper.navigation.init();
-                  swiper.navigation.update();
-                });
-              }}
-            >
-              {post.frontmatter.roles.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div
-                    onClick={() => setIsShow(index)}
-                    css={css`
-                      cursor: pointer;
-                      padding: 7px 30px;
-                      background-color: #fff;
-                      border-radius: 150px;
-                      width: 10%;
-                      color: #000;
-                      text-align: center;
-                      font-size: 1rem;
-                      font-weight: bold;
-                      text-shadow: 2px 2px 2px gray;
-                      box-shadow: 0px 10px 13px -7px #000000,
-                        5px 5px 15px 5px #0000;
-                      :hover {
-                        background-color: #ddd;
-                      }
-                    `}
-                  >
-                    {index + 1}
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-
-          <div
-            css={css`
-              transform: rotate(90deg);
-              display: inline-block;
-              font-size: 1.2rem;
-              color: white;
-              position: absolute;
-              top: 20%;
-              right: 17%;
-            `}
-          >
-            <div
-              css={css`
-                border: 1px solid white;
-              `}
-            ></div>
-            <span>Role</span>
-          </div>
-          <div
-            css={css`
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              height: 100%;
-              overflow: hidden;
-              font-size: 1.3rem;
-              // border: 1px solid;
-            `}
-          >
-            {post.frontmatter.roles.map((item, index) => (
-              <div
-                key={index}
-                css={css`
-                  display: ${isShow === index ? 'flex' : 'none'};
-                  flex-direction: column;
-                  justify-content: center;
-                  align-items: center;
-                `}
-              >
-                <div css={[roleWrapper, titleWrapper]}>
-                  <div className="number-wrapper">{index + 1}.</div>
-                  <div className="title-wrapper">{item.name}</div>
-                </div>
-                <div css={[roleWrapper, descWrapper]}>
-                  {item.desc.map((el, index) => (
-                    <div key={index} className="desc-wrapper">
-                      # {el}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        <FirstSection post={post} />
+        <SecondSection post={post} />
+        <ThirdSection post={post} />
         <section
           css={[
             boxWrapper,
@@ -571,10 +260,6 @@ const boxWrapper = css`
       color: rgba(204, 192, 192, 1);
     }
   }
-`;
-
-const roleTitle = css`
-  line-height: 0.8;
 `;
 
 const titleWrapper = css`
