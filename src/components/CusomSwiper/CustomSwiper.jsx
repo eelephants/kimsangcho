@@ -7,6 +7,8 @@ import SwiperCore, {
   EffectCoverflow,
   A11y,
   Autoplay,
+  Virtual,
+  Lazy,
 } from 'swiper/core';
 
 import 'swiper/swiper.min.css';
@@ -17,12 +19,22 @@ import 'swiper/components/pagination/pagination.min.css';
 
 import { css } from '@emotion/react';
 
-SwiperCore.use([EffectFade, Navigation, EffectCoverflow, A11y, Autoplay]);
+SwiperCore.use([
+  EffectFade,
+  Navigation,
+  EffectCoverflow,
+  A11y,
+  Autoplay,
+  Virtual,
+  Pagination,
+  Lazy,
+]);
 
 const CustomSwiper = (
   { onSwiper, images, isBoxShadow, options, render },
   ref
 ) => {
+  console.log(ref, 'ref');
   return (
     <Swiper
       css={swiperWrapper(isBoxShadow)}
@@ -31,7 +43,9 @@ const CustomSwiper = (
         nextEl: ref?.nextRef.current,
       }}
       onSwiper={onSwiper}
-      modules={[options.virtual]}
+      observeParents={true}
+      observer={true}
+      lazy={true}
       spaceBetween={options.spaceBetween ? options.spaceBetween : 50}
       slidesPerView={options.slidesPerView ? options.slidesPerView : 1}
       effect={options.effect}
@@ -39,6 +53,7 @@ const CustomSwiper = (
       centeredSlides={options.centeredSlides}
       autoplay={options.autoplay}
       coverflowEffect={options.coverflowEffect}
+      autoHeight={options.autoHeight}
     >
       {render && render(images && images)}
     </Swiper>

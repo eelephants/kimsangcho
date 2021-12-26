@@ -605,6 +605,7 @@ const portpoioReducer = (state, action) => {
           itemWrapperStyle,
         } = action.data;
 
+        console.log(id, 'di');
         const itemWrapper = document.querySelector(`#${id}`);
         const itemOriginal = document.querySelector(`#${id} .original`);
         const itemFlip = document.querySelector(`#${id} .original-box`);

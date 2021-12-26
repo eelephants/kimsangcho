@@ -113,7 +113,7 @@ const ForthSection = ({ post }) => {
                   </SwiperSlide>
                 ))
               }
-            ></CustomSwiper>
+            />
           </div>
         </>
       ) : (
