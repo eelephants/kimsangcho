@@ -73,12 +73,6 @@ exports.onCreateWebpackConfig = ({ actions }) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
-        // '@assets': path.resolve(__dirname, 'src/assets'),
-        // '@hooks': path.resolve(__dirname, 'src/hooks'),
-        // '@lib': path.resolve(__dirname, 'src/lib'),
-        // '@pages': path.resolve(__dirname, 'src/pages'),
-        // '@store': path.resolve(__dirname, 'src/store'),
-        // '@templates': path.resolve(__dirname, 'src/templates'),
         '@static': path.resolve(__dirname, 'static'),
         '@content': path.resolve(__dirname, 'content'),
       },

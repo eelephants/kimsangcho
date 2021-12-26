@@ -1,13 +1,13 @@
-import React, { useEffect, useState, lazy } from 'react';
+import React, { useEffect, useState } from 'react';
 import { graphql } from 'gatsby';
 import { isBrowser, mq } from '@/lib/utils/helper';
 import { css } from '@emotion/react';
 import MainVideo from '@/assets/video/main.mp4';
 
 import AppLayout from '@/components/AppLayout/AppLayout';
-const Video = lazy(() => import('@/components/Video'));
-const Dimmed = lazy(() => import('@/components/Dimmed'));
-const BoxGeometry = lazy(() => import('@/components/BoxGeometry'));
+import Video from '@/components/Video';
+import Dimmed from '@/components/Dimmed';
+import BoxGeometry from '@/components/BoxGeometry';
 
 const About = ({ data, location }) => {
   useEffect(() => {

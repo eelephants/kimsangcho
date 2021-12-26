@@ -1,15 +1,9 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { BodyClassGif, MerracGif } from '@/assets/index.js';
+import { mainImages } from '@static/details';
+
 const SecondSection = ({ post }) => {
   const noImageComment = `Sorry, Leakage to the outside is prohibited, so it is impossible to share the site`;
-
-  const mainImages = {
-    bodyClass: BodyClassGif,
-    merrac: MerracGif,
-    airForce: '',
-    hdc: '',
-  };
 
   return (
     <section
