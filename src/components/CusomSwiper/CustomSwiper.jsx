@@ -12,6 +12,7 @@ import SwiperCore, {
   EffectCoverflow,
   A11y,
   Autoplay,
+  Virtual,
 } from 'swiper/core';
 
 import 'swiper/swiper.min.css';
@@ -20,7 +21,7 @@ import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 
-import { mq } from '@/lib/utils/helper';
+import { mq, isBrowser } from '@/lib/utils/helper';
 import { css } from '@emotion/react';
 
 SwiperCore.use([
@@ -36,18 +37,12 @@ const CustomSwiper = (
   { onSwiper, images, isBoxShadow, options, render },
   ref
 ) => {
-  const navigationPrevRef = useRef();
-  const navigationNextRef = useRef();
-
-  useImperativeHandle(ref?.prevRef, () => navigationPrevRef.current);
-  useImperativeHandle(ref?.nextRef, () => navigationNextRef.current);
-
   return (
     <Swiper
       css={swiperWrapper(isBoxShadow)}
       navigation={{
-        prevEl: navigationPrevRef,
-        nextEl: navigationNextRef,
+        prevEl: ref?.prevRef.current,
+        nextEl: ref?.nextRef.current,
       }}
       onSwiper={onSwiper}
       modules={[options.virtual]}

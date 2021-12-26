@@ -4,17 +4,17 @@ import { css } from '@emotion/react';
 import MainVideo from '@/assets/video/main.mp4';
 import useWindowSize from '@/hooks/useWindowSize';
 
-const Video = lazy(() => import('@/components/Video'));
-const Dimmed = lazy(() => import('@/components/Dimmed'));
-const BoxGeometry = lazy(() => import('@/components/BoxGeometry'));
-// const Contents = lazy(() => import('@/components/Contents/Contents'));
-// const WrappedContents = lazy(() =>
-//   import('@/components/Contents/wrapper/wrappedContents')
-// );
-
 import AppLayout from '@/components/AppLayout';
 import Contents from '@/components/Contents/Contents';
 import WrappedContents from '@/components/Contents/wrapper/wrappedContents';
+
+import Video from '@/components/Video';
+import Dimmed from '@/components/Dimmed';
+import BoxGeometry from '@/components/BoxGeometry';
+
+// const Video = lazy(() => import('@/components/Video'));
+// const Dimmed = lazy(() => import('@/components/Dimmed'));
+// const BoxGeometry = lazy(() => import('@/components/BoxGeometry'));
 
 import {
   SCROLL_LOOP,

@@ -135,7 +135,7 @@ const ThirdContents = ({
       swiper.navigation.destroy();
       swiper.navigation.init();
       swiper.navigation.update();
-    }, 500);
+    });
   };
 
   const variants = {
@@ -300,7 +300,10 @@ const ThirdContents = ({
           </Button>
           {images.length ? (
             <CusomSwiper
-              onSwiper={onSwiper}
+              ref={{
+                prevRef: navigationPrevRef,
+                nextRef: navigationNextRef,
+              }}
               images={images}
               isBoxShadow
               options={{
@@ -308,10 +311,7 @@ const ThirdContents = ({
                 slidesPerView: 1,
                 virtual: Virtual,
               }}
-              ref={{
-                navigationPrevRef,
-                navigationNextRef,
-              }}
+              onSwiper={onSwiper}
               render={images =>
                 images.map((item, index) => (
                   <SwiperSlide
