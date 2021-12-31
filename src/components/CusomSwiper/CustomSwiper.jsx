@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {
   EffectFade,

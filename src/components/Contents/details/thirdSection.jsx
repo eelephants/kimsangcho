@@ -42,26 +42,8 @@ const ThirdSection = ({ post }) => {
   };
 
   return (
-    <section
-      css={[
-        boxWrapper,
-        css`
-          width: 100%;
-          position: sticky;
-        `,
-      ]}
-    >
-      <div
-        css={css`
-          font-size: 1.2rem;
-          color: white;
-          position: relative;
-          top: 10%;
-          left: 10%;
-          width: 380px;
-          max-width: 380px;
-        `}
-      >
+    <section css={boxWrapper}>
+      <div css={slideButtonWrapper}>
         {post.frontmatter.roles.length > 5 && (
           <>
             <Button
@@ -110,26 +92,7 @@ const ThirdSection = ({ post }) => {
           render={roles =>
             roles.map((item, index) => (
               <SwiperSlide key={index}>
-                <div
-                  onClick={() => setIsShow(index)}
-                  css={css`
-                    cursor: pointer;
-                    padding: 7px 30px;
-                    background-color: #fff;
-                    border-radius: 150px;
-                    width: 10%;
-                    color: #000;
-                    text-align: center;
-                    font-size: 1rem;
-                    font-weight: bold;
-                    text-shadow: 2px 2px 2px gray;
-                    box-shadow: 0px 10px 13px -7px #000000,
-                      5px 5px 15px 5px #0000;
-                    :hover {
-                      background-color: #ddd;
-                    }
-                  `}
-                >
+                <div onClick={() => setIsShow(index)} css={slideContents}>
                   {index + 1}
                 </div>
               </SwiperSlide>
@@ -137,46 +100,13 @@ const ThirdSection = ({ post }) => {
           }
         />
       </div>
-
-      <div
-        css={css`
-          transform: rotate(90deg);
-          display: inline-block;
-          font-size: 1.2rem;
-          color: white;
-          position: absolute;
-          top: 20%;
-          right: 17%;
-        `}
-      >
-        <div
-          css={css`
-            border: 1px solid white;
-          `}
-        ></div>
+      <div css={typeWrapper}>
+        <div css={typeBox}></div>
         <span>Role</span>
       </div>
-      <div
-        css={css`
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-          overflow: hidden;
-          font-size: 1.3rem;
-          // border: 1px solid;
-        `}
-      >
+      <div css={contentsWrapper}>
         {post.frontmatter.roles.map((item, index) => (
-          <div
-            key={index}
-            css={css`
-              display: ${isShow === index ? 'flex' : 'none'};
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-            `}
-          >
+          <div key={index} css={contentsBox(isShow, index)}>
             <div css={[roleWrapper, titleWrapper]}>
               <div className="number-wrapper">{index + 1}.</div>
               <div className="title-wrapper">{item.name}</div>
@@ -195,13 +125,15 @@ const ThirdSection = ({ post }) => {
   );
 };
 
-const boxWrapper = css`
+const boxWrapper = () => css`
   height: 100vh;
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(51, 51, 51, 1) 47%
   );
+  width: 100%;
+  position: sticky;
   .slideBtn {
     svg:hover {
       color: rgba(204, 192, 192, 1);
@@ -209,12 +141,69 @@ const boxWrapper = css`
   }
 `;
 
-const titleWrapper = css`
+const slideButtonWrapper = () => css`
+  font-size: 1.2rem;
+  color: white;
+  position: relative;
+  top: 10%;
+  left: 10%;
+  width: 380px;
+  max-width: 380px;
+`;
+
+const slideContents = () => css`
+  cursor: pointer;
+  padding: 7px 30px;
+  background-color: #fff;
+  border-radius: 150px;
+  width: 10%;
+  color: #000;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 2px gray;
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px #0000;
+  :hover {
+    background-color: #ddd;
+  }
+`;
+
+const typeWrapper = () => css`
+  transform: rotate(90deg);
+  display: inline-block;
+  font-size: 1.2rem;
+  color: white;
+  position: absolute;
+  top: 20%;
+  right: 17%;
+`;
+
+const typeBox = () => css`
+  border: 1px solid white;
+`;
+
+const contentsWrapper = () => css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  font-size: 1.3rem;
+`;
+
+const contentsBox = (isShow, index) => css`
+  display: ${isShow === index ? 'flex' : 'none'};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const titleWrapper = () => css`
   margin-bottom: 3rem;
   max-width: 800px;
 `;
 
-const roleWrapper = css`
+const roleWrapper = () => css`
   font-size: 1rem;
   text-align: center;
   font-weight: 100;
@@ -235,7 +224,7 @@ const roleWrapper = css`
     text-align: left;
 `;
 
-const descWrapper = css`
+const descWrapper = () => css`
   max-width: 500px;
   margin: auto 0;
 `;
