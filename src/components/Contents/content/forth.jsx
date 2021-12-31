@@ -76,12 +76,7 @@ const ForthContents = ({
 
   return (
     <motion.div
-      css={[
-        thirdContentsWrapper,
-        {
-          height: sceneInfo[3].scrollHeight / 4,
-        },
-      ]}
+      css={thirdContentsWrapper(sceneInfo[3].scrollHeight / 4)}
       className={className}
       variants={variants}
       animate={sceneInfo[3].values[animate] ? 'transform' : 'stop'}
@@ -113,19 +108,7 @@ const ForthContents = ({
                   style={{ width }}
                   key={index + new Date().getMilliseconds}
                 >
-                  <div
-                    css={css`
-                      min-width: ${innerWidth / 3}px;
-                      min-height: ${innerWidth / 4}px;
-                      max-width: ${innerWidth / 3}px;
-                      max-height: ${innerWidth / 4}px;
-                      background: #303030;
-                      margin: auto;
-                      display: flex;
-                      justify-content: center;
-                      align-items: center;
-                    `}
-                  >
+                  <div css={imagesWrapper(innerWidth)}>
                     <img
                       src={item.src}
                       css={{
@@ -141,30 +124,8 @@ const ForthContents = ({
           ></CusomSwiper>
         ) : null}
       </div>
-      <div
-        css={css`
-          font-size: 1.5rem;
-          text-align: center;
-          position: relative;
-        `}
-      >
-        <motion.div
-          css={css`
-            color: white;
-            letter-spacing: 0.2rem;
-            position: absolute;
-            top: -30px;
-            left: 0;
-            right: 0px;
-            font-weight: bold;
-            font-size: 4rem;
-            z-index: 500;
-            text-transform: uppercase;
-            text-shadow: 3px 3px 3px grey;
-          `}
-          variants={jumpVariants}
-          animate={'stop'}
-        >
+      <div css={contentsWrapper}>
+        <motion.div css={titleWrapper} variants={jumpVariants} animate={'stop'}>
           {title}
           <div className="url-wrapper">
             {url && (
@@ -196,15 +157,7 @@ const ForthContents = ({
             )}
           </div>
         </motion.div>
-        <div
-          css={{
-            margin: '150px auto 100px auto',
-            lineHeight: 2,
-            maxWidth: '70%',
-          }}
-        >
-          {desc}
-        </div>
+        <div css={descWrapper}>{desc}</div>
       </div>
       <Button
         isShow
@@ -214,11 +167,7 @@ const ForthContents = ({
         boxCenter
         boxShadow
         onClick={onClickDetail}
-        css={css`
-          color: white;
-          letter-spacing: 0.3rem;
-          text-style: border;
-        `}
+        css={descButton}
       >
         VIEW PROJECT
       </Button>
@@ -226,7 +175,7 @@ const ForthContents = ({
   );
 };
 
-const thirdContentsWrapper = css`
+const thirdContentsWrapper = height => css`
   max-width: 80%;
   margin: 0 auto;
   left: 0;
@@ -235,6 +184,7 @@ const thirdContentsWrapper = css`
   display: none;
   flex-direction: column;
   justify-content: center;
+  height: ${height}px;
   box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
   background: linear-gradient(
     90deg,
@@ -243,6 +193,50 @@ const thirdContentsWrapper = css`
   );
   .url-wrapper {
   }
+`;
+
+const imagesWrapper = innerWidth => css`
+  min-width: ${innerWidth / 3}px;
+  min-height: ${innerWidth / 4}px;
+  max-width: ${innerWidth / 3}px;
+  max-height: ${innerWidth / 4}px;
+  background: #303030;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const contentsWrapper = () => css`
+  font-size: 1.5rem;
+  text-align: center;
+  position: relative;
+`;
+
+const titleWrapper = () => css`
+  color: white;
+  letter-spacing: 0.2rem;
+  position: absolute;
+  top: -30px;
+  left: 0;
+  right: 0px;
+  font-weight: bold;
+  font-size: 4rem;
+  z-index: 500;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 3px grey;
+`;
+
+const descWrapper = () => css`
+  margin: 150px auto 100px auto;
+  lineheight: 2;
+  maxwidth: 70%;
+`;
+
+const descButton = () => css`
+  color: white;
+  letter-spacing: 0.3rem;
+  text-style: border;
 `;
 
 export default ForthContents;
