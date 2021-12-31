@@ -20,7 +20,7 @@ const FirstSection = ({ post }) => {
             <path
               d="M 0 -1 L 0 -139 L 106 -139 L 106 0 L 0 -1 Z"
               stroke="#FFF"
-              stroke-width="0.3"
+              strokeWidth="0.3"
               fill="none"
             />
           </svg>
@@ -32,8 +32,10 @@ const FirstSection = ({ post }) => {
           </p>
           <hr />
           <p css={roleTitle}>Skill:</p>
-          {post.frontmatter.skills.map(item => (
-            <p css={roleTitle}>{item}</p>
+          {post.frontmatter.skills.map((item, index) => (
+            <p key={index} css={roleTitle}>
+              {item}
+            </p>
           ))}
         </div>
       </div>

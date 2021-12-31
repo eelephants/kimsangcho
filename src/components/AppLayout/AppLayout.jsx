@@ -26,15 +26,6 @@ import { isBrowser } from '@/lib/utils/helper.js';
 import { useSceneState } from '@/store/sceneInfo';
 import styled from '@emotion/styled';
 
-const AppLayout = ({ children }) => {
-  const { title, description } = useSiteMetadata();
-  return (
-    // <Suspense fallback={<div>Loading...</div>}>
-    <div css={globalStyle}>{children}</div>
-    // </Suspense>
-  );
-};
-
 const InstagramIcon = styled(Instagram)`
   color: #000;
   width: 40px;
@@ -59,6 +50,15 @@ const LinkedinSquareIcon = styled(LinkedinSquare)`
   height: auto;
 `;
 
+const AppLayout = ({ children }) => {
+  const { title, description } = useSiteMetadata();
+  return (
+    // <Suspense fallback={<div>Loading...</div>}>
+    <div css={globalStyle}>{children}</div>
+    // </Suspense>
+  );
+};
+
 const Header = memo(
   forwardRef(({ location, scrollY }, ref) => {
     const [isHover, setIsHover] = useState(false);
@@ -76,19 +76,7 @@ const Header = memo(
     };
 
     return (
-      <header
-        css={[
-          headerbarStyle,
-          css`
-            color: ${scrollY === 0 ? '#fff' : '#000'};
-            background: ${scrollY === 0 && 'transparent'};
-            background-image: ${scrollY !== 0 &&
-            'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(204,192,192,1) 93%)'};
-            transition: background-image 0.5s ease;
-          `,
-        ]}
-        ref={ref}
-      >
+      <header css={headerbarStyle(scrollY)} ref={ref}>
         <div className="title-wrapper">
           <NaviTitle
             herf="/"
@@ -111,67 +99,30 @@ const Header = memo(
               <motion.div
                 variants={variants}
                 animate={'transform'}
-                css={{
-                  width: '13vw',
-                  minWidth: '13vw',
-                  height: '3vw',
-                  backgroundColor: 'rgba(204,192,192,1)',
-                  position: 'absolute',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-evenly',
-                  top: '50px',
-                  borderRadius: '15px',
-                  boxShadow:
-                    '0px 10px 13px -7px #000000,  5px 5px 15px 5px rgba(0, 0, 0, 0)',
-                }}
+                css={contactWrapper}
               >
-                <span
-                  css={{
-                    display: 'inline-block',
-                    width: '100px',
-                    textAlign: 'center',
-                  }}
-                >
+                <span css={contact}>
                   <NaviConxtact
                     href="mailto:wjdrms1919@gmail.com"
                     name={<EmailOutlineIcon />}
                     target="_self"
                   />
                 </span>
-                <span
-                  css={{
-                    display: 'inline-block',
-                    width: '100px',
-                    textAlign: 'center',
-                  }}
-                >
+                <span css={contact}>
                   <NaviConxtact
                     href="https://www.linkedin.com/in/rlatkdch14/"
                     name={<LinkedinSquareIcon />}
                     target="_blank"
                   />
                 </span>
-                <span
-                  css={{
-                    display: 'inline-block',
-                    width: '100px',
-                    textAlign: 'center',
-                  }}
-                >
+                <span css={contact}>
                   <NaviConxtact
                     href="https://www.instagram.com/santos_cho/?hl=ko"
                     name={<InstagramIcon />}
                     target="_blank"
                   />
                 </span>
-                <span
-                  css={{
-                    display: 'inline-block',
-                    width: '100px',
-                    textAlign: 'center',
-                  }}
-                >
+                <span css={contact}>
                   <NaviConxtact
                     href="https://www.facebook.com/belle.korea.store/"
                     name={<FacebookIcon />}
@@ -185,12 +136,9 @@ const Header = memo(
           <div>
             <a target="_blank" href="https://github.com/SangchoKim">
               <img
-                css={{
-                  width: '2.3vw',
-                  height: '2.3vw',
-                }}
+                css={gitHubIcon}
                 src={scrollY === 0 ? GithubWhiteIcon : GithubIcon}
-                alt="portfolio"
+                alt="gitHubIcon"
               />
             </a>
           </div>
@@ -200,7 +148,7 @@ const Header = memo(
   })
 );
 
-function Side({ location }) {
+const Side = ({ location }) => {
   return (
     <aside css={sidebarStyle}>
       <div>
@@ -222,21 +170,11 @@ function Side({ location }) {
       </div>
     </aside>
   );
-}
+};
 
 const Main = forwardRef(({ children, styles }, ref) => {
   return (
-    <main
-      ref={ref}
-      css={css`
-      linear-gradient(
-        90deg,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(51, 51, 51, 1) 47%
-      );
-        ${{ ...styles }};
-      `}
-    >
+    <main ref={ref} css={mainWrapper(styles)}>
       {children}
     </main>
   );
@@ -305,7 +243,7 @@ AppLayout.Main = Main;
 AppLayout.Header = Header;
 AppLayout.Footer = Footer;
 
-const globalStyle = css`
+const globalStyle = () => css`
   font-family: 'bebas-neue', 'noto-sans-kr';
   height: 100vh;
   background: linear-gradient(
@@ -316,7 +254,7 @@ const globalStyle = css`
   block-size: auto;
 `;
 
-const headerbarStyle = css`
+const headerbarStyle = scrollY => css`
   width: 100%;
   height: 10vh;
   position: fixed;
@@ -327,6 +265,11 @@ const headerbarStyle = css`
   justify-content: space-between;
   padding: 0;
   z-index: 900;
+  color: ${scrollY === 0 ? '#fff' : '#000'};
+  background: ${scrollY === 0 && 'transparent'};
+  background-image: ${scrollY !== 0 &&
+  'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(204,192,192,1) 93%)'};
+  transition: background-image 0.5s ease;
   .title-wrapper {
     flex: 2;
     padding: 0 40px;
@@ -335,7 +278,7 @@ const headerbarStyle = css`
   }
 `;
 
-const footerStyle = css`
+const footerStyle = () => css`
   width: 60px;
   height: 60px;
   position: fixed;
@@ -347,25 +290,15 @@ const footerStyle = css`
   cursor: pointer;
 `;
 
-const linkWrapperSttyle = css`
+const linkWrapperSttyle = () => css`
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex: 1;
   padding: 0 40px;
 `;
-const sidebarStyle = css`
-  height: 100%;
-  position: fixed;
-  margin: 0 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  background: transparents;
-  z-index: 100;
-`;
 
-const linkbarStyle = css`
+const linkbarStyle = () => css`
   display: flex;
   list-style: none;
   font-family: 'bebas-neue', 'noto-sans-kr';
@@ -376,7 +309,48 @@ const linkbarStyle = css`
   }
 `;
 
-const navStyle = css`
+const contactWrapper = () => css`
+  width: 13vw;
+  min-width: 13vw;
+  height: 3vw;
+  background-color: rgba(204, 192, 192, 1);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  top: 50px;
+  border-radius: 15px;
+  boxshadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
+`;
+
+const contact = () => css`
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+`;
+
+const gitHubIcon = () => css`
+  width: 2.3vw;
+  height: 2.3vw;
+`;
+
+const sidebarStyle = () => css`
+  height: 100%;
+  position: fixed;
+  margin: 0 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background: transparents;
+  z-index: 100;
+`;
+
+const mainWrapper = styles => css`
+  background: linear-gradient(90deg rgba(0, 0, 0, 1) 0% rgba(51, 51, 51, 1) 47);
+  ${{ ...styles }}
+`;
+
+const navStyle = () => css`
   list-style: none;
   padding: 0;
   margin: 0;
@@ -385,7 +359,7 @@ const navStyle = css`
   }
 `;
 
-const naviContact = css`
+const naviContact = () => css`
   text-decoration: none;
   font-size: 1.3vw;
   color: inherit;
