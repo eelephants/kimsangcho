@@ -6,15 +6,7 @@ const SecondSection = ({ post }) => {
   const noImageComment = `Sorry, Leakage to the outside is prohibited, so it is impossible to share the site`;
 
   return (
-    <section
-      css={[
-        boxWrapper,
-        css`
-          position: sticky;
-          top: 0px;
-        `,
-      ]}
-    >
+    <section css={boxWrapper}>
       {mainImages[post.frontmatter.images] ? (
         <img
           src={mainImages[post.frontmatter.images]}
@@ -22,25 +14,8 @@ const SecondSection = ({ post }) => {
           css={{ width: '100%' }}
         />
       ) : (
-        <div
-          css={{
-            width: '100%',
-            backgroundColor: '#303030',
-            height: '100%',
-            color: '#EC87E4',
-            fontSize: '2rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <span
-            css={{
-              padding: '0 100px 0 100px',
-            }}
-          >
-            {noImageComment}
-          </span>
+        <div css={emptyBoxWrapper}>
+          <span css={emptyBox}>{noImageComment}</span>
         </div>
       )}
     </section>
@@ -54,11 +29,28 @@ const boxWrapper = css`
     rgba(0, 0, 0, 1) 0%,
     rgba(51, 51, 51, 1) 47%
   );
+  position: sticky;
+  top: 0px;
   .slideBtn {
     svg:hover {
       color: rgba(204, 192, 192, 1);
     }
   }
+`;
+
+const emptyBoxWrapper = () => css`
+  width: 100%;
+  backgroundcolor: #303030;
+  height: 100%;
+  color: #ec87e4;
+  fontsize: 2rem;
+  display: flex;
+  alignitems: center;
+  justifycontent: center;
+`;
+
+const emptyBox = () => css`
+  padding: 0 100px 0 100px;
 `;
 
 export default SecondSection;
