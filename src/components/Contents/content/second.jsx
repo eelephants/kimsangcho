@@ -5,7 +5,7 @@ import CusomSwiper from '@/components/CusomSwiper';
 
 const SecondContents = ({ className }) => {
   return (
-    <div css={[stickyElement]} className={className}>
+    <div css={stickyElement} className={className}>
       <CusomSwiper
         options={{
           spaceBetween: 30,

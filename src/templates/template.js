@@ -29,10 +29,10 @@ const TemplatePost = ({ data, location }) => {
         styles={{
           color: 'white',
           textDecoration: 'none',
-          'padding-top': '10vh',
+          paddingTop: '10vh',
           diplay: 'grid',
-          'grid-template-rows': 'repeat(4, min-content) 1fr',
-          'grid-template-columns': '100%',
+          gridTemplateRows: 'repeat(4, min-content) 1fr',
+          gridTemplateColumns: '100%',
         }}
       >
         <FirstSection post={post} />
