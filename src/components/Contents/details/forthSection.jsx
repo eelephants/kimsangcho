@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { css } from '@emotion/react';
 import { ArrowLeftS } from '@emotion-icons/remix-fill/ArrowLeftS';
 import { ArrowRightS } from '@emotion-icons/remix-fill/ArrowRightS';
@@ -45,16 +45,7 @@ const ForthSection = ({ post }) => {
   };
 
   return (
-    <section
-      css={[
-        boxWrapper,
-        css`
-          position: sticky;
-          top: 0px;
-          background: #fff;
-        `,
-      ]}
-    >
+    <section css={forthBoxWrapper}>
       {getImage(post.frontmatter.images).length ? (
         <>
           <Button
@@ -85,12 +76,7 @@ const ForthSection = ({ post }) => {
           >
             <RightArrowCircleIcon />
           </Button>
-          <div
-            css={{
-              width: '100%',
-              margin: '0 auto',
-            }}
-          >
+          <div css={swiperWrapper}>
             <CustomSwiper
               ref={{
                 prevRef: navigationPrevRef,
@@ -117,43 +103,49 @@ const ForthSection = ({ post }) => {
           </div>
         </>
       ) : (
-        <div
-          css={{
-            width: '100%',
-            backgroundColor: '#303030',
-            height: '100%',
-            color: '#EC87E4',
-            fontSize: '2rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <span
-            css={{
-              padding: '0 100px 0 100px',
-            }}
-          >
-            {noImageComment}
-          </span>
+        <div css={emptyBoxWrapper}>
+          <span css={emptyBox}>{noImageComment}</span>
         </div>
       )}
     </section>
   );
 };
 
-const boxWrapper = css`
+const forthBoxWrapper = () => css`
   height: 100vh;
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(51, 51, 51, 1) 47%
   );
+  position: sticky;
+  top: 0px;
+  background: #fff;
   .slideBtn {
     svg:hover {
       color: rgba(204, 192, 192, 1);
     }
   }
+`;
+
+const swiperWrapper = () => css`
+  width: 100%;
+  margin: 0 auto;
+`;
+
+const emptyBoxWrapper = () => css`
+  width: 100%;
+  backgroundcolor: #303030;
+  height: 100%;
+  color: #ec87e4;
+  fontsize: 2rem;
+  display: flex;
+  alignitems: center;
+  justifycontent: center;
+`;
+
+const emptyBox = () => css`
+  padding: 0 100px 0 100px;
 `;
 
 export default ForthSection;
