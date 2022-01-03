@@ -11,7 +11,7 @@ const WrappedContents = forwardRef(({ id, children }, ref) => {
 
 export default WrappedContents;
 
-const secondSection = css`
+const secondSection = () => css`
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
