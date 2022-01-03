@@ -11,12 +11,12 @@ const Video = ({ videoSrcURL, videoTitle, ...props }) => {
   );
 };
 
-const videoWrapperStyle = css`
+const videoWrapperStyle = () => css`
   height: 100%;
   width: 100%;
 `;
 
-const videoStyle = css`
+const videoStyle = () => css`
   height: 100%;
   width: 100%;
   object-fit: cover;

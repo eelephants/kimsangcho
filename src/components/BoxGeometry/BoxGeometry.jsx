@@ -163,23 +163,6 @@ const BoxGeometry = ({ width, height, position, resize }) => {
     };
 
     animates();
-
-    // var raycaster = new THREE.Raycaster();
-    // var mouse = new THREE.Vector2();
-    // function onMouseClick(event) {
-    //   raycaster.setFromCamera(mouse, camera);
-    //   var isIntersected = raycaster.intersectObject(cube);
-    //   if (isIntersected) {
-    //     console.log('Mesh clicked!');
-    //   }
-    // }
-    // function onMouseMove(event) {
-    //   console.log(event.clientX);
-    //   mouse.x = (event.clientX / canvasRef.innerWidth) * 2 - 1;
-    //   mouse.y = -(event.clientY / canvasRef.innerHeight) * 2 + 1;
-    // }
-    // window.addEventListener('click', onMouseClick, false);
-    // window.addEventListener('mousemove', onMouseMove, false);
   }, []);
 
   const requestAnimationFrame = (() => {
@@ -204,20 +187,9 @@ const BoxGeometry = ({ width, height, position, resize }) => {
   };
 
   return (
-    <div
-      css={{
-        width,
-        height,
-        position,
-        top: '45%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        background: 'transparents',
-        zIndex: '500',
-      }}
-    >
+    <div css={canvasWrapper(width, height, position)}>
       <div
-        css={canvasWrapperStyle}
+        css={canvasStyle}
         ref={canvasRef}
         onMouseEnter={onMouseEnterEvent}
         onMouseLeave={onMouseLeaveEvent}
@@ -230,7 +202,7 @@ const BoxGeometry = ({ width, height, position, resize }) => {
   );
 };
 
-const canvasWrapperStyle = css`
+const canvasStyle = () => css`
   width: 100%;
   height: 100%;
   transform: 'translate(-50%, -50%)';
@@ -238,6 +210,17 @@ const canvasWrapperStyle = css`
     width: 100%;
     height: 100%;
   }
+`;
+
+const canvasWrapper = (width, height, position) => css`
+  width: ${width};
+  height: ${height};
+  position: ${position};
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: transparents;
+  z-index: 500;
 `;
 
 export default BoxGeometry;

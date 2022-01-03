@@ -34,7 +34,6 @@ const CustomSwiper = (
   { onSwiper, images, isBoxShadow, options, render },
   ref
 ) => {
-  console.log(ref, 'ref');
   return (
     <Swiper
       css={swiperWrapper(isBoxShadow)}
