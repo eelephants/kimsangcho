@@ -11,7 +11,7 @@ import { ArrowGoBack } from '@emotion-icons/remix-line/ArrowGoBack';
 import { ArrowLeftCircle } from '@emotion-icons/remix-fill/ArrowLeftCircle';
 import { ArrowRightCircle } from '@emotion-icons/remix-fill/ArrowRightCircle';
 import { CloseOutline } from '@emotion-icons/evaicons-outline/CloseOutline';
-import { isBrowser, makeColor, mq } from '@/lib/utils/helper';
+import { isBrowser, mq, ellipsis } from '@/lib/utils/helper';
 import { useSceneState } from '@/store/sceneInfo';
 import { Link } from '@emotion-icons/boxicons-regular/Link';
 import { Android } from '@emotion-icons/boxicons-logos/Android';
@@ -165,11 +165,7 @@ const ThirdContents = ({
       variants={variants}
       animate={isSideShow ? 'rotate' : 'stop'}
     >
-      <div
-        css={{
-          width: '100%',
-        }}
-      >
+      <div css={boxWrapper}>
         <div
           className="original-box"
           css={css`
@@ -359,30 +355,10 @@ const ThirdContents = ({
             />
           ) : null}
         </div>
-        <div
-          className="description"
-          css={{
-            [mq('small')]: {
-              position: 'static',
-              width: '100%',
-              right: 0,
-              top: 0,
-            },
-            [mq('large')]: {
-              position: 'absolute',
-            },
-          }}
-        >
-          <div className="first-desc">
-            <div
-              className="title-wrapper"
-              css={css`
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-              `}
-            >
-              <h1>{title}</h1>
+        <div className="description" css={descWrapper}>
+          <div css={firstDescWrapper}>
+            <div css={titleWrapper}>
+              <h1 css={titleName}>{title}</h1>
               <div>
                 {url && (
                   <a target="_blank" href={url}>
@@ -413,66 +389,63 @@ const ThirdContents = ({
                 )}
               </div>
             </div>
-            <h3>
+            <h3 css={dateWithTypeBox}>
               {duration} /&nbsp;{type}
             </h3>
-            <div className="explain-wrapper">
+            <div css={explainWrapper}>
               <label>#Desc</label>
               <span>- {desc}</span>
             </div>
-            <div className="explain-wrapper">
+            <div css={explainWrapper} className="role-wrapper">
               <label>#Role</label>
               <span>- {role}</span>
             </div>
           </div>
           <hr css={divideLine} />
-          <div className="second-desc">
-            {language.map((item, index) => (
-              <div
-                key={index + new Date().getMilliseconds}
-                css={css`
-                  width: 45px;
-                  height: 45px;
-                  border-radius: 50%;
-                  // background-color: rgba(${makeColor(item)});
-                  background-color: #303030;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  font-size: 0.8rem;
-                  padding: 5px;
-                  margin: 0.2rem;
-                  text-transform: uppercase;
-                  box-shadow: 1px 1px 3px 1px #000;
-                `}
-              >
-                {item}
-              </div>
-            ))}
+          <div css={secondDescWrapper}>
+            <div css={languageWrapper}>
+              {language.map((item, index) => (
+                <div
+                  key={index + new Date().getMilliseconds}
+                  css={css`
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    background-color: #303030;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 0.8rem;
+                    padding: 5px;
+                    margin: 0.2rem;
+                    text-transform: uppercase;
+                    box-shadow: 1px 1px 3px 1px #000;
+                  `}
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+            <Button
+              isShow
+              backGroundcolor="#000"
+              boxWidth="100%"
+              boxHeight="35px"
+              boxCenter
+              boxShadow
+              onClick={onClickDetail}
+              css={buttonWrapper}
+            >
+              DETAILS
+            </Button>
           </div>
-          <Button
-            isShow
-            backGroundcolor="#000"
-            boxWidth="100%"
-            boxHeight="35px"
-            boxCenter
-            boxShadow
-            onClick={onClickDetail}
-            css={css`
-              color: white;
-              letter-spacing: 0.3rem;
-              text-style: border;
-            `}
-          >
-            DETAILS
-          </Button>
         </div>
       </div>
     </motion.div>
   );
 };
 
-const stickyElement = css`
+const stickyElement = () => css`
   margin: 0;
   position: relative;
   left: 0;
@@ -482,22 +455,6 @@ const stickyElement = css`
   padding: 0 200px 0 200px;
   line-height: 1.3;
 
-  .intro {
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 1) 0%,
-      rgba(51, 51, 51, 1) 47%
-    );
-    height: 500px;
-    max-height: 500px;
-    overflow: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-  }
-  color: #fff;
   .original {
     z-index: 100;
   }
@@ -518,70 +475,102 @@ const stickyElement = css`
       color: #4b4453;
     }
   }
-  .description {
-    color: #fff;
+`;
+
+const descWrapper = () => css`
+  color: #fff;
+  width: 100%;
+  ${mq('small')}: {
+    position: static;
     width: 100%;
-    .first-desc {
-      height: 50%;
-      letter-spacing: 3px;
-      & .title-wrapper {
-        margin: 0;
-      }
-      & h1 {
-        font-size: 1.7rem;
-        font-weight: bold;
-        text-transform: upperCase;
-        margin: 0;
-      }
-      & .url {
-        color: #fff;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all 0.3s linear;
-        &:hover {
-          color: #4b4453;
-        }
-      }
-      & h3 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #fff;
-        padding: 10px 0 10px 0;
-      }
-      & .explain-wrapper {
-        line-height: 1.7;
-      }
-      & div {
-        margin: 20px 0;
-        padding: 0;
-        font-size: 1rem;
-        font-weight: 500;
+    right: 0;
+    top: 0;
+  }
+  ${mq('large')}: {
+    position: absolute;
+  } ;
+`;
 
-        span {
-          display: block;
-          text-transform: lowercase;
-        }
-      }
-    }
+const boxWrapper = () => css`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+`;
 
-    .second-desc {
-      height: 50%;
-      display: flex;
-      flex-wrap: wrap;
-      min-height: 10px;
-      max-height: 200px;
-      overflow: hidden;
-      margin-bottom: 15px;
-    }
+const firstDescWrapper = () => css`
+  height: 49.5%;
+`;
+
+const titleWrapper = () => css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  height: 20%;
+`;
+
+const titleName = () => css`
+  font-size: 1.7rem;
+  font-weight: bold;
+  text-transform: upperCase;
+  margin: 0;
+`;
+
+const dateWithTypeBox = () => css`
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  height: 20%;
+`;
+
+const explainWrapper = () => css`
+  height: 40%;
+  line-height: 1.7;
+  padding: 0;
+  ${ellipsis(5, 1.7)}
+  font-size: 1rem;
+  font-weight: 500;
+  &.role-wrapper {
+    height: 20%;
+    ${ellipsis(2, 1.7)}
+  }
+  span {
+    display: block;
+    text-transform: lowercase;
   }
 `;
 
 const divideLine = css`
   background: #b0a8b9;
-  height: 2px;
+  height: 1%;
   border: none;
   border-radius: 50px;
   opacity: 0.7;
+  font-size: 0;
+  margin: 10px 0;
+`;
+
+const secondDescWrapper = () => css`
+  height: 49.5%;
+  .second-desc {
+    height: 50%;
+  }
+`;
+
+const languageWrapper = () => css`
+  height: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  margin-bottom: 15px;
+`;
+
+const buttonWrapper = () => css`
+  height: 20%;
+  color: white;
+  letter-spacing: 0.3rem;
+  text-style: border;
 `;
 
 export default ThirdContents;
