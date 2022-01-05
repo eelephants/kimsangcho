@@ -418,10 +418,12 @@ const portpoioReducer = (state, action) => {
             description[index].style.maxHeight = 'none';
             description[index].style.width = '100%';
           } else {
-            description[index].style.right = `${cw * 0.4}px`;
+            // description[index].style.right = `${cw * 0.4}px`;
             // description[index].style.top = `${65}px`;
-            description[index].style.maxWidth = `${cw * 0.55}px`;
-            description[index].style.maxHeight = `${ch * 0.75}px`;
+            // description[index].style.maxWidth = `${cw * 0.55}px`;
+            description[index].style.maxWidth = `500px`;
+            // description[index].style.maxHeight = `${ch * 0.75}px`;
+            description[index].style.maxHeight = `500px`;
           }
 
           ctx.beginPath();

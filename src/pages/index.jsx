@@ -291,7 +291,6 @@ const Index = ({ data, location }) => {
 };
 
 const firstSection = css`
-  // padding-top: 10vh;
   height: 70vh;
 `;
 
