@@ -226,7 +226,7 @@ const ThirdContents = ({
             opacity="0.8"
             absolute
             top="50%"
-            left={innerWidth > 1700 ? '60%' : '50%'}
+            left={innerWidth > 1700 ? '50%' : '50%'}
             transform="translate(-50%, -50%)"
             isShow={isShow}
             onMouseEnter={() => {
