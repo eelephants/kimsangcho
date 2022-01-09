@@ -150,48 +150,17 @@ const ThirdContents = ({
 
   return (
     <motion.div
-      css={[
-        stickyElement,
-        {
-          [mq('small')]: { flexDirection: 'column' },
-          [mq('large')]: {
-            flexDirection: 'row',
-          },
-        },
-        { height: sceneInfo[2].scrollHeight / (sceneInfo.length * 1.2) + 'px' },
-      ]}
+      css={thirdWrapper(sceneInfo[2].scrollHeight / (sceneInfo.length * 1.2))}
       className={className}
       id={id}
       variants={variants}
       animate={isSideShow ? 'rotate' : 'stop'}
     >
       <div css={boxWrapper}>
-        <div
-          className="original-box"
-          css={css`
-            width: ${innerWidth / 2.5 + 'px'};
-            height: ${innerWidth / 2.5 + 'px'};
-            max-width: 500px;
-            max-height: 500px;
-            position: relative;
-            ${mq('xLarge')} {
-              left: 10%;
-            }
-          `}
-        >
+        <div className="original-box" css={originalBox(innerWidth)}>
           <canvas
             className="original"
-            css={{
-              position: 'relative',
-              boxShadow: '5px 5px 15px 5px #000000',
-              maxWidth: '500px',
-              maxHeight: '500px',
-              [mq('small')]: {},
-              [mq('large')]: {},
-              [mq('xLarge')]: {
-                left: '10%',
-              },
-            }}
+            css={original}
             onMouseEnter={() => {
               images.length && !isSideShow ? onMouseEnterFromCanvas() : null;
             }}
@@ -202,31 +171,17 @@ const ThirdContents = ({
             height={innerWidth / 2.5}
           ></canvas>
           {!images.length && (
-            <span
-              css={{
-                fontSize: '1rem;',
-                fontWeight: 'bold',
-                position: 'absolute',
-                zIndex: 999,
-                top: '101%',
-                [mq('small')]: {},
-                [mq('large')]: {},
-                [mq('xLarge')]: {
-                  right: '-10%',
-                },
-              }}
-            >
-              {reason && '* ' + reason}
-            </span>
+            <span css={noImageWrapper}>{reason && '* ' + reason}</span>
           )}
           <Button
             rotate
             circle
+            css={arrowButtonWrapper}
             backGroundcolor="black"
             opacity="0.8"
             absolute
             top="50%"
-            left={innerWidth > 1700 ? '60%' : '50%'}
+            left={innerWidth > 1700 ? '50%' : '50%'}
             transform="translate(-50%, -50%)"
             isShow={isShow}
             onMouseEnter={() => {
@@ -237,124 +192,104 @@ const ThirdContents = ({
             <ArrowGoBackIcon />
           </Button>
         </div>
-        <div
-          className="original-hide-box"
-          css={css`
-            width: ${innerWidth / 2.5 + 'px'};
-            height: ${innerWidth / 2.5 + 'px'};
-            max-width: 500px;
-            max-height: 500px;
-            position: relative;
-            ${mq('xLarge')} {
-              left: 10%;
-            }
-          `}
-        >
-          <Button
-            small
-            ref={navigationPrevRef}
-            backGroundcolor="transparent"
-            absolute
-            top="50%"
-            transform="translate(-10%)"
-            isShow={isSideShow}
-            onMouseEnter={() => {
-              !isSideShow ? onMouseEnterFromCanvas() : null;
-            }}
-          >
-            <ArrowBackCircleIcon />
-          </Button>
-          <Button
-            ref={navigationNextRef}
-            small
-            backGroundcolor="transparent"
-            absolute
-            top="50%"
-            left="100%"
-            transform="translate(-90%)"
-            isShow={isSideShow}
-            onMouseEnter={() => {
-              !isSideShow ? onMouseEnterFromCanvas() : null;
-            }}
-          >
-            <RightArrowCircleIcon />
-          </Button>
-          <Button
-            small
-            backGroundcolor="transparent"
-            absolute
-            top="0%"
-            left="100%"
-            transform="translate(-90%, 20%)"
-            isShow={isSideShow}
-            onMouseEnter={() => {
-              !isSideShow ? onMouseEnterFromCanvas() : null;
-            }}
-            onClick={onClickInit}
-          >
-            <CloseOutlineIcon />
-          </Button>
-          {images.length ? (
-            <CusomSwiper
-              images={images}
-              isBoxShadow
-              options={{
-                spaceBetween: 50,
-                slidesPerView: 1,
-                grabCursor: true,
-                centeredSlides: true,
-                virtual: Virtual,
+        {images.length ? (
+          <div className="original-hide-box" css={originalHideBox(innerWidth)}>
+            <Button
+              css={arrowButtonWrapper}
+              small
+              ref={navigationPrevRef}
+              backGroundcolor="transparent"
+              absolute
+              top="50%"
+              transform="translate(-10%)"
+              isShow={isSideShow}
+              onMouseEnter={() => {
+                !isSideShow ? onMouseEnterFromCanvas() : null;
               }}
-              onSwiper={onSwiper}
-              ref={{
-                prevRef: navigationPrevRef,
-                nextRef: navigationNextRef,
+            >
+              <ArrowBackCircleIcon />
+            </Button>
+            <Button
+              ref={navigationNextRef}
+              css={arrowButtonWrapper}
+              small
+              backGroundcolor="transparent"
+              absolute
+              top="50%"
+              left="100%"
+              transform="translate(-90%)"
+              isShow={isSideShow}
+              onMouseEnter={() => {
+                !isSideShow ? onMouseEnterFromCanvas() : null;
               }}
-              render={images =>
-                images.length
-                  ? images.map((item, index) => (
-                      <SwiperSlide
-                        virtualIndex={index}
-                        key={index + new Date().getMilliseconds}
-                      >
-                        <div
-                          className="original-hide"
-                          onMouseEnter={() => {
-                            !isSideShow ? onMouseEnterFromCanvas() : null;
-                          }}
-                          onMouseLeave={() => {
-                            !isSideShow ? onMouseLeaveFromCanvas() : null;
-                          }}
-                          css={{
-                            maxWidth: '500px',
-                            maxHeight: '500px',
-                            minWidth: '500px',
-                            minHeight: '500px',
-                            background: '#303030',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-
-                            [mq('small')]: {},
-                            [mq('large')]: {},
-                            [mq('xLarge')]: {
-                              left: '10%',
-                            },
-                          }}
+            >
+              <RightArrowCircleIcon />
+            </Button>
+            <Button
+              small
+              css={arrowButtonWrapper}
+              backGroundcolor="transparent"
+              absolute
+              top="0%"
+              left="100%"
+              transform="translate(-90%, 20%)"
+              isShow={isSideShow}
+              onMouseEnter={() => {
+                !isSideShow ? onMouseEnterFromCanvas() : null;
+              }}
+              onClick={onClickInit}
+            >
+              <CloseOutlineIcon />
+            </Button>
+            {images.length ? (
+              <CusomSwiper
+                images={images}
+                isBoxShadow
+                options={{
+                  spaceBetween: 50,
+                  slidesPerView: 1,
+                  grabCursor: true,
+                  centeredSlides: true,
+                  virtual: Virtual,
+                }}
+                onSwiper={onSwiper}
+                ref={{
+                  prevRef: navigationPrevRef,
+                  nextRef: navigationNextRef,
+                }}
+                render={images =>
+                  images.length
+                    ? images.map((item, index) => (
+                        <SwiperSlide
+                          virtualIndex={index}
+                          key={index + new Date().getMilliseconds}
                         >
-                          <img
-                            src={item.src}
-                            css={{
-                              width: !item?.mobile ? '100%' : null,
+                          <div
+                            className="original-hide"
+                            css={originalHide}
+                            onMouseEnter={() => {
+                              !isSideShow ? onMouseEnterFromCanvas() : null;
                             }}
-                          />
-                        </div>
-                      </SwiperSlide>
-                    ))
-                  : null
-              }
-            />
-          ) : null}
-        </div>
+                            onMouseLeave={() => {
+                              !isSideShow ? onMouseLeaveFromCanvas() : null;
+                            }}
+                            css={swiperSlide}
+                          >
+                            <img
+                              src={item.src}
+                              css={{
+                                width: !item?.mobile ? '100%' : null,
+                              }}
+                            />
+                          </div>
+                        </SwiperSlide>
+                      ))
+                    : null
+                }
+              />
+            ) : null}
+          </div>
+        ) : null}
         <div className="description" css={descWrapper}>
           <div css={firstDescWrapper}>
             <div css={titleWrapper}>
@@ -445,7 +380,15 @@ const ThirdContents = ({
   );
 };
 
-const stickyElement = () => css`
+const arrowButtonWrapper = () => css`
+  button {
+    svg:hover {
+      color: #4b4453;
+    }
+  }
+`;
+
+const thirdWrapper = height => css`
   margin: 0;
   position: relative;
   left: 0;
@@ -454,26 +397,90 @@ const stickyElement = () => css`
   font-size: 2rem;
   padding: 0 200px 0 200px;
   line-height: 1.3;
+  height: ${height}px;
+  ${mq('small')}: {
+    flex-direction: column;
+  }
+  ${mq('large')}: {
+    flex-direction: row;
+  }
+  ${mq('xLarge')}: {
+  }
+`;
 
-  .original {
-    z-index: 100;
+const originalBox = innerWidth => css`
+  width: ${innerWidth / 2.5 + 'px'};
+  height: ${innerWidth / 2.5 + 'px'};
+  max-width: 500px;
+  max-height: 500px;
+  position: relative;
+  ${mq('xLarge')} {
+    left: 10%;
   }
-  .flip {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    padding: 0 200px 200px 200px;
+`;
+
+const original = () => css`
+  position: relative;
+  box-shadow: 5px 5px 15px 5px #000000;
+  max-width: 500px;
+  max-height: 500px;
+  z-index: 100;
+  ${mq('small')}: {
   }
-  .original-hide {
-    display: none;
+  ${mq('large')}: {
   }
-  .flip-hide {
-    display: none;
+  ${mq('xLarge')}: {
+    left: 10%;
   }
-  button {
-    svg:hover {
-      color: #4b4453;
-    }
+`;
+
+const originalHideBox = innerWidth => css`
+  width: ${innerWidth / 2.5 + 'px'};
+  height: ${innerWidth / 2.5 + 'px'};
+  max-width: 500px;
+  max-height: 500px;
+  position: relative;
+  ${mq('xLarge')} {
+    left: 10%;
+  }
+`;
+
+const noImageWrapper = () => css`
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: right;
+  display: block;
+  color: #fff;
+  z-index: 999;
+  top: 101%;
+  ${mq('small')}: {
+  }
+  ${mq('large')}: {
+  }
+  ${mq('xLarge')}: {
+    right: -10%;
+  }
+`;
+
+const originalHide = () => css`
+  display: none;
+`;
+
+const swiperSlide = () => css`
+  max-width: 500px;
+  max-height: 500px;
+  min-width: 500px;
+  min-height: 500px;
+  background: #303030;
+  justify-content: center;
+  align-items: center;
+
+  ${mq('small')}: {
+  }
+  ${mq('large')}: {
+  }
+  ${mq('xLarge')}: {
+    left: 10%;
   }
 `;
 
