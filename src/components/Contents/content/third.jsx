@@ -437,6 +437,7 @@ const original = () => css`
 const originalHideBox = innerWidth => css`
   width: ${innerWidth / 2.5 + 'px'};
   height: ${innerWidth / 2.5 + 'px'};
+
   max-width: 500px;
   max-height: 500px;
   position: relative;
