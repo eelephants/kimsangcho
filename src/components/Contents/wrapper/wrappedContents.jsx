@@ -13,7 +13,7 @@ export default WrappedContents;
 
 const secondSection = () => css`
   background: linear-gradient(
-    90deg,
+    176deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(51, 51, 51, 1) 47%
   );
