@@ -229,8 +229,8 @@ const titleWrapper = () => css`
 
 const descWrapper = () => css`
   margin: 150px auto 100px auto;
-  lineheight: 2;
-  maxwidth: 70%;
+  line-height: 2;
+  max-width: 70%;
 `;
 
 const descButton = () => css`

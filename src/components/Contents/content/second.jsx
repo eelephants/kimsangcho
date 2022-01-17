@@ -50,7 +50,7 @@ const SecondContents = ({ className }) => {
   );
 };
 
-const stickyElement = css`
+const stickyElement = () => css`
   margin: 0;
   position: relative;
   left: 0;
@@ -59,13 +59,10 @@ const stickyElement = css`
   font-size: 2rem;
   padding: 0 200px 0 200px;
   line-height: 1.3;
-
+  height: 100%;
+  display: flex !important;
+  align-items: center;
   .intro {
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 1) 0%,
-      rgba(51, 51, 51, 1) 47%
-    );
     height: 500px;
     max-height: 500px;
     overflow: auto;
