@@ -26,7 +26,7 @@ const mq = n => {
     if (n === name) return [...acc, `@media (max-width: ${size}px)`];
     return acc;
   }, []);
-
+  console.log(result);
   return result;
 };
 

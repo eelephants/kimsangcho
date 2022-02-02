@@ -81,7 +81,7 @@ const Header = memo(
           <NaviTitle
             herf="/"
             name="kim sangcho ™"
-            style={{ fontSize: '2vw', fontFamily: 'lobster' }}
+            style={{ fontSize: '2rem', fontFamily: 'lobster' }}
           />
         </div>
         <div css={linkWrapperSttyle} onMouseLeave={e => onHover(e, false)}>
@@ -247,7 +247,7 @@ const globalStyle = () => css`
   font-family: 'bebas-neue', 'noto-sans-kr';
   height: 100vh;
   background: linear-gradient(
-    90deg,
+    176deg,
     rgba(0, 0, 0, 1) 0%,
     rgba(51, 51, 51, 1) 47%
   );
@@ -330,8 +330,8 @@ const contact = () => css`
 `;
 
 const gitHubIcon = () => css`
-  width: 2.3vw;
-  height: 2.3vw;
+  width: 40px;
+  height: 40px;
 `;
 
 const sidebarStyle = () => css`
@@ -361,7 +361,7 @@ const navStyle = () => css`
 
 const naviContact = () => css`
   text-decoration: none;
-  font-size: 1.3vw;
+  font-size: 1.5rem;
   color: inherit;
   transition: all 0.3s linear;
   cursor: pointer;
@@ -388,7 +388,7 @@ const NaviTitle = props => (
     to={props.herf}
     css={css`
       text-decoration: none;
-      font-size: 1.3vw;
+      font-size: 1.5rem;
       color: inherit;
       transition: all 0.3s linear;
       &:hover {

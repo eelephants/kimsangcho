@@ -10,6 +10,7 @@ import {
   HdcSplash,
 } from '@/assets/index.js';
 import { isBrowser } from '@/lib/utils/helper.js';
+import { mq } from '../../lib/utils/helper';
 
 const BoxGeometry = ({ width, height, position, resize }) => {
   const canvasRef = useRef();
@@ -206,6 +207,7 @@ const canvasStyle = () => css`
   width: 100%;
   height: 100%;
   transform: 'translate(-50%, -50%)';
+
   canvas {
     width: 100%;
     height: 100%;
@@ -221,6 +223,10 @@ const canvasWrapper = (width, height, position) => css`
   transform: translate(-50%, -50%);
   background: transparents;
   z-index: 500;
+  ${mq('small')} {
+    width: 100%;
+    height: 50%;
+  }
 `;
 
 export default BoxGeometry;

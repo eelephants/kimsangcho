@@ -2,6 +2,7 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { SwiperSlide } from 'swiper/react';
 import CusomSwiper from '@/components/CusomSwiper';
+import { mq } from '@/lib/utils/helper';
 
 const SecondContents = ({ className }) => {
   return (
@@ -55,99 +56,26 @@ const stickyElement = () => css`
   position: relative;
   left: 0;
   opactiy: 0;
-  display: none;
   font-size: 2rem;
   padding: 0 200px 0 200px;
   line-height: 1.3;
   height: 100%;
   display: flex !important;
   align-items: center;
+  ${mq('small')} {
+    padding: 0 50px 0 50px;
+    font-size: 1.5rem;
+  }
+  .swiper-container {
+    height: 100%;
+  }
   .intro {
-    height: 500px;
-    max-height: 500px;
+    height: 100%;
     overflow: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 15px;
-    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0, 0, 0, 0);
-  }
-  color: #fff;
-  .original {
-    z-index: 100;
-  }
-  .flip {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    padding: 0 200px 200px 200px;
-  }
-  .original-hide {
-    display: none;
-  }
-  .flip-hide {
-    display: none;
-  }
-  button {
-    svg:hover {
-      color: #4b4453;
-    }
-  }
-  .description {
     color: #fff;
-    width: 100%;
-    .first-desc {
-      height: 50%;
-      letter-spacing: 3px;
-      & .title-wrapper {
-        margin: 0;
-      }
-      & h1 {
-        font-size: 1.7rem;
-        font-weight: bold;
-        text-transform: upperCase;
-        margin: 0;
-      }
-      & .url {
-        color: #fff;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all 0.3s linear;
-        &:hover {
-          color: #4b4453;
-        }
-      }
-      & h3 {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #fff;
-        padding: 10px 0 10px 0;
-      }
-      & .explain-wrapper {
-        line-height: 1.7;
-      }
-      & div {
-        margin: 20px 0;
-        padding: 0;
-        font-size: 1rem;
-        font-weight: 500;
-
-        span {
-          display: block;
-          text-transform: lowercase;
-        }
-      }
-    }
-
-    .second-desc {
-      height: 50%;
-      display: flex;
-      flex-wrap: wrap;
-      min-height: 10px;
-      max-height: 200px;
-      overflow: hidden;
-      margin-bottom: 15px;
-    }
   }
 `;
 

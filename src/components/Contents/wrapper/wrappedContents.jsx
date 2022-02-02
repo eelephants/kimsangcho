@@ -1,9 +1,13 @@
 import React, { forwardRef } from 'react';
 import { css } from '@emotion/react';
+import { mq } from '../../../lib/utils/helper';
+import useWindowSize from '../../../hooks/useWindowSize';
 
-const WrappedContents = forwardRef(({ id, children }, ref) => {
+const WrappedContents = forwardRef(({ className, id, children }, ref) => {
+  const { height } = useWindowSize();
+
   return (
-    <div css={[secondSection]} ref={ref} id={id}>
+    <div className={className} css={[secondSection(height)]} ref={ref} id={id}>
       {children}
     </div>
   );
@@ -11,7 +15,7 @@ const WrappedContents = forwardRef(({ id, children }, ref) => {
 
 export default WrappedContents;
 
-const secondSection = () => css`
+const secondSection = height => css`
   background: linear-gradient(
     176deg,
     rgba(0, 0, 0, 1) 0%,
@@ -19,6 +23,7 @@ const secondSection = () => css`
   );
   background-size: cover;
   position: relative;
+
   .static-section {
     position: static;
     display: block;
