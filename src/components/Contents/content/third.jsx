@@ -18,6 +18,7 @@ import { Android } from '@emotion-icons/boxicons-logos/Android';
 import { Apple } from '@emotion-icons/boxicons-logos/Apple';
 import { Github } from '@emotion-icons/boxicons-logos/Github';
 import CusomSwiper from '@/components/CusomSwiper';
+import useWindowSize from '@/hooks/useWindowSize';
 
 const CloseOutlineIcon = styled(CloseOutline)`
   color: rgba(204, 192, 192, 1);
@@ -96,6 +97,7 @@ const ThirdContents = ({
   const navigationNextRef = useRef(null);
 
   const { sceneInfo } = useSceneState();
+  const { width } = useWindowSize();
 
   const onMouseLeaveFromCanvas = useCallback(() => {
     console.log(tags, 'onMouseLeaveFromCanvas');
@@ -290,7 +292,7 @@ const ThirdContents = ({
             ) : null}
           </div>
         ) : null}
-        <div className="description" css={descWrapper}>
+        <div className="description" css={descWrapper(width)}>
           <div css={firstDescWrapper}>
             <div css={titleWrapper}>
               <h1 css={titleName}>{title}</h1>
@@ -395,16 +397,14 @@ const thirdWrapper = height => css`
   opactiy: 0;
   display: none;
   font-size: 2rem;
-  padding: 0 200px 0 200px;
   line-height: 1.3;
   height: ${height}px;
-  ${mq('small')}: {
-    flex-direction: column;
+  ${mq('small')} {
+    padding: 0;
   }
-  ${mq('large')}: {
+
+  ${mq('large')} {
     flex-direction: row;
-  }
-  ${mq('xLarge')}: {
   }
 `;
 
@@ -414,6 +414,9 @@ const originalBox = innerWidth => css`
   max-width: 500px;
   max-height: 500px;
   position: relative;
+  ${mq('small')} {
+    left: 0 !important;
+  }
   ${mq('xLarge')} {
     left: 10%;
   }
@@ -425,11 +428,10 @@ const original = () => css`
   max-width: 500px;
   max-height: 500px;
   z-index: 100;
-  ${mq('small')}: {
+  ${mq('small')} {
+    left: 0 !important;
   }
-  ${mq('large')}: {
-  }
-  ${mq('xLarge')}: {
+  ${mq('xLarge')} {
     left: 10%;
   }
 `;
@@ -441,6 +443,9 @@ const originalHideBox = innerWidth => css`
   max-width: 500px;
   max-height: 500px;
   position: relative;
+  ${mq('small')} {
+    left: 0;
+  }
   ${mq('xLarge')} {
     left: 10%;
   }
@@ -454,11 +459,8 @@ const noImageWrapper = () => css`
   color: #fff;
   z-index: 999;
   top: 101%;
-  ${mq('small')}: {
-  }
-  ${mq('large')}: {
-  }
-  ${mq('xLarge')}: {
+
+  ${mq('xLarge')} {
     right: -10%;
   }
 `;
@@ -476,25 +478,18 @@ const swiperSlide = () => css`
   justify-content: center;
   align-items: center;
 
-  ${mq('small')}: {
-  }
-  ${mq('large')}: {
-  }
-  ${mq('xLarge')}: {
+  ${mq('xLarge')} {
     left: 10%;
   }
 `;
 
-const descWrapper = () => css`
+const descWrapper = width => css`
   color: #fff;
   width: 100%;
-  ${mq('small')}: {
-    position: static;
-    width: 100%;
-    right: 0;
-    top: 0;
+  ${mq('small')} {
+    position: static !important;
   }
-  ${mq('large')}: {
+  ${mq('large')} {
     position: absolute;
   } ;
 `;
@@ -502,7 +497,12 @@ const descWrapper = () => css`
 const boxWrapper = () => css`
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  ${mq('small')} {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const firstDescWrapper = () => css`

@@ -57,7 +57,7 @@ const Index = ({ data, location }) => {
   const headerRef = useRef();
   const mainRef = useRef();
 
-  const { width } = useWindowSize();
+  const { width, height } = useWindowSize();
   const sceneDeispatch = useSceneDispatch();
   const portpolioDeispatch = usePortpolioDispatch();
   const { portPolioData, subPortPolioData } = usePortpolioState();
@@ -220,7 +220,11 @@ const Index = ({ data, location }) => {
             position="absolute"
             resize={width}
           />
-          <Dimmed width="100%" height="70vh" opacity="0.5" />
+          <Dimmed
+            width={width + 'px'}
+            height={height * 0.7 + 'px'}
+            opacity="0.5"
+          />
           <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
         </div>
         <WrappedContents ref={secondSectionRef} id="scroll-section-1">
@@ -228,7 +232,7 @@ const Index = ({ data, location }) => {
         </WrappedContents>
         <WrappedContents ref={thirdSectionRef} id="scroll-section-2">
           <div css={[stickyCanvas]} className="sticky-elem-canvas">
-            <canvas id="video-canvas-0" width="1920" height="1080"></canvas>
+            <canvas id="video-canvas-0" width={width} height="1080"></canvas>
           </div>
           {portPolioData &&
             portPolioData.map((item, index) => (
