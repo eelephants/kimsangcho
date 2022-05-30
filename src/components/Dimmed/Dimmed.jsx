@@ -6,7 +6,7 @@ const Dimmed = ({ width, height, opacity }) => {
 };
 
 const dimmedWrapper = (width, opacity, height) => css`
-  width: ${width};
+  // width: ${width};
   opacity: ${opacity};
   height: ${height};
   position: absolute;
