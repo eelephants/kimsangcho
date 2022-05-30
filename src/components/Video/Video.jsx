@@ -16,7 +16,7 @@ const Video = ({ videoSrcURL, videoTitle, ...props }) => {
 
 const videoWrapperStyle = (width, height) => css`
   height: ${height * 0.7}px;
-  width: ${width}px;
+  // width: ${width}px;
 `;
 
 const videoStyle = () => css`

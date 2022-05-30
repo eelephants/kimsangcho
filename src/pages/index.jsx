@@ -218,14 +218,18 @@ const Index = ({ data, location }) => {
             width="60vh"
             height="60vh"
             position="absolute"
-            resize={width}
+            // resize={width}
           />
           <Dimmed
-            width={width + 'px'}
+            // width={width + 'px'}
             height={height * 0.7 + 'px'}
             opacity="0.5"
           />
-          <Video videoSrcURL={MainVideo} videoTitle="mainVideo" />
+          <Video
+            // width={width + 'px'}
+            videoSrcURL={MainVideo}
+            videoTitle="mainVideo"
+          />
         </div>
         <WrappedContents ref={secondSectionRef} id="scroll-section-1">
           <Contents.SecondContents className="static-section" />
